@@ -513,6 +513,14 @@ video {
   --tw-backdrop-sepia:  ;
 }
 
+.h-100 {
+  height: 100px;
+}
+
+.w-full {
+  width: 100%;
+}
+
 .font-nanum {
   font-family: Nanum Square;
 }

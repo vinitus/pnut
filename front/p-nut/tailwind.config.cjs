@@ -1,13 +1,24 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  purge: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   content: [
-    "./src/**/*.{html,js}",
+    "./src/Components/*.{html,js,jsx}",
+    "./src/Pages/*.{html,js,jsx}",
+    "./src/UI/*.{html,js,jsx}",
+    "./src//*.{html,js,jsx}",
+    "./src/*.{html,js,jsx}",
+    "./index.html",
     "./node_modules/tw-elements/dist/js/**/*.js",
   ],
-  darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: { fontFamily: { sans: "Noto Sans KR", nanum: "Nanum Square" } },
+    extend: {
+      fontFamily: {
+        sans: "Noto Sans KR",
+        nanum: "Nanum Square",
+      },
+      spacing: {
+        100: "100px",
+      },
+    },
   },
   variants: {
     extend: {},
