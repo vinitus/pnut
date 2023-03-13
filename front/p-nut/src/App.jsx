@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import './App.css';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import React, { useState } from "react";
+import "./App.css";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import RootLayout from './Pages/RootLayout';
-import MainPage from './Pages/MainPage';
-import ArticleCreatePage from './Pages/ArticleCreatePage';
+import RootLayout from "./Pages/RootLayout";
+import MainPage from "./Pages/MainPage";
+import ArticleCreatePage from "./Pages/ArticleCreatePage";
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <RootLayout />,
     children: [
       { index: true, element: <MainPage /> },
       {
-        path: 'newpost',
+        path: "newpost",
         element: <ArticleCreatePage />,
       },
     ],

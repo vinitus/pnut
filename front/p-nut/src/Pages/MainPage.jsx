@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const MainPage = () => {
   const navigate = useNavigate();
@@ -9,7 +9,7 @@ const MainPage = () => {
       <button
         type="button"
         onClick={() => {
-          navigate('/newpost');
+          navigate("/newpost");
         }}
       >
         게시글작성
