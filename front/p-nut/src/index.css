@@ -8,3 +8,9 @@
   font-weight: 400;
   src: url("./fonts/NanumSquareR.ttf") format("truetype");
 }
+
+.grey-underbar {
+  border-bottom-width: 1px;
+  border-style: solid;
+  border-color: #aeafae;
+}

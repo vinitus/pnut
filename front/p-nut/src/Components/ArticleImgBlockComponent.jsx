@@ -1,0 +1,12 @@
+const ArticleImgBlockComponent = (props) => {
+  return (
+    <div
+      className={`bg-#F5F5F5 flex items-center justify-center flex-col grey-underbar ${props.size}`}
+    >
+      <img src="./assets/plus.png" alt="plus" />
+      <div className="mt-20 text-2xl">{props.text}</div>
+    </div>
+  );
+};
+
+export default ArticleImgBlockComponent;
