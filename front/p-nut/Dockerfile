@@ -1,8 +1,9 @@
  # syntax=docker/dockerfile:1
-FROM node:16
-WORKDIR /fe
+FROM node:18
+WORKDIR /front/p-nut
 COPY package.json .
-RUN npm install
+COPY yarn.lock .
+RUN yarn install
 COPY . .
-EXPOSE 3000
-CMD [ "npm", "start" ]
+EXPOSE 5173
+CMD [ "vite", "build" ]

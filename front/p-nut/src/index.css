@@ -14,3 +14,11 @@
   border-style: solid;
   border-color: #aeafae;
 }
+
+input {
+  @apply focus:outline-none;
+}
+
+textarea {
+  @apply focus:outline-none;
+}

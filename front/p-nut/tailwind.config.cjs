@@ -8,6 +8,11 @@ const px0_500 = { ...Array.from(Array(501)).map((_, i) => `${i}px`) };
 const px0_600 = { ...Array.from(Array(601)).map((_, i) => `${i}px`) };
 const px0_700 = { ...Array.from(Array(701)).map((_, i) => `${i}px`) };
 const px0_800 = { ...Array.from(Array(801)).map((_, i) => `${i}px`) };
+const px0_900 = { ...Array.from(Array(901)).map((_, i) => `${i}px`) };
+const px0_1000 = { ...Array.from(Array(1001)).map((_, i) => `${i}px`) };
+const px0_1100 = { ...Array.from(Array(1101)).map((_, i) => `${i}px`) };
+const px0_1200 = { ...Array.from(Array(1201)).map((_, i) => `${i}px`) };
+const px0_1300 = { ...Array.from(Array(1301)).map((_, i) => `${i}px`) };
 
 module.exports = {
   content: [
@@ -22,12 +27,12 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: "Noto Sans KR",
-        nanum: "Nanum Square",
+        // sans: "Noto Sans KR",
+        // nanum: "Nanum Square",
+        sans: "Nanum Square",
       },
       spacing: {
-        1200: "1200px",
-        ...px0_800,
+        ...px0_1300,
       },
       colors: {
         prettywhite: "#FDFDFD",
@@ -39,8 +44,12 @@ module.exports = {
         "#7F807F": "#7F807F",
         "#F5F5F5": "#F5F5F5",
         "#2F80ED": "#2F80ED",
+        "#FFFFFB": "#FFFFFB",
+        "#535453": "#535453",
+        "#B3B3B3": "#B3B3B3",
       },
-      fontSize: px0_100,
+      fontSize: px0_200,
+      lineHeight: px0_100,
       borderRadius: px0_100,
     },
   },

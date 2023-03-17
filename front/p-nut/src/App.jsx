@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RootLayout from "./Pages/RootLayout";
 import MainPage from "./Pages/MainPage";
 import ArticleCreatePage from "./Pages/ArticleCreatePage";
+import ArticleListPage from "./Pages/ArticleListPage";
 
 const router = createBrowserRouter([
   {
@@ -12,6 +13,10 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     children: [
       { index: true, element: <MainPage /> },
+      {
+        path: "board",
+        element: <ArticleListPage />,
+      },
       {
         path: "newpost",
         element: <ArticleCreatePage />,

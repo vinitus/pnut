@@ -1,4 +1,5 @@
-import ArticleImgBlockComponent from "../Components/ArticleImgBlockComponent.jsx";
+import React from "react";
+import ArticleImgBlockComponent from "../Components/ArticleImgBlockComponent";
 
 const ArticleCreatePage = () => {
   const subTitle = "font-semibold mb-24";
@@ -21,14 +22,14 @@ const ArticleCreatePage = () => {
           text="대표 이미지 업로드"
           size="w-full h-354"
         />
-        <div className="flex flex-col w-full text-21 font-nanum">
+        <div className="flex flex-col w-full text-21">
           <div className="w-full grey-underbar flex items-center">
             <input
               type="text"
               name=""
               id=""
               placeholder="레시피의 이름이 무엇인가요?"
-              className="focus:outline-none py-26 w-full px-38 inline-block"
+              className="py-26 w-full px-38 inline-block"
             />
             <div className="inline">0/30</div>
           </div>
@@ -38,7 +39,7 @@ const ArticleCreatePage = () => {
               id=""
               cols="30"
               rows="10"
-              className="focus:outline-none resize-none py-26 px-38 w-full"
+              className="resize-none py-26 px-38 w-full"
               placeholder="레시피에 대한 간단한 설명을 붙여주세요"
             />
             <div className="inline">0/30</div>
@@ -85,7 +86,7 @@ const ArticleCreatePage = () => {
                 id=""
                 cols="30"
                 rows="10"
-                className="focus:outline-none resize-none w-full py-26"
+                className="resize-none w-full py-26"
                 placeholder="재료를 입력해주세요"
               />
               <div className="inline">0/30</div>
