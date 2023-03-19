@@ -1,3 +1,4 @@
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const MainPage = () => {
@@ -13,6 +14,22 @@ const MainPage = () => {
         }}
       >
         게시글작성
+      </button>
+      <button
+        type="button"
+        onClick={() => {
+          navigate("/board");
+        }}
+      >
+        게시글목록
+      </button>
+      <button
+        type="button"
+        onClick={() => {
+          navigate("/board/1");
+        }}
+      >
+        게시글조회
       </button>
     </div>
   );

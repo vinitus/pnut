@@ -27,7 +27,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        // sans: "Noto Sans KR",
+        noto: "Noto Sans",
         // nanum: "Nanum Square",
         sans: "Nanum Square",
       },
@@ -41,12 +41,13 @@ module.exports = {
         "#ECECEC": "#ECECEC",
         "#2F80ED": "#2F80ED",
         "#AEAFAE": "#AEAFAE",
-        "#7F807F": "#7F807F",
         "#F5F5F5": "#F5F5F5",
-        "#2F80ED": "#2F80ED",
         "#FFFFFB": "#FFFFFB",
         "#535453": "#535453",
         "#B3B3B3": "#B3B3B3",
+        "#2B2C2B": "#2B2C2B",
+        "#F2F2F2": "#F2F2F2",
+        "#FF6B6C": "#FF6B6C",
       },
       fontSize: px0_200,
       lineHeight: px0_100,

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -6,6 +6,7 @@ import RootLayout from "./Pages/RootLayout";
 import MainPage from "./Pages/MainPage";
 import ArticleCreatePage from "./Pages/ArticleCreatePage";
 import ArticleListPage from "./Pages/ArticleListPage";
+import ArticleDetailPage from "./Pages/ArticleDetailPage";
 
 const router = createBrowserRouter([
   {
@@ -21,12 +22,16 @@ const router = createBrowserRouter([
         path: "newpost",
         element: <ArticleCreatePage />,
       },
+      {
+        path: "board/:articleId",
+        element: <ArticleDetailPage />,
+      },
     ],
   },
 ]);
 
-function App() {
+const App = () => {
   return <RouterProvider router={router} />;
-}
+};
 
 export default App;

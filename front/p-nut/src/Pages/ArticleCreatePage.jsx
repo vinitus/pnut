@@ -6,7 +6,7 @@ const ArticleCreatePage = () => {
 
   return (
     <>
-      <div className="flex items-center justify-evenly w-full h-100 px-auto grey-underbar">
+      <div className="flex items-center flex-col justify-evenly w-full h-100 px-auto grey-underbar">
         <div className="text-23 text-center ml-48">
           자신의 레시피에 대해 자유롭게 이야기 해주세요!
         </div>

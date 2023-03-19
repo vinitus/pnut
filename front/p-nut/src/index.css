@@ -9,6 +9,27 @@
   src: url("./fonts/NanumSquareR.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "Nanum Square";
+  font-style: normal;
+  font-weight: 700;
+  src: url("./fonts/NanumSquareB.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Nanum Square";
+  font-style: normal;
+  font-weight: 800;
+  src: url("./fonts/NanumSquareEB.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Nanum Square";
+  font-style: normal;
+  font-weight: 300;
+  src: url("./fonts/NanumSquareL.ttf") format("truetype");
+}
+
 .grey-underbar {
   border-bottom-width: 1px;
   border-style: solid;
