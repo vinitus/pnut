@@ -1,4 +1,5 @@
 import React from "react";
+import OrderBlockComponent from "../Components/OrderBlockComponent";
 
 const ArticleDetailPage = () => {
   const author = "콩이";
@@ -65,16 +66,12 @@ const ArticleDetailPage = () => {
           {ingredients}
         </div>
       </div>
-      {cookingOrder.map((value, index) => (
-        <div className="mt-35">
-          <img src={value.orderImgPath} alt="" />
-          <div className="flex items-center text-20 mt-35">
-            <div className="bg-#FF6B6C rounded-20 text-20 text-prettywhite py-5 px-15 w-auto">
-              STEP {index + 1}
-            </div>
-            <div className="ml-35">{value.orderDescription}</div>
-          </div>
-        </div>
+      {cookingOrder.map((value, idx) => (
+        <OrderBlockComponent
+          imgPath={value.orderImgPath}
+          text={value.orderDescription}
+          idx={idx}
+        />
       ))}
       <div className="mt-150 flex items-center w-1200 mx-auto">
         <div className="text-37 font-bold">댓글</div>

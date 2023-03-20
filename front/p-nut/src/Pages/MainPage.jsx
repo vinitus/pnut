@@ -31,6 +31,14 @@ const MainPage = () => {
       >
         게시글조회
       </button>
+      <button
+        type="button"
+        onClick={() => {
+          navigate("/recipe/1");
+        }}
+      >
+        레시피조회
+      </button>
     </div>
   );
 };
