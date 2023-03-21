@@ -1,6 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import NavBar from "../UI/NavBar";
+import Footer from "../UI/Footer";
 
 const RootLayout = () => {
   return (
@@ -9,6 +10,7 @@ const RootLayout = () => {
       <main className="flex flex-col mt-60">
         <Outlet />
       </main>
+      <Footer className="relative z-50" />
     </div>
   );
 };
