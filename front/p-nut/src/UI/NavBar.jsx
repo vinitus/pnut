@@ -1,10 +1,12 @@
+import React from "react";
+
 const NavBar = () => {
   return (
     <div className="w-full p-3 h-60">
       <div className="mx-auto flex w-full max-w-screen-lg justify-between items-center">
         <div className="flex">
           <div>
-            <img className="h-9" src="src\assets\Logo.png" alt="logo" />
+            <img className="h-24" src="src\assets\Logo.png" alt="logo" />
           </div>
         </div>
         <nav>
