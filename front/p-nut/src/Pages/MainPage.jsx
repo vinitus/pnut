@@ -13,7 +13,7 @@ const MainPage = () => {
           muted
           autoPlay
           className="object-cover"
-          src="src\assets\videoplayback.mp4"
+          src="public\assets\videoplayback.mp4"
           type="video/mp4"
         />
         <div className="absolute inset-0 bg-black/40" />
