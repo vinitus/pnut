@@ -6,6 +6,7 @@ import ArticleCreatePage from "./Pages/ArticleCreatePage";
 import ArticleListPage from "./Pages/ArticleListPage";
 import ArticleDetailPage from "./Pages/ArticleDetailPage";
 import RecipeDetailPage from "./Pages/RecipeDetailPage";
+import SymptomsRecommandPage from "./Pages/SymptomsRecommandPage";
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     children: [
       { index: true, element: <MainPage /> },
+      {
+        path: "symptoms",
+        element: <SymptomsRecommandPage />,
+      },
       {
         path: "board",
         element: <ArticleListPage />,

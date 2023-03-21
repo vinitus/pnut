@@ -39,6 +39,14 @@ const MainPage = () => {
       >
         레시피조회
       </button>
+      <button
+        type="button"
+        onClick={() => {
+          navigate("/symptoms");
+        }}
+      >
+        보편적인 증상
+      </button>
     </div>
   );
 };
