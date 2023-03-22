@@ -7,6 +7,7 @@ import ArticleListPage from "./Pages/ArticleListPage";
 import ArticleDetailPage from "./Pages/ArticleDetailPage";
 import RecipeDetailPage from "./Pages/RecipeDetailPage";
 import SymptomsRecommandPage from "./Pages/SymptomsRecommandPage";
+import SurveyRecommendPage from "./Pages/SurveyRecommendPage";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         path: "recipe/:recipeId",
         element: <RecipeDetailPage />,
+      },
+      {
+        path: "surveys",
+        element: <SurveyRecommendPage />,
       },
     ],
   },
