@@ -7,7 +7,7 @@ const LoginPage = () => {
 
   return (
     <div className="w-full h-screen bg-stone-400 flex justify-center place-items-center">
-      <LoginSignupForm className="" phrase={phrase} direction={direction}>
+      <LoginSignupForm phrase={phrase} direction={direction}>
         <LoginForm />
       </LoginSignupForm>
     </div>
