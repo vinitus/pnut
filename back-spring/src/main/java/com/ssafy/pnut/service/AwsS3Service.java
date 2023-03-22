@@ -36,11 +36,11 @@ public class AwsS3Service {
 
         String fileName = URLEncoder.encode(storedFileName, "UTF-8").replaceAll("\\+", "%20");
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        httpHeaders.setContentType(MediaType.IMAGE_JPEG);
         httpHeaders.setContentLength(bytes.length);
         httpHeaders.setContentDispositionFormData("attachment", fileName);
 
-        return new ResponseEntity<>(httpHeaders, HttpStatus.OK);
+        return new ResponseEntity<>(bytes, httpHeaders, HttpStatus.OK);
 
     }
 

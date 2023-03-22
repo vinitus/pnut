@@ -84,7 +84,6 @@ public class BoardController {
     public ResponseEntity<? extends Object> selectAllRecipe() throws IOException {
         try {
             return awsS3Service.getObject("634ddd9e-17cd-4213-b795-18dd3bd81c62.jpg");
-//            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "success"));
         } catch (Exception e) {
             return ResponseEntity.status(200).body(BaseResponseBody.of(401, "Bad Request"));
         }
