@@ -1,7 +1,11 @@
 package com.ssafy.pnut.service;
 
 import com.ssafy.pnut.dto.RecipeCreateReq;
+import com.ssafy.pnut.entity.board;
 
 public interface BoardService {
-    void save(RecipeCreateReq recipeCreateReq);
+
+    void deleteById(Long id);
+
+    board save(RecipeCreateReq recipeCreateReq, String fileName);
 }

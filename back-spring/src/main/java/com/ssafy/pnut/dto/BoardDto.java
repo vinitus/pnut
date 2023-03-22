@@ -1,5 +1,6 @@
 package com.ssafy.pnut.dto;
 
+import com.ssafy.pnut.entity.User;
 import com.ssafy.pnut.entity.board;
 import lombok.Builder;
 import lombok.Getter;
@@ -25,17 +26,20 @@ public class BoardDto {
 
     private String ingredients;
 
+    private User userEmail;
+
     @Builder
-    public BoardDto(String thumbnail_image_url, String title, String content, int time, int quantity, String ingredients) {
+    public BoardDto(String thumbnail_image_url, String title, String content, int time, int quantity, String ingredients, User userEmail) {
         this.content = content;
         this.title = title;
         this.ingredients = ingredients;
         this.quantity = quantity;
         this.time = time;
         this.thumbnail_image_url = thumbnail_image_url;
+        this.userEmail = userEmail;
     }
 
-    public board toEntity(User userEmail, LocalDateTime currentTime) {
+    public board toEntity(LocalDateTime currentTime) {
         return board.builder().content(content).
                 ingredients(ingredients).
                 quantity(quantity).

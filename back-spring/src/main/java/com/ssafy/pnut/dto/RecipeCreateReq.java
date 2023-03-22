@@ -3,6 +3,7 @@ package com.ssafy.pnut.dto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 public class RecipeCreateReq {
 
-    private String thumbnail_image_url;
+//    private MultipartFile thumbnail_image_url;
 
     private String title;
 
@@ -24,6 +25,8 @@ public class RecipeCreateReq {
 
     private String ingredients;
 
-    private List<HashMap<String, String>> recipe_steps;
+    private String userEmail;
+
+    private List<String> recipe_steps;
 
 }
