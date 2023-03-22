@@ -27,6 +27,6 @@ services:
   application:
     build: .
     ports:
-      - 9090:9090
+      - "9090:9090"
 
     restart: always
