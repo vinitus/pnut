@@ -7,6 +7,8 @@ import ArticleListPage from "./Pages/ArticleListPage";
 import ArticleDetailPage from "./Pages/ArticleDetailPage";
 import RecipeDetailPage from "./Pages/RecipeDetailPage";
 import SymptomsRecommandPage from "./Pages/SymptomsRecommandPage";
+import LoginPage from "./Pages/LoginPage";
+import SignupPage from "./Pages/SignupPage";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +37,14 @@ const router = createBrowserRouter([
         element: <RecipeDetailPage />,
       },
     ],
+  },
+  {
+    path: "/login",
+    element: <LoginPage />,
+  },
+  {
+    path: "/signup",
+    element: <SignupPage />,
   },
 ]);
 
