@@ -18,6 +18,7 @@ const px0To1400 = { ...Array.from(Array(1401)).map((_, i) => `${i}px`) };
 module.exports = {
   content: [
     "./src/Components/*.{html,js,jsx}",
+    "./src/Components/auth/*.{html,js,jsx}",
     "./src/Pages/*.{html,js,jsx}",
     "./src/UI/*.{html,js,jsx}",
     "./src//*.{html,js,jsx}",
