@@ -28,8 +28,10 @@ public class BoardDto {
 
     private User userEmail;
 
+    private int visit;
+
     @Builder
-    public BoardDto(String thumbnail_image_url, String title, String content, int time, int quantity, String ingredients, User userEmail) {
+    public BoardDto(Integer visit, String thumbnail_image_url, String title, String content, int time, int quantity, String ingredients, User userEmail) {
         this.content = content;
         this.title = title;
         this.ingredients = ingredients;
@@ -37,6 +39,7 @@ public class BoardDto {
         this.time = time;
         this.thumbnail_image_url = thumbnail_image_url;
         this.userEmail = userEmail;
+        this.visit = visit;
     }
 
     public board toEntity(LocalDateTime currentTime) {
@@ -47,7 +50,8 @@ public class BoardDto {
                 userEmail(userEmail).
                 createDate(currentTime).
                 title(title).
-                thumbnail_image_url(thumbnail_image_url).build();
+                thumbnail_image_url(thumbnail_image_url).
+                visit(visit).build();
     }
 
 

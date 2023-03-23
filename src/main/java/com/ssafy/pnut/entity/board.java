@@ -47,7 +47,7 @@ public class board {
     Integer time;
 
     @Builder
-    public board(String thumbnail_image_url, String title, String content, int time, int quantity, String ingredients, User userEmail, LocalDateTime createDate) {
+    public board(Integer visit, String thumbnail_image_url, String title, String content, int time, int quantity, String ingredients, User userEmail, LocalDateTime createDate) {
         this.content = content;
         this.title = title;
         this.thumbnailImageUrl = thumbnail_image_url;
@@ -56,6 +56,7 @@ public class board {
         this.createDate = createDate;
         this.time = time;
         this.quantity = quantity;
+        this.visit = visit;
     }
 
 

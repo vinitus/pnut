@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Repository
 public interface BoardStepsRepository extends JpaRepository<boardSteps, Long> {
@@ -13,4 +14,6 @@ public interface BoardStepsRepository extends JpaRepository<boardSteps, Long> {
 
     @Transactional
     void deleteAllByBoardId(board Board);
+
+    List<boardSteps> findAllByBoardId(board Board);
 }

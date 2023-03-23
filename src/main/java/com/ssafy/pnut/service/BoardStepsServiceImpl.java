@@ -2,6 +2,7 @@ package com.ssafy.pnut.service;
 
 import com.ssafy.pnut.dto.BoardStepsDto;
 import com.ssafy.pnut.entity.board;
+import com.ssafy.pnut.entity.boardSteps;
 import com.ssafy.pnut.repository.BoardStepsRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,6 +37,12 @@ public class BoardStepsServiceImpl implements BoardStepsService {
         }
 
     }
+
+    @Override
+    public List<boardSteps> findAllByBoardId(board Board) {
+        return boardStepsRepository.findAllByBoardId(Board);
+    }
+
 
 
 

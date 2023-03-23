@@ -4,7 +4,9 @@ import com.ssafy.pnut.common.response.BaseResponseBody;
 import com.ssafy.pnut.dto.BoardDto;
 import com.ssafy.pnut.dto.RecipeCreateReq;
 import com.ssafy.pnut.dto.SelectAllRecipeRes;
+import com.ssafy.pnut.dto.SelectOneRecipeRes;
 import com.ssafy.pnut.entity.board;
+import com.ssafy.pnut.entity.boardSteps;
 import com.ssafy.pnut.service.*;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -75,30 +78,70 @@ public class BoardController {
         }
     }
 
-//    @GetMapping("")
-//    @ApiOperation(value = "게시판 글 전체 조회", notes = "<strong>게시판 글 전체 조회</strong>")
-//    @ApiResponses({
-//            @ApiResponse(code = 200, message = "성공"),
-//            @ApiResponse(code = 204, message = "No Content"),
-//            @ApiResponse(code = 401, message = "인증 실패"),
-//            @ApiResponse(code = 404, message = "사용자 없음"),
-//            @ApiResponse(code = 500, message = "서버 오류")
-//    })
-//    public ResponseEntity<? extends Object> selectAllRecipe() throws IOException {
-//        try {
-//            List<BoardDto> Boards = boardService.findAll();
-//            List<SelectAllRecipeRes> Recipes = new ArrayList<>();
-//            for(int i = 0; i < Boards.size(); i++) {
-//
-//                Object obj = awsS3Service.getObject(Boards.get(i).getThumbnail_image_url());
-//                SelectAllRecipeRes selectAllRecipeRes = new SelectAllRecipeRes(Boards.get(i).);
-//
-//            }
-//
-//
-//            return ResponseEntity.status(200).body(obj);
-//        } catch (Exception e) {
-//            return ResponseEntity.status(200).body(BaseResponseBody.of(401, "Bad Request"));
-//        }
-//    }
+    @GetMapping("")
+    @ApiOperation(value = "게시판 글 전체 조회", notes = "<strong>게시판 글 전체 조회</strong>")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 204, message = "No Content"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends Object> selectAllRecipe() throws IOException {
+        try {
+            List<BoardDto> Boards = boardService.findAll();
+            List<SelectAllRecipeRes> Recipes = new ArrayList<>();
+            for(int i = 0; i < Boards.size(); i++) {
+                String img = Boards.get(i).getThumbnail_image_url();
+                SelectAllRecipeRes selectAllRecipeRes = new SelectAllRecipeRes("https://pnut.s3.ap-northeast-2.amazonaws.com/"+img, Boards.get(i).getTitle(), Boards.get(i).getVisit(), Boards.get(i).getUserEmail().getNickname());
+                Recipes.add(selectAllRecipeRes);
+            }
+
+            return ResponseEntity.status(200).body(Recipes);
+        } catch (Exception e) {
+            return ResponseEntity.status(200).body(BaseResponseBody.of(401, "Bad Request"));
+        }
+    }
+
+    @GetMapping("/board/{id}")
+    @ApiOperation(value = "게시판 상세 페이지", notes = "<strong>게시판 글 상세 페이지</strong>")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 204, message = "No Content"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends Object> selectRecipe(@PathVariable("id") Long id) throws IOException {
+        try {
+            Optional<board> Board = boardService.findById(id);
+            if(!Board.isPresent())  // id에 맞는 게시글이 없으면 null리턴
+                return ResponseEntity.status(200).body(BaseResponseBody.of(401, "There's no such BoardId"));
+            else {  // id에 맞는 게시글이 있다면
+                SelectOneRecipeRes selectOneRecipeRes = new SelectOneRecipeRes();
+
+                selectOneRecipeRes.setTime(Board.get().getTime());
+                selectOneRecipeRes.setQuantity(Board.get().getQuantity());
+                selectOneRecipeRes.setTitle(Board.get().getTitle());
+                selectOneRecipeRes.setIngredients(Board.get().getIngredients());
+                selectOneRecipeRes.setContent(Board.get().getContent());
+                selectOneRecipeRes.setThumbnail_image_url("https://pnut.s3.ap-northeast-2.amazonaws.com/"+Board.get().getThumbnailImageUrl());
+                selectOneRecipeRes.setVisit(Board.get().getVisit());
+                selectOneRecipeRes.setNickName(Board.get().getUserEmail().getNickname());
+
+                List<boardSteps> BoardSteps = boardStepsService.findAllByBoardId(Board.get());
+                HashMap<String, String> steps = new HashMap<>();  // 레시피 단계 담을 해시맵
+                for(int i = 0; i < BoardSteps.size(); i++) {
+                    steps.put("https://pnut.s3.ap-northeast-2.amazonaws.com/"+BoardSteps.get(i).getImageUrl(), BoardSteps.get(i).getContent());
+                }
+
+                selectOneRecipeRes.setRecipeSteps(steps);
+                return ResponseEntity.status(200).body(selectOneRecipeRes);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(200).body(BaseResponseBody.of(401, "Bad Request"));
+        }
+    }
+
+
 }

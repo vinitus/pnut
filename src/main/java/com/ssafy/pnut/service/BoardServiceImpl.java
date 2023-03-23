@@ -2,9 +2,13 @@ package com.ssafy.pnut.service;
 
 import com.ssafy.pnut.dto.BoardDto;
 import com.ssafy.pnut.dto.RecipeCreateReq;
+import com.ssafy.pnut.dto.SelectAllRecipeRes;
+import com.ssafy.pnut.dto.SelectOneRecipeRes;
 import com.ssafy.pnut.entity.User;
 import com.ssafy.pnut.entity.board;
+import com.ssafy.pnut.entity.boardSteps;
 import com.ssafy.pnut.repository.BoardRepository;
+import com.ssafy.pnut.repository.BoardStepsRepository;
 import com.ssafy.pnut.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +24,8 @@ import java.util.Optional;
 @AllArgsConstructor
 public class BoardServiceImpl implements BoardService{
     final BoardRepository boardRepository;
+
+    final BoardStepsRepository boardStepsRepository;
     final UserRepository userRepository;
 
     @Override
