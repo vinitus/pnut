@@ -3,12 +3,14 @@ package com.ssafy.pnut.dto;
 import com.ssafy.pnut.entity.User;
 import com.ssafy.pnut.entity.board;
 import com.ssafy.pnut.entity.boardSteps;
+import io.swagger.models.auth.In;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -20,8 +22,9 @@ public class BoardStepsDto {
 
     private String imageUrl;
 
+
     @Builder
-    public BoardStepsDto(board Board, String content, String image_url) {
+    public BoardStepsDto(board Board, String content, String imageUrl, List<Integer> stepNums) {
         this.content = content;
         this.boardId = Board;
         this.imageUrl = imageUrl;

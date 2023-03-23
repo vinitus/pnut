@@ -29,4 +29,6 @@ public class RecipeCreateReq {
 
     private List<String> recipe_steps;
 
+    private List<Integer> stepNums;
+
 }

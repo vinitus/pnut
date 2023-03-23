@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -46,5 +48,22 @@ public class BoardServiceImpl implements BoardService{
 
     public Optional<board> findById(Long id) {
         return boardRepository.findById(id);
+    }
+
+    public List<BoardDto> findAll() {
+        List<board> Boards = boardRepository.findAll();  // 보드 엔티티 모두 찾고
+        List<BoardDto> boardDtos = new ArrayList<>();  // DTO로 담을 리스트 생성
+        for(int i = 0; i < Boards.size(); i++) {
+            BoardDto boardDto = new BoardDto();
+            boardDto.setUserEmail(Boards.get(i).getUserEmail());
+            boardDto.setTime(Boards.get(i).getTime());
+            boardDto.setTitle(Boards.get(i).getTitle());
+            boardDto.setContent(Boards.get(i).getContent());
+            boardDto.setIngredients(Boards.get(i).getIngredients());
+            boardDto.setQuantity(Boards.get(i).getQuantity());
+            boardDto.setThumbnail_image_url(Boards.get(i).getThumbnailImageUrl());
+            boardDtos.add(boardDto);
+        }
+        return boardDtos;
     }
 }

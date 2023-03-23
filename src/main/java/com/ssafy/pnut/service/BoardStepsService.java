@@ -9,5 +9,5 @@ public interface BoardStepsService {
 
     void deleteAllByBoardId(board Board);
 
-    void save(List<String> Recipe_steps, board Board, List<String> file);
+    void save(List<String> Recipe_steps, board Board, List<String> file, List<Integer> stepNums);
 }

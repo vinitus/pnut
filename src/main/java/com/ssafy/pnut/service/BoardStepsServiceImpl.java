@@ -23,12 +23,14 @@ public class BoardStepsServiceImpl implements BoardStepsService {
     }
 
     @Override
-    public void save(List<String> Recipe_steps, board Board, List<String> file) {
+    public void save(List<String> Recipe_steps, board Board, List<String> file, List<Integer> stepNums) {
 
         for(int i = 0; i < Recipe_steps.size(); i++) {
             BoardStepsDto boardStepsDto = new BoardStepsDto();
             boardStepsDto.setBoardId(Board);
-            boardStepsDto.setImageUrl(file.get(i));
+            if(stepNums.contains(i+1)) {
+                boardStepsDto.setImageUrl(file.get(i));
+            }
             boardStepsDto.setContent(Recipe_steps.get(i));
             boardStepsRepository.save(boardStepsDto.toEntity());
         }
