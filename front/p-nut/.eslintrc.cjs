@@ -27,6 +27,8 @@ module.exports = {
     "react/destructuring-assignment": "off",
     "jsx-a11y/label-has-associated-control": "off",
     "jsx-a11y/img-redundant-alt": "off",
+    "jsx-a11y/no-static-element-interactions": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
     "no-console": "off",
     "func-names": "off",
     "no-shadow": "off",

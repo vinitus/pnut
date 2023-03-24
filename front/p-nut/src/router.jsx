@@ -10,6 +10,7 @@ import SymptomsRecommandPage from "./Pages/SymptomsRecommandPage";
 import SurveyRecommendPage from "./Pages/SurveyRecommendPage";
 import LoginPage from "./Pages/LoginPage";
 import SignupPage from "./Pages/SignupPage";
+import MyPage from "./Pages/MyPage";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "survey",
         element: <SurveyRecommendPage />,
+      },
+      {
+        path: "mypage",
+        element: <MyPage />,
       },
     ],
   },
