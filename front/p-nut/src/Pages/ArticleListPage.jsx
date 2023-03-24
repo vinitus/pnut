@@ -1,7 +1,12 @@
+import axios from "axios";
 import React from "react";
+import { useLoaderData } from "react-router-dom";
 import ArticleListThumbnailComponent from "../Components/ArticleListThumbnailComponent";
 
 const ArticleListPage = () => {
+  const data = useLoaderData();
+  console.log(data.data);
+
   return (
     <div className="flex flex-col items-center">
       <div className="relative flex items-center justify-center flex-col">
@@ -73,42 +78,14 @@ const ArticleListPage = () => {
           </div>
         </div>
         <div className="grid grid-cols-3 gap-65">
-          <ArticleListThumbnailComponent
-            imgSrc="./assets/recipe_1.png"
-            title="졸라 맛있는 닭도리탕"
-            author="콩이"
-            profileImg="./assets/Article_circle.png"
-          />
-          <ArticleListThumbnailComponent
-            imgSrc="./assets/recipe_2.png"
-            title="최고 맛있는 닭도리탕"
-            author="콩이"
-            profileImg="./assets/Article_circle.png"
-          />
-          <ArticleListThumbnailComponent
-            imgSrc="./assets/recipe_3.png"
-            title="둘이 먹다 하콩이 죽어도 모를 닭도리탕"
-            author="콩이"
-            profileImg="./assets/Article_circle.png"
-          />
-          <ArticleListThumbnailComponent
-            imgSrc="./assets/recipe_1.png"
-            title="졸라 맛있는 닭도리탕"
-            author="콩이"
-            profileImg="./assets/Article_circle.png"
-          />
-          <ArticleListThumbnailComponent
-            imgSrc="./assets/recipe_2.png"
-            title="최고 맛있는 닭도리탕"
-            author="콩이"
-            profileImg="./assets/Article_circle.png"
-          />
-          <ArticleListThumbnailComponent
-            imgSrc="./assets/recipe_3.png"
-            title="둘이 먹다 하콩이 죽어도 모를 닭도리탕"
-            author="콩이"
-            profileImg="./assets/Article_circle.png"
-          />
+          {data.data.map((ele) => (
+            <ArticleListThumbnailComponent
+              imgSrc={ele.thumbnail_image_url}
+              title={ele.title}
+              author={ele.nickName}
+              profileImg="./assets/Article_circle.png"
+            />
+          ))}
         </div>
       </div>
     </div>
@@ -116,3 +93,13 @@ const ArticleListPage = () => {
 };
 
 export default ArticleListPage;
+
+export async function loader() {
+  const res = await axios("/boards");
+  try {
+    console.log(res);
+  } catch (e) {
+    console.log(e);
+  }
+  return res;
+}

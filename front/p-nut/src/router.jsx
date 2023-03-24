@@ -3,7 +3,9 @@ import { createBrowserRouter } from "react-router-dom";
 import RootLayout from "./Pages/RootLayout";
 import MainPage from "./Pages/MainPage";
 import ArticleCreatePage from "./Pages/ArticleCreatePage";
-import ArticleListPage from "./Pages/ArticleListPage";
+import ArticleListPage, {
+  loader as articleListLoader,
+} from "./Pages/ArticleListPage";
 import ArticleDetailPage from "./Pages/ArticleDetailPage";
 import RecipeDetailPage from "./Pages/RecipeDetailPage";
 import SymptomsRecommandPage from "./Pages/SymptomsRecommandPage";
@@ -25,6 +27,7 @@ const router = createBrowserRouter([
       {
         path: "board",
         element: <ArticleListPage />,
+        loader: articleListLoader,
       },
       {
         path: "newpost",
