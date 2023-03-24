@@ -11,7 +11,7 @@ import lombok.Setter;
 public class FoodDto {
     private long foodId;
     private String name;
-    private String desc;
+    private String description;
     private int time;
     private String efficiency;
     private int amount;
@@ -29,6 +29,6 @@ public class FoodDto {
         );
     }
     public Food toEntity(){
-        return new Food(foodId, name, desc, time, efficiency, amount, unit);
+        return new Food(foodId, name, description, time, efficiency, amount, unit);
     }
 }
