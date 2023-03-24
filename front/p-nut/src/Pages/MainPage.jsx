@@ -13,7 +13,7 @@ const MainPage = () => {
           muted
           autoPlay
           className="object-cover"
-          src="public\assets\videoplayback.mp4"
+          src="\assets\videoplayback.mp4"
           type="video/mp4"
         />
         <div className="absolute inset-0 bg-black/40" />
@@ -54,7 +54,7 @@ const MainPage = () => {
                   <div className="flex flex-col items-center justify-center grow">
                     <img
                       className="w-150"
-                      src="public\assets\medicine 1.png"
+                      src="\assets\medicine 1.png"
                       alt=""
                     />
                     <br />
@@ -63,11 +63,7 @@ const MainPage = () => {
                   <div className="w-1 border-l border-gray-200 mr-80 " />
                   <div className="flex flex-col items-center justify-center grow space-y-16px">
                     <div>
-                      <img
-                        className="w-150"
-                        src="public\assets\salad 1.png"
-                        alt=""
-                      />
+                      <img className="w-150" src="\assets\salad 1.png" alt="" />
                       <br />
                       <p>끼니에서 영양소를 챙겨요</p>
                     </div>
@@ -106,7 +102,7 @@ const MainPage = () => {
                     <p className="text-xl font-bold">1인가구 증가 추세</p>
                     <img
                       className="mx-auto h-300"
-                      src="public\assets\chart.png"
+                      src="\assets\chart.png"
                       alt=""
                     />
                     <p className="text-gray-400 text-end font-md">
@@ -164,12 +160,12 @@ const MainPage = () => {
                     {/* 이동 */}
                     <img
                       className="pt-20 h-80"
-                      src="public\assets\inspectbutton.png"
+                      src="\assets\inspectbutton.png"
                       alt=""
                     />
                   </div>
                   <div className="relative flex flex-col items-center justify-center space-y-16 bg-gray-100">
-                    <img src="public\assets\beef.png" alt="" />
+                    <img src="\assets\beef.png" alt="" />
                     <div className="absolute inset-0 z-10 flex flex-col items-start ">
                       <div className="w-32 h-32 mx-auto bg-white rounded-full mt-50 flex-center">
                         <p className="pt-4 pl-12 font-bold text-#2B2C2B">2</p>
@@ -178,7 +174,7 @@ const MainPage = () => {
                         {/* 이동 */}
                         <img
                           className="pt-20 h-80"
-                          src="public\assets\resultbutton.png"
+                          src="\assets\resultbutton.png"
                           alt=""
                         />
                       </div>
@@ -195,11 +191,7 @@ const MainPage = () => {
                     <p className="text-xl font-bold">
                       설문조사를 통한 개인별 진단
                     </p>
-                    <img
-                      className="h-20"
-                      src="public\assets\chevron.png"
-                      alt=""
-                    />
+                    <img className="h-20" src="\assets\chevron.png" alt="" />
                   </div>
                   <div>
                     <p className="text-lg">
@@ -218,11 +210,7 @@ const MainPage = () => {
                     <p className="text-xl font-bold">
                       식재료, 음식 이름으로 검색하기{" "}
                     </p>
-                    <img
-                      className="h-20"
-                      src="public\assets\chevron.png"
-                      alt=""
-                    />
+                    <img className="h-20" src="\assets\chevron.png" alt="" />
                   </div>
                   <div>
                     <p className="text-lg">

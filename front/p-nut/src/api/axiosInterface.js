@@ -42,7 +42,7 @@ export default async function axiosInterface(
           // token refresh
           const refreshResponse = await axios({
             method: "post",
-            baseURL: "",
+            baseURL: "http://j8a704.p.ssafy.io",
             url: "",
             data: {
               grantType: "Bearer",
@@ -75,7 +75,7 @@ export default async function axiosInterface(
   let response = await axios({
     method: method,
     url: url,
-    baseURL: "",
+    baseURL: "http://j8a704.p.ssafy.io",
     data: data,
     headers: headers,
     params: params,

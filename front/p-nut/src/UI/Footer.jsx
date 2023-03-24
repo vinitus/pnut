@@ -32,7 +32,7 @@ const Footer = () => {
         </div>
         <div className=" pt-15">
           <div className="mb-15">
-            <img className="w-90" src="public\assets\Logo1.png" alt="" />
+            <img className="w-90" src="\assets\Logo1.png" alt="" />
           </div>
           <div className="space-y-5">
             <p className="text-sm">
@@ -52,8 +52,8 @@ const Footer = () => {
               </span>
             </div>
             <div className="flex space-x-10">
-              <img src="public\assets\instagram.png" alt="" />
-              <img src="public\assets\ssafy.png" alt="" />
+              <img src="\assets\instagram.png" alt="" />
+              <img src="\assets\ssafy.png" alt="" />
             </div>
           </div>
         </div>

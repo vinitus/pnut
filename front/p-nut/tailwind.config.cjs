@@ -50,6 +50,7 @@ module.exports = {
         "#2B2C2B": "#2B2C2B",
         "#F2F2F2": "#F2F2F2",
         "#FF6B6C": "#FF6B6C",
+        "#FFD1D1": "#FFD1D1",
       },
       fontSize: px0To200,
       lineHeight: px0To100,
