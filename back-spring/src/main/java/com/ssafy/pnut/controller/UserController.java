@@ -124,14 +124,15 @@ public class UserController {
     }
 
     @ApiOperation(value = "로그아웃", notes = "로그아웃하는 유저의 refresh token을 삭제한다.", response = Map.class)
-    @GetMapping("/logout/{userEmail}")
+    @PostMapping("/logout")
     public ResponseEntity<?> logoutUser(
-            @PathVariable @ApiParam(value = "로그아웃 할 유저의 이메일", required = true) String userEmail){
+            @RequestBody @ApiParam(value = "로그아웃 할 유저의 이메일", required = true) HttpServletRequest request){
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
+        String email = userService.getUserByToken(request.getHeader("access-token")).getEmail();
 
         try{
-            userService.delRefreshToken(userEmail);
+            userService.delRefreshToken(email);
             resultMap.put("message", SUCCESS);
             status = HttpStatus.OK;
         }catch(Exception e){
@@ -178,12 +179,13 @@ public class UserController {
     }
 
     @ApiOperation(value = "회원탈퇴", notes = "회원정보를 삭제한다", response = Map.class)
-    @DeleteMapping("/{userEmail}")
+    @DeleteMapping("")
     public ResponseEntity<?> deleteUser(
-            @PathVariable @ApiParam(value = "탈퇴한 회원 정보", required = true) String userEmail, HttpServletRequest request){
+            @RequestBody @ApiParam(value = "탈퇴한 회원 정보", required = true) HttpServletRequest request){
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = HttpStatus.UNAUTHORIZED;
         String access_token = request.getHeader("access-token");
+        String email = userService.getUserByToken(access_token).getEmail();
 
         if(access_token == null || "".equals(access_token)){
             logger.error("need access-token : {}");
@@ -192,12 +194,12 @@ public class UserController {
         }
         if(jwtService.checkToken(request.getHeader("access-token"))){
             logger.info("회원 탈퇴: 사용 가능한 access-token");
-            logger.info("삭제하려는 email : {}", userEmail);
+            logger.info("삭제하려는 email : {}", email);
             try{
-                int result = userService.deleteUser(userEmail);
+                int result = userService.deleteUser(email);
                 if(result==1){
                     //회원삭제 성공한 경우, 성공 메시지 반환, 200응답 코드
-                    logger.debug("탈퇴한 회원 email : {}", userEmail);
+                    logger.debug("탈퇴한 회원 email : {}", email);
                     resultMap.put("message", SUCCESS);
                     status = HttpStatus.OK;
                 } else{
@@ -299,7 +301,7 @@ public class UserController {
     }
 
     @ApiOperation(value = "중복검사", notes = "email, nickname 중복검사", response = Map.class)
-    @PostMapping("/check")
+    @PostMapping("/duplication")
     public ResponseEntity<?> checkDuplicate(@RequestParam String email, @RequestParam String nickname){
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
