@@ -17,7 +17,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,10 +51,17 @@ public class UserController {
         try{
             //create UserEntity by Builder Pattern
 //            if(redisUtil.getData(userDto.getEmail()).equals("validate")){
+            LocalDateTime time = LocalDateTime.now();
+            userDto.setJoinDate(time);
+            userDto.setAuth("");
+            userDto.setProfileImageUrl("");
+            userDto.setType("");
                 User user = userDto.toEntity();
                 User result = userService.registerUser(user);
                 if (result != null) {
                     resultMap.put("message", SUCCESS);
+                    resultMap.put("email", user.getEmail());
+                    resultMap.put("password", user.getPassword());
                     status = HttpStatus.OK;
                     //if success register, return success message , 200 response code
                 } else {
@@ -289,18 +298,20 @@ public class UserController {
     }
 
     @ApiOperation(value = "중복검사", notes = "email, nickname 중복검사", response = Map.class)
-    @GetMapping("/check")
-    public ResponseEntity<?> checkDuplicate(@RequestParam String type, @RequestParam String value){
+    @PostMapping("/check")
+    public ResponseEntity<?> checkDuplicate(@RequestParam String email, @RequestParam String nickname){
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
 
         try{
-            User result = userService.checkUser(type, value);
-            if(result != null){
+            int result = userService.checkUser(email, nickname);
+            if(result == 1){
                 //존재하는 값인 경우, 200과 중복 메시지 반환
-                resultMap.put("message", ALREADY_EXIST);
-            }else{
+                resultMap.put("message", "email 중복");
+            }else if(result==2){
                 //200과 정상 메시지 반환
+                resultMap.put("message", "nickname 중복");
+            }else{
                 resultMap.put("message", SUCCESS);
             }
             status = HttpStatus.OK;
@@ -336,10 +347,11 @@ public class UserController {
     }
 
     @ApiOperation(value = "이메일본인인증확인", notes = "email을 통해 인증번호 요청해 본인인증", response = Map.class)
-    @GetMapping("/eamil")
-    public ResponseEntity<?> validateEmailCheck(@RequestParam String code){
+    @GetMapping("/email/{code}")
+    public ResponseEntity<?> validateEmailCheck(@PathVariable String code){
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
+
 
         if(userMailService.checkCode(code)){
             resultMap.put("message", SUCCESS);
@@ -352,7 +364,7 @@ public class UserController {
     }
 
     @ApiOperation(value = "본인인증 여부 확인", notes = "본인인증이 되었는지 확인", response = Map.class)
-    @GetMapping("/auth")
+    @PostMapping("/auth")
     public ResponseEntity<?> checkAuthentication(@RequestParam String email){
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
@@ -362,7 +374,7 @@ public class UserController {
             status = HttpStatus.OK;
         }else{
             resultMap.put("message", FAIL);
-            status = HttpStatus.REQUEST_TIMEOUT;
+            status = HttpStatus.UNAUTHORIZED;
         }
         return new ResponseEntity<>(resultMap, status);
     }
