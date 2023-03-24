@@ -1,4 +1,5 @@
 package com.ssafy.pnut.entity;
+
 import lombok.*;
 
 import javax.persistence.Column;
@@ -12,7 +13,6 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @ToString
 public class Food {
-
     @Column(name = "food_id")
     @Id
     private Long foodId;
