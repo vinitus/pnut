@@ -308,8 +308,9 @@ public class UserController {
         try{
             User result = userService.checkUser(type, value);
             if(result != null){
+                if(type.equals("email")) resultMap.put("message", "email duplication");
+                else resultMap.put("message", "nickname duplication");
                 //존재하는 값인 경우, 200과 중복 메시지 반환
-                resultMap.put("message", ALREADY_EXIST);
             }else{
                 resultMap.put("message", SUCCESS);
             }
