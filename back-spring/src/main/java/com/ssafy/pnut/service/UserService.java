@@ -12,7 +12,7 @@ public interface UserService {
     User loginUser(User user) throws Exception;
     User modifyUser(User user) throws Exception;
     int deleteUser(String email);
-    int checkUser(String email, String nickname);
+    User checkUser(String type, String value);
     void saveRefreshToken(String email, String refreshToken);
     String getRefreshtoken(String email);
     void delRefreshToken(String email);

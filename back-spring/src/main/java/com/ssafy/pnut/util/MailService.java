@@ -8,6 +8,6 @@ public interface MailService {
     String sendMail(UserMailMessageDto mailMessage, String type);
     String createCode();
     String setContext(String code, String type);
-    boolean checkCode(String code);
+    boolean checkCode(String email, String code);
     boolean checkAuthentification(String email);
 }

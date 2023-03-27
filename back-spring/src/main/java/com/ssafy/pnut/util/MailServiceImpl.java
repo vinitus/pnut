@@ -101,13 +101,15 @@ public class MailServiceImpl implements MailService {
     }
 
     @Override
-    public boolean checkCode(String code) {
+    public boolean checkCode(String mail, String code) {
         String email = redisUtil.getData(code);
-        if(email != null){
-            redisUtil.deleteData(code);
-            redisUtil.setDataExpire(email, "validate", 60 * 10L);
-            return true;
-        } else return false;
+        if(email.equals(mail)) {
+            if (email != null) {
+                redisUtil.deleteData(code);
+                redisUtil.setDataExpire(email, "validate", 60 * 10L);
+                return true;
+            } else return false;
+        }else return false;
     }
 
     @Override

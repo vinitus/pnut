@@ -125,8 +125,7 @@ public class UserController {
 
     @ApiOperation(value = "로그아웃", notes = "로그아웃하는 유저의 refresh token을 삭제한다.", response = Map.class)
     @PostMapping("/logout")
-    public ResponseEntity<?> logoutUser(
-            @RequestBody @ApiParam(value = "로그아웃 할 유저의 이메일", required = true) HttpServletRequest request){
+    public ResponseEntity<?> logoutUser(HttpServletRequest request){
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
         String email = userService.getUserByToken(request.getHeader("access-token")).getEmail();
@@ -302,18 +301,15 @@ public class UserController {
 
     @ApiOperation(value = "중복검사", notes = "email, nickname 중복검사", response = Map.class)
     @PostMapping("/duplication")
-    public ResponseEntity<?> checkDuplicate(@RequestParam String email, @RequestParam String nickname){
+    public ResponseEntity<?> checkDuplicate(@RequestParam String type, @RequestParam String value){
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
 
         try{
-            int result = userService.checkUser(email, nickname);
-            if(result == 1){
+            User result = userService.checkUser(type, value);
+            if(result != null){
                 //존재하는 값인 경우, 200과 중복 메시지 반환
-                resultMap.put("message", "email 중복");
-            }else if(result==2){
-                //200과 정상 메시지 반환
-                resultMap.put("message", "nickname 중복");
+                resultMap.put("message", ALREADY_EXIST);
             }else{
                 resultMap.put("message", SUCCESS);
             }
@@ -350,12 +346,13 @@ public class UserController {
     }
 
     @ApiOperation(value = "이메일본인인증확인", notes = "email을 통해 인증번호 요청해 본인인증", response = Map.class)
-    @GetMapping("/email/{code}")
-    public ResponseEntity<?> validateEmailCheck(@PathVariable String code){
+    @PostMapping("/email/check")
+    public ResponseEntity<?> validateEmailCheck(@RequestBody String email, @RequestBody String code){
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
 
-        if(userMailService.checkCode(code)){
+
+        if(userMailService.checkCode(email, code)){
             resultMap.put("message", SUCCESS);
             status = HttpStatus.OK;
         }else{
