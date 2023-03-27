@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class BoardDto {
 
+    private long id;
     private String thumbnail_image_url;
 
     private String title;
@@ -30,8 +31,10 @@ public class BoardDto {
 
     private int visit;
 
+    private LocalDateTime currentTime = LocalDateTime.now();
     @Builder
     public BoardDto(Integer visit, String thumbnail_image_url, String title, String content, int time, int quantity, String ingredients, User userEmail) {
+        this.id = id;
         this.content = content;
         this.title = title;
         this.ingredients = ingredients;
@@ -42,7 +45,7 @@ public class BoardDto {
         this.visit = visit;
     }
 
-    public board toEntity(LocalDateTime currentTime) {
+    public board toEntity() {
         return board.builder().content(content).
                 ingredients(ingredients).
                 quantity(quantity).

@@ -15,6 +15,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class SelectAllRecipeRes {
 
+    private long id;
+
     private String thumbnail_image_url;
 
     private String title;
@@ -24,7 +26,8 @@ public class SelectAllRecipeRes {
     private String nickName;
 
     @Builder
-    public SelectAllRecipeRes(String thumbnail_image_url, String title, Integer visit, String nickName) {
+    public SelectAllRecipeRes(long id, String thumbnail_image_url, String title, Integer visit, String nickName) {
+        this.id = id;
         this.title = title;
         this.visit = visit;
         this.thumbnail_image_url = thumbnail_image_url;

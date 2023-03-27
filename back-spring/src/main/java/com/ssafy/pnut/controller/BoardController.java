@@ -1,20 +1,23 @@
 package com.ssafy.pnut.controller;
 
 import com.ssafy.pnut.common.response.BaseResponseBody;
-import com.ssafy.pnut.dto.BoardDto;
-import com.ssafy.pnut.dto.RecipeCreateReq;
-import com.ssafy.pnut.dto.SelectAllRecipeRes;
-import com.ssafy.pnut.dto.SelectOneRecipeRes;
+import com.ssafy.pnut.dto.*;
 import com.ssafy.pnut.entity.board;
 import com.ssafy.pnut.entity.boardSteps;
+import com.ssafy.pnut.entity.likeTable;
 import com.ssafy.pnut.service.*;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import springfox.documentation.annotations.ApiIgnore;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +32,12 @@ public class BoardController {
     private final BoardServiceImpl boardService;
     private final BoardStepsServiceImpl boardStepsService;
     private final AwsS3Service awsS3Service;
+
+    private final UserServiceImpl userService;
+
+    private final LikeServiceImpl likeService;
+
+    private final CommentServiceImpl commentService;
 
 
     @PostMapping("/create")
@@ -93,7 +102,7 @@ public class BoardController {
             List<SelectAllRecipeRes> Recipes = new ArrayList<>();
             for(int i = 0; i < Boards.size(); i++) {
                 String img = Boards.get(i).getThumbnail_image_url();
-                SelectAllRecipeRes selectAllRecipeRes = new SelectAllRecipeRes("https://pnut.s3.ap-northeast-2.amazonaws.com/"+img, Boards.get(i).getTitle(), Boards.get(i).getVisit(), Boards.get(i).getUserEmail().getNickname());
+                SelectAllRecipeRes selectAllRecipeRes = new SelectAllRecipeRes(Boards.get(i).getId(), "https://pnut.s3.ap-northeast-2.amazonaws.com/"+img, Boards.get(i).getTitle(), Boards.get(i).getVisit(), Boards.get(i).getUserEmail().getNickname());
                 Recipes.add(selectAllRecipeRes);
             }
 
@@ -118,6 +127,7 @@ public class BoardController {
             if(!Board.isPresent())  // id에 맞는 게시글이 없으면 null리턴
                 return ResponseEntity.status(200).body(BaseResponseBody.of(401, "There's no such BoardId"));
             else {  // id에 맞는 게시글이 있다면
+
                 SelectOneRecipeRes selectOneRecipeRes = new SelectOneRecipeRes();
 
                 selectOneRecipeRes.setTime(Board.get().getTime());
@@ -125,7 +135,7 @@ public class BoardController {
                 selectOneRecipeRes.setTitle(Board.get().getTitle());
                 selectOneRecipeRes.setIngredients(Board.get().getIngredients());
                 selectOneRecipeRes.setContent(Board.get().getContent());
-                selectOneRecipeRes.setThumbnail_image_url("https://pnut.s3.ap-northeast-2.amazonaws.com/"+Board.get().getThumbnailImageUrl());
+                selectOneRecipeRes.setThumbnailImageUrl("https://pnut.s3.ap-northeast-2.amazonaws.com/"+Board.get().getThumbnailImageUrl());
                 selectOneRecipeRes.setVisit(Board.get().getVisit());
                 selectOneRecipeRes.setNickName(Board.get().getUserEmail().getNickname());
 
@@ -143,6 +153,102 @@ public class BoardController {
         }
     }
 
+    @PostMapping("/like/{id}")
+    @ApiOperation(value = "게시판 글 좋아요", notes = "<strong>게시판 글 좋아요</strong>")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 204, message = "No Content"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends Object> likeRecipe(@PathVariable("id") Long id, HttpServletRequest request) throws IOException {
+        try {
+            UserDto userDto = userService.getUserByToken(request.getHeader("Bearer"));
+            System.out.println(request.getHeader("Bearer"));
+            Optional<board> Board = boardService.findById(id);
+            if(!Board.isPresent()) {
+                return ResponseEntity.status(200).body(BaseResponseBody.of(401, "There's no such BoardId"));
+            }
+            LikeDto likeDto = new LikeDto(userDto.toEntity(), Board.get());
+            likeService.save(likeDto);
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "success"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(200).body(BaseResponseBody.of(401, "Bad Request"));
+        }
+    }
 
+    @DeleteMapping("/like/{id}")
+    @ApiOperation(value = "게시판 글 좋아요 취소", notes = "<strong>게시판 글 좋아요 취소</strong>")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 204, message = "No Content"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends Object> cancelLikeRecipe(@PathVariable("id") Long id, HttpServletRequest request) throws IOException {
+        try {
+            UserDto userDto = userService.getUserByToken(request.getHeader("Bearer"));
+            Optional<board> Board = boardService.findById(id);
+            if(!Board.isPresent()) {
+                return ResponseEntity.status(200).body(BaseResponseBody.of(401, "There's no such BoardId"));
+            }
+            Optional<likeTable> like = likeService.findByBoardIdAndUserEmail(Board.get(), userDto.toEntity());
+            likeService.deleteById(like.get().getId());
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "success"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(200).body(BaseResponseBody.of(401, "Bad Request"));
+        }
+    }
 
+    @PostMapping("/comments/{boardId}")
+    @ApiOperation(value = "게시판 댓글 작성", notes = "<strong>게시판 댓글 작성</strong>")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 204, message = "No Content"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends Object> commentBoard(@PathVariable("boardId") Long id, @RequestBody @ApiParam(value="댓글 내용", required = true) CommentReq commentReq, HttpServletRequest request) throws IOException {
+        try {
+            UserDto userDto = userService.getUserByToken(request.getHeader("Bearer"));
+            System.out.println(request.getHeader("Bearer"));
+            Optional<board> Board = boardService.findById(id);
+            if(!Board.isPresent()) {
+                return ResponseEntity.status(200).body(BaseResponseBody.of(401, "There's no such BoardId"));
+            }
+            CommentDto commentDto = new CommentDto(userDto.toEntity(), Board.get(), commentReq.getContent(), LocalDateTime.now());
+            commentService.save(commentDto);
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "success"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(200).body(BaseResponseBody.of(401, "Bad Request"));
+        }
+    }
+
+    @DeleteMapping("/comments/{commentId}")
+    @ApiOperation(value = "게시판 댓글 삭제", notes = "<strong>게시판 댓글 삭제</strong>")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 204, message = "No Content"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends Object> deleteCommentBoard(@PathVariable("commentId") Long id, HttpServletRequest request) throws IOException {
+        try {
+            if(!commentService.findById(id).isPresent()) {
+                return ResponseEntity.status(200).body(BaseResponseBody.of(401, "There's no such BoardId"));
+            }
+            commentService.deleteById(id);
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "success"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(200).body(BaseResponseBody.of(401, "Bad Request"));
+        }
+    }
 }
