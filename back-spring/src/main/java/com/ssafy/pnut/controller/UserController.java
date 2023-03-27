@@ -348,12 +348,12 @@ public class UserController {
 
     @ApiOperation(value = "이메일본인인증확인", notes = "email을 통해 인증번호 요청해 본인인증", response = Map.class)
     @PostMapping("/email/check")
-    public ResponseEntity<?> validateEmailCheck(@RequestBody String email, @RequestBody String code){
+    public ResponseEntity<?> validateEmailCheck(@RequestBody Map<String, String> map){
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
 
 
-        if(userMailService.checkCode(email, code)){
+        if(userMailService.checkCode(map.get("email"), map.get("code"))){
             resultMap.put("message", SUCCESS);
             status = HttpStatus.OK;
         }else{
