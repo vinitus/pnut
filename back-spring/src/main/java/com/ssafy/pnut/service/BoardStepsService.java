@@ -12,6 +12,6 @@ public interface BoardStepsService {
 
     void save(List<String> Recipe_steps, board Board, List<String> file, List<Integer> stepNums);
 
-    List<boardSteps> findAllByBoardId(board Board);
+    List<boardSteps> findAllByBoardIdOrderByIdAsc(board Board);
 
 }

@@ -39,8 +39,8 @@ public class BoardStepsServiceImpl implements BoardStepsService {
     }
 
     @Override
-    public List<boardSteps> findAllByBoardId(board Board) {
-        return boardStepsRepository.findAllByBoardId(Board);
+    public List<boardSteps> findAllByBoardIdOrderByIdAsc(board Board) {
+        return boardStepsRepository.findAllByBoardIdOrderByIdAsc(Board);
     }
 
 

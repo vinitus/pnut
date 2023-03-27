@@ -15,5 +15,5 @@ public interface BoardStepsRepository extends JpaRepository<boardSteps, Long> {
     @Transactional
     void deleteAllByBoardId(board Board);
 
-    List<boardSteps> findAllByBoardId(board Board);
+    List<boardSteps> findAllByBoardIdOrderByIdAsc(board Board);
 }

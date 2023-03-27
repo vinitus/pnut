@@ -10,5 +10,6 @@ import java.util.Optional;
 public interface LikeRepository extends JpaRepository<likeTable, Long> {
     Optional<likeTable> findByBoardIdAndUserEmail(board board, User user);
 
+    Long countByBoardId(board Board);
     void deleteById(Long id);
 }
