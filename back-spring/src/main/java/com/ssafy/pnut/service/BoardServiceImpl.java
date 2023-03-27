@@ -46,7 +46,7 @@ public class BoardServiceImpl implements BoardService{
         User userEmail = userRepository.findByEmail(recipeCreateReq.getUserEmail());
         boardDto.setUserEmail(userEmail);
 
-        board Board = boardDto.toEntity(LocalDateTime.now());
+        board Board = boardDto.toEntity();
         boardRepository.save(Board);
         return Board;
     }
@@ -61,6 +61,7 @@ public class BoardServiceImpl implements BoardService{
         List<BoardDto> boardDtos = new ArrayList<>();  // DTO로 담을 리스트 생성
         for(int i = 0; i < Boards.size(); i++) {
             BoardDto boardDto = new BoardDto();
+            boardDto.setId(Boards.get(i).getId());
             boardDto.setUserEmail(Boards.get(i).getUserEmail());
             boardDto.setTime(Boards.get(i).getTime());
             boardDto.setTitle(Boards.get(i).getTitle());

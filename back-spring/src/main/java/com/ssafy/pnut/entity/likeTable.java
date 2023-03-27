@@ -1,14 +1,17 @@
 package com.ssafy.pnut.entity;
 
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 
-@Entity
 @Getter
 @Setter
-public class like {
+@Entity(name = "like_table")
+@NoArgsConstructor
+public class likeTable {
     @Id
     @Column(name = "like_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,4 +25,10 @@ public class like {
     @ManyToOne
     @JoinColumn(name = "board_id")
     board boardId;
+
+    @Builder
+    public likeTable(User userEmail, board boardId) {
+        this.userEmail = userEmail;
+        this.boardId = boardId;
+    }
 }

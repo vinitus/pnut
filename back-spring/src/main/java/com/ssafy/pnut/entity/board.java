@@ -18,8 +18,7 @@ import java.time.LocalDateTime;
 public class board {
     @Id
     @Column(name = "board_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id = null;
+    Long id;
 
     @ManyToOne
     @JoinColumn(name = "user_email")

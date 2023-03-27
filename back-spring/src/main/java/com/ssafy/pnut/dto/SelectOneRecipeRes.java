@@ -10,7 +10,7 @@ import java.util.HashMap;
 @Setter
 @NoArgsConstructor
 public class SelectOneRecipeRes {
-    private String thumbnail_image_url;
+    private String thumbnailImageUrl;
 
     private String title;
 
@@ -29,13 +29,13 @@ public class SelectOneRecipeRes {
     private HashMap<String, String> recipeSteps;
 
     @Builder
-    public SelectOneRecipeRes(Integer visit, String thumbnail_image_url, String title, String content, int time, int quantity, String ingredients, String nickName, HashMap<String, String> recipeSteps) {
+    public SelectOneRecipeRes(Integer visit, String thumbnailImageUrl, String title, String content, int time, int quantity, String ingredients, String nickName, HashMap<String, String> recipeSteps) {
         this.content = content;
         this.title = title;
         this.ingredients = ingredients;
         this.quantity = quantity;
         this.time = time;
-        this.thumbnail_image_url = thumbnail_image_url;
+        this.thumbnailImageUrl = thumbnailImageUrl;
         this.nickName = nickName;
         this.visit = visit;
         this.recipeSteps = recipeSteps;
