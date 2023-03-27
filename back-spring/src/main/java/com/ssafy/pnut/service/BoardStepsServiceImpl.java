@@ -40,7 +40,9 @@ public class BoardStepsServiceImpl implements BoardStepsService {
 
     @Override
     public List<boardSteps> findAllByBoardIdOrderByIdAsc(board Board) {
-        return boardStepsRepository.findAllByBoardIdOrderByIdAsc(Board);
+        List<boardSteps> steps = boardStepsRepository.findAllByBoardIdOrderByIdAsc(Board);
+        System.out.println(steps.size());
+        return steps;
     }
 
 

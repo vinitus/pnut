@@ -61,6 +61,7 @@ public class BoardController {
 
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "success"));
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.status(200).body(BaseResponseBody.of(401, "Bad Request"));
         }
     }
@@ -144,7 +145,10 @@ public class BoardController {
                 List<boardSteps> BoardSteps = boardStepsService.findAllByBoardIdOrderByIdAsc(Board.get());
                 HashMap<String, String> steps = new HashMap<>();  // 레시피 단계 담을 해시맵
                 for(int i = 0; i < BoardSteps.size(); i++) {
-                    steps.put("https://pnut.s3.ap-northeast-2.amazonaws.com/"+BoardSteps.get(i).getImageUrl(), BoardSteps.get(i).getContent());
+                    if(BoardSteps.get(i).getImageUrl() == null)
+                        steps.put(BoardSteps.get(i).getContent(), BoardSteps.get(i).getImageUrl());
+                    else
+                        steps.put(BoardSteps.get(i).getContent(), "https://pnut.s3.ap-northeast-2.amazonaws.com/"+BoardSteps.get(i).getImageUrl());
                 }
 
                 selectOneRecipeRes.setRecipeSteps(steps);
