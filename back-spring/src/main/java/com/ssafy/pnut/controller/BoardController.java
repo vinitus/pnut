@@ -121,9 +121,11 @@ public class BoardController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<? extends Object> selectRecipe(@PathVariable("id") Long id) throws IOException {
+    public ResponseEntity<? extends Object> selectRecipe(@PathVariable("id") Long id, HttpServletRequest request) throws IOException {
         try {
             Optional<board> Board = boardService.findById(id);
+            UserDto userDto = userService.getUserByToken(request.getHeader("Bearer"));
+
             if(!Board.isPresent())  // id에 맞는 게시글이 없으면 null리턴
                 return ResponseEntity.status(200).body(BaseResponseBody.of(401, "There's no such BoardId"));
             else {  // id에 맞는 게시글이 있다면
@@ -139,16 +141,34 @@ public class BoardController {
                 selectOneRecipeRes.setVisit(Board.get().getVisit());
                 selectOneRecipeRes.setNickName(Board.get().getUserEmail().getNickname());
 
-                List<boardSteps> BoardSteps = boardStepsService.findAllByBoardId(Board.get());
+                List<boardSteps> BoardSteps = boardStepsService.findAllByBoardIdOrderByIdAsc(Board.get());
                 HashMap<String, String> steps = new HashMap<>();  // 레시피 단계 담을 해시맵
                 for(int i = 0; i < BoardSteps.size(); i++) {
                     steps.put("https://pnut.s3.ap-northeast-2.amazonaws.com/"+BoardSteps.get(i).getImageUrl(), BoardSteps.get(i).getContent());
                 }
 
                 selectOneRecipeRes.setRecipeSteps(steps);
+
+                // 좋아요 수
+                long likes = likeService.countByBoardId(Board.get());
+                selectOneRecipeRes.setLikes(likes);
+
+                // 댓글들
+                List<CommentRes> comments = commentService.findAllByBoardId(Board.get());
+                selectOneRecipeRes.setComments(comments);
+
+                // 현재 사용자가 좋아요 했는지 여부
+                Optional<likeTable> like = likeService.findByBoardIdAndUserEmail(Board.get(), userDto.toEntity());
+                if(!like.isPresent()) {
+                    selectOneRecipeRes.setLikeOrNot(0);  // 좋아요 하지 않음
+                } else {
+                    selectOneRecipeRes.setLikeOrNot(1);  // 좋아요 표시함
+                }
+
                 return ResponseEntity.status(200).body(selectOneRecipeRes);
             }
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.status(200).body(BaseResponseBody.of(401, "Bad Request"));
         }
     }

@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.HashMap;
+import java.util.List;
 
 @Getter
 @Setter
@@ -28,8 +29,14 @@ public class SelectOneRecipeRes {
 
     private HashMap<String, String> recipeSteps;
 
+    private Long likes;
+
+    private List<CommentRes> comments;
+
+    private int likeOrNot;
+
     @Builder
-    public SelectOneRecipeRes(Integer visit, String thumbnailImageUrl, String title, String content, int time, int quantity, String ingredients, String nickName, HashMap<String, String> recipeSteps) {
+    public SelectOneRecipeRes(Integer visit, String thumbnailImageUrl, String title, String content, int time, int quantity, String ingredients, String nickName, HashMap<String, String> recipeSteps, Long likes, List<CommentRes> comments, int likeOrNot) {
         this.content = content;
         this.title = title;
         this.ingredients = ingredients;
@@ -39,5 +46,8 @@ public class SelectOneRecipeRes {
         this.nickName = nickName;
         this.visit = visit;
         this.recipeSteps = recipeSteps;
+        this.likes = likes;
+        this.comments = comments;
+        this.likeOrNot = likeOrNot;
     }
 }

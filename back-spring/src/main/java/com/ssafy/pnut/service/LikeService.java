@@ -13,4 +13,6 @@ public interface LikeService {
     Optional<likeTable> findByBoardIdAndUserEmail(board Board, User user);
 
     void deleteById(Long id);
+
+    Long countByBoardId(board Board);
 }

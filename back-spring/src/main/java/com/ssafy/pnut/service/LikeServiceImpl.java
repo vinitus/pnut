@@ -33,4 +33,8 @@ public class LikeServiceImpl implements LikeService{
     public void deleteById(Long id) {
         likeRepository.deleteById(id);
     }
+
+    public Long countByBoardId(board Board) {
+        return likeRepository.countByBoardId(Board);
+    }
 }
