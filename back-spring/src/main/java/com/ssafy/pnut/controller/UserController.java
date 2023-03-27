@@ -351,7 +351,7 @@ public class UserController {
     public ResponseEntity<?> validateEmailCheck(@RequestBody Map<String, String> map){
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
-
+        System.out.println(map.get("email")+" "+map.get("code"));
 
         if(userMailService.checkCode(map.get("email"), map.get("code"))){
             resultMap.put("message", SUCCESS);
