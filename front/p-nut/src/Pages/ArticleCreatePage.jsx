@@ -51,8 +51,12 @@ const ArticleCreatePage = () => {
 
   // 요리시간 버튼 핸들러
   const cookingTimeBtnHandler = (e) => {
+    if (e.target.localName === "div") {
+      return;
+    }
     const idx = Number(e.target.id.split("time")[1]);
     cookingTimeRefArr.forEach((ref) => {
+      ref.current.classList.add("border-#7F807F");
       ref.current.classList.remove("border-#2F80ED");
       ref.current.classList.remove("text-#2F80ED");
     });
@@ -89,7 +93,7 @@ const ArticleCreatePage = () => {
       const file = e.target.files[0];
       stepImgFile[idx] = file;
       setStepNums((prev) => {
-        const newArr = [...prev, idx];
+        const newArr = [...prev, idx + 1];
         newArr.sort();
         return newArr;
       });
@@ -109,6 +113,8 @@ const ArticleCreatePage = () => {
       userEmail: "admin@ssafy.com",
       stepNums: stepNums,
     };
+
+    console.log(jsonData);
 
     newpostAPI(jsonData, thumbnailImgFile, stepImgFile)
       .then(() => {

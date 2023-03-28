@@ -80,6 +80,7 @@ const ArticleListPage = () => {
         <div className="grid grid-cols-3 gap-65">
           {data.data.map((ele) => (
             <ArticleListThumbnailComponent
+              key={ele.id}
               imgSrc={ele.thumbnail_image_url}
               title={ele.title}
               author={ele.nickName}
