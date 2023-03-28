@@ -126,7 +126,6 @@ public class BoardController {
     public ResponseEntity<? extends Object> selectRecipe(@PathVariable("id") Long id, HttpServletRequest request) throws IOException {
         try {
             Optional<board> Board = boardService.findById(id);
-            UserDto userDto = userService.getUserByToken(request.getHeader("Bearer"));
 
             if(!Board.isPresent())  // id에 맞는 게시글이 없으면 null리턴
                 return ResponseEntity.status(200).body(BaseResponseBody.of(401, "There's no such BoardId"));
@@ -138,6 +137,14 @@ public class BoardController {
                 boardService.save(Board.get());
 
                 SelectOneRecipeRes selectOneRecipeRes = new SelectOneRecipeRes();
+
+                // 사용자가 좋아요 했는지 여부를 판단 위함 + 토큰 여부
+                int tokenChk = 0;   // 토큰 없음
+                if(request.getHeader("Bearer") == null) {
+                    selectOneRecipeRes.setLikeOrNot(0);  // 좋아요 체크 안한상태로 보냄
+                } else {
+                    tokenChk = 1;
+                }
 
                 selectOneRecipeRes.setTime(Board.get().getTime());
                 selectOneRecipeRes.setQuantity(Board.get().getQuantity());
@@ -168,11 +175,14 @@ public class BoardController {
                 selectOneRecipeRes.setComments(comments);
 
                 // 현재 사용자가 좋아요 했는지 여부
-                Optional<likeTable> like = likeService.findByBoardIdAndUserEmail(Board.get(), userDto.toEntity());
-                if(!like.isPresent()) {
-                    selectOneRecipeRes.setLikeOrNot(0);  // 좋아요 하지 않음
-                } else {
-                    selectOneRecipeRes.setLikeOrNot(1);  // 좋아요 표시함
+                if(tokenChk == 1) {  // 토큰이 있다면!
+                    UserDto userDto = userService.getUserByToken(request.getHeader("Bearer"));
+                    Optional<likeTable> like = likeService.findByBoardIdAndUserEmail(Board.get(), userDto.toEntity());
+                    if (!like.isPresent()) {
+                        selectOneRecipeRes.setLikeOrNot(0);  // 좋아요 하지 않음
+                    } else {
+                        selectOneRecipeRes.setLikeOrNot(1);  // 좋아요 표시함
+                    }
                 }
 
                 return ResponseEntity.status(200).body(selectOneRecipeRes);
