@@ -1,6 +1,5 @@
 import random
 
-from Tools.scripts.make_ctype import values
 from django.db.models import Subquery, ExpressionWrapper, F, FloatField
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
