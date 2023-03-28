@@ -1,9 +1,7 @@
 package com.ssafy.pnut.controller;
 
 import com.ssafy.pnut.common.response.BaseResponseBody;
-import com.ssafy.pnut.dto.BoardDto;
-import com.ssafy.pnut.dto.SelectAllRecipeRes;
-import com.ssafy.pnut.dto.UserDto;
+import com.ssafy.pnut.dto.*;
 import com.ssafy.pnut.entity.category;
 import com.ssafy.pnut.entity.question;
 import com.ssafy.pnut.service.*;
@@ -13,12 +11,10 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +56,7 @@ public class QuestionController {
             return ResponseEntity.status(200).body(symptoms);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(400).body(BaseResponseBody.of(400, "Bad Request"));
+            return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Bad Request"));
         }
     }
 
@@ -92,7 +88,65 @@ public class QuestionController {
             return ResponseEntity.status(200).body(questionlist);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(400).body(BaseResponseBody.of(400, "Bad Request"));
+            return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Bad Request"));
+        }
+    }
+
+    @PostMapping("/{categoryId}")
+    @ApiOperation(value = "설문 질문에 대한 답변 저장", notes = "<strong>설문 질문에 대한 답변 저장</strong>")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 204, message = "No Content"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends Object> saveResult(@PathVariable("categoryId") Long id, @RequestBody ResultReq resultReq, HttpServletRequest request) throws IOException {
+        try {
+            UserDto userDto = userService.getUserByToken(request.getHeader("Authorization").substring(7));
+
+            // id에 맞는 카테고리 엔티티 구하기 (question에 category외래키가 객체로 저장되어있어서)
+            Optional<category> category = categoryService.findById(id);
+            List<question> questions = questionService.findAllByCategoryIdOrderById(category.get());  // 카테고리에 맞는 질문들을 순서대로 가져오기
+            for(int i = 0; i < questions.size(); i++) {
+                Optional<question> questionId = questionService.findById(questions.get(i).getId());
+                ResultDto resultDto = new ResultDto(userDto.toEntity(), questionId.get(), Integer.parseInt(resultReq.getResponses().get(i)));
+                resultService.save(resultDto.toEntity());
+            }
+
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Bad Request"));
+        }
+    }
+
+
+    @Transactional
+    @DeleteMapping("/mypage/{categoryId}")
+    @ApiOperation(value = "기존 증상 관련 설문답변들 삭제", notes = "<strong>기존 증상 관련 설문답변들 삭제</strong>")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 204, message = "No Content"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends Object> deleteMyResult(@PathVariable("categoryId") Long id, HttpServletRequest request) throws IOException {
+        try {
+            UserDto userDto = userService.getUserByToken(request.getHeader("Authorization").substring(7));
+
+            // id에 맞는 카테고리 엔티티 구하기 (question에 category외래키가 객체로 저장되어있어서)
+            Optional<category> category = categoryService.findById(id);
+            List<question> questions = questionService.findAllByCategoryIdOrderById(category.get());  // 카테고리에 맞는 질문들을 순서대로 가져오기
+            for(int i = 0; i < questions.size(); i++) {  // 해당 카테고리의 질문들의 수대로 사용자가 저장한 답변들 다 삭제
+                resultService.deleteByQuestionIdAndUserEmail(questions.get(i), userDto.toEntity());
+            }
+
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Bad Request"));
         }
     }
 }
