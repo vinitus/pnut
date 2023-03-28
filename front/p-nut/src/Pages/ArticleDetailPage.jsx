@@ -145,12 +145,7 @@ const ArticleDetailPage = () => {
 export default ArticleDetailPage;
 
 export async function loader({ params }) {
-  const res = await axios.get(`/boards/board/${params.articleId}`, {
-    headers: {
-      Bearer:
-        "eyJ0eXAiOiJKV1QiLCJyZWdEYXRlIjoxNjc5OTY4MjE4NDkxLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2Nzk5NzAwMTgsInN1YiI6ImFjY2Vzcy10b2tlbiIsImVtYWlsIjoiYWRtaW5Ac3NhZnkuY29tIn0.Wp9z3ejSx-rWhr82ZN2SFMuUMudU-GciofED2GBCH8A",
-    },
-  });
+  const res = await axios.get(`/boards/board/${params.articleId}`);
   console.log(res);
   return res;
 }

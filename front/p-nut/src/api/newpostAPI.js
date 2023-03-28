@@ -20,10 +20,6 @@ export default async function newpostAPI(
       data.append("file", file);
     }
   });
-  console.log(data);
-  for (const [i, j] of data.entries()) {
-    console.log(i, j);
-  }
   const res = await axios.post("/boards/create", data);
   console.log(res);
 }

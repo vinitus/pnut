@@ -148,14 +148,19 @@ const ArticleCreatePage = () => {
             return;
           }
           const file = e.target.files[0];
+          console.log(file);
           setThumbnailImgFile(file);
         }}
       >
-        <ArticleImgBlockComponent
-          division="thumbnail"
-          text="대표 이미지 업로드"
-          size="w-full h-354"
-        />
+        <div className="w-792 h-354">
+          <ArticleImgBlockComponent
+            division="thumbnail"
+            text="대표 이미지 업로드"
+            width="full"
+            height="354"
+            fileSet={setThumbnailImgFile}
+          />
+        </div>
         <div className="flex flex-col w-full text-21">
           <div className="w-full grey-underbar flex items-center">
             <input
@@ -284,12 +289,16 @@ const ArticleCreatePage = () => {
                     className="h-70 p-3 w-full"
                     placeholder="만드는 방법을 입력하세요."
                   />
-                  <ArticleImgBlockComponent
-                    setRef={stepImgFileRef[value - 1]}
-                    division={`step-img-${value}`}
-                    text="이미지 업로드(선택)"
-                    size="w-624 h-auto"
-                  />
+                  <div className="w-624 h-303">
+                    <ArticleImgBlockComponent
+                      setRef={stepImgFileRef[value - 1]}
+                      division={`step-img-${value}`}
+                      text="이미지 업로드(선택)"
+                      width="624"
+                      height="303"
+                      fileSet={setThumbnailImgFile}
+                    />
+                  </div>
                 </div>
               </div>
             ))}
