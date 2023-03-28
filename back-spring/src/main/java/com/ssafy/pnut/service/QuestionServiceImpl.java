@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -18,6 +19,10 @@ public class QuestionServiceImpl implements QuestionService {
 
     public List<question> findAll() {
         return questionRepository.findAll();
+    }
+
+    public Optional<question> findById(Long id) {
+        return questionRepository.findById(id);
     }
 
     public List<question> findAllByCategoryIdOrderById(category categoryId) {
