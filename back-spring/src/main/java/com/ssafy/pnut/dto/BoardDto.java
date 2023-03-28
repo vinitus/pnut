@@ -32,6 +32,9 @@ public class BoardDto {
     private int visit;
 
     private LocalDateTime currentTime = LocalDateTime.now();
+
+    private int likes;
+
     @Builder
     public BoardDto(Integer visit, String thumbnail_image_url, String title, String content, int time, int quantity, String ingredients, User userEmail) {
         this.id = id;

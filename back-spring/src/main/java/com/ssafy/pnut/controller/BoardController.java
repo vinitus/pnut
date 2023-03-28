@@ -103,12 +103,13 @@ public class BoardController {
             List<SelectAllRecipeRes> Recipes = new ArrayList<>();
             for(int i = 0; i < Boards.size(); i++) {
                 String img = Boards.get(i).getThumbnail_image_url();
-                SelectAllRecipeRes selectAllRecipeRes = new SelectAllRecipeRes(Boards.get(i).getId(), "https://pnut.s3.ap-northeast-2.amazonaws.com/"+img, Boards.get(i).getTitle(), Boards.get(i).getVisit(), Boards.get(i).getUserEmail().getNickname());
+                SelectAllRecipeRes selectAllRecipeRes = new SelectAllRecipeRes(Boards.get(i).getId(), "https://pnut.s3.ap-northeast-2.amazonaws.com/"+img, Boards.get(i).getTitle(), Boards.get(i).getVisit(), Boards.get(i).getUserEmail().getNickname(), Boards.get(i).getLikes());
                 Recipes.add(selectAllRecipeRes);
             }
 
             return ResponseEntity.status(200).body(Recipes);
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.status(200).body(BaseResponseBody.of(401, "Bad Request"));
         }
     }
@@ -130,6 +131,11 @@ public class BoardController {
             if(!Board.isPresent())  // id에 맞는 게시글이 없으면 null리턴
                 return ResponseEntity.status(200).body(BaseResponseBody.of(401, "There's no such BoardId"));
             else {  // id에 맞는 게시글이 있다면
+
+                // 조회수 올리기
+                int visit = Board.get().getVisit() + 1;
+                Board.get().setVisit(visit);
+                boardService.save(Board.get());
 
                 SelectOneRecipeRes selectOneRecipeRes = new SelectOneRecipeRes();
 
@@ -275,4 +281,73 @@ public class BoardController {
             return ResponseEntity.status(200).body(BaseResponseBody.of(401, "Bad Request"));
         }
     }
+
+    @GetMapping("/top3")
+    @ApiOperation(value = "게시판 글 3위까지 조회", notes = "<strong>게시판 글 3위까지 조회</strong>")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 204, message = "No Content"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends Object> getTopRecipes() throws IOException {
+        try {
+            List<SelectAllRecipeRes> boards = boardService.findTop3ByOrderByLikesDesc();
+            return ResponseEntity.status(200).body(boards);
+        } catch (Exception e) {
+            return ResponseEntity.status(200).body(BaseResponseBody.of(401, "Bad Request"));
+        }
+    }
+
+    @GetMapping("/search/date/{cuisineName}")
+    @ApiOperation(value = "게시판에서 요리 이름 찾기_최신순", notes = "<strong>게시판에서 요리 이름으로 찾기_최신순</strong>")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 204, message = "No Content"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends Object> getBoardCuisineOrderByDate(@PathVariable("cuisineName") String title) throws IOException {
+        try {
+            List<BoardDto> Boards = boardService.findByTitleContainingOrderByCreateDate(title);
+            List<SelectAllRecipeRes> Recipes = new ArrayList<>();
+            for(int i = 0; i < Boards.size(); i++) {
+                String img = Boards.get(i).getThumbnail_image_url();
+                SelectAllRecipeRes selectAllRecipeRes = new SelectAllRecipeRes(Boards.get(i).getId(), "https://pnut.s3.ap-northeast-2.amazonaws.com/"+img, Boards.get(i).getTitle(), Boards.get(i).getVisit(), Boards.get(i).getUserEmail().getNickname(), Boards.get(i).getLikes());
+                Recipes.add(selectAllRecipeRes);
+            }
+
+            return ResponseEntity.status(200).body(Recipes);
+        } catch (Exception e) {
+            return ResponseEntity.status(200).body(BaseResponseBody.of(401, "Bad Request"));
+        }
+    }
+
+    @GetMapping("/search/likes/{cuisineName}")
+    @ApiOperation(value = "게시판에서 요리 이름 찾기_좋아요순", notes = "<strong>게시판에서 요리 이름으로 찾기_좋아요순</strong>")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 204, message = "No Content"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends Object> getBoardCuisineOrderByLikes(@PathVariable("cuisineName") String title) throws IOException {
+        try {
+            List<BoardDto> Boards = boardService.findByTitleContainingOrderByLikesDesc(title);
+            List<SelectAllRecipeRes> Recipes = new ArrayList<>();
+            for(int i = 0; i < Boards.size(); i++) {
+                String img = Boards.get(i).getThumbnail_image_url();
+                SelectAllRecipeRes selectAllRecipeRes = new SelectAllRecipeRes(Boards.get(i).getId(), "https://pnut.s3.ap-northeast-2.amazonaws.com/"+img, Boards.get(i).getTitle(), Boards.get(i).getVisit(), Boards.get(i).getUserEmail().getNickname(), Boards.get(i).getLikes());
+                Recipes.add(selectAllRecipeRes);
+            }
+
+            return ResponseEntity.status(200).body(Recipes);
+        } catch (Exception e) {
+            return ResponseEntity.status(200).body(BaseResponseBody.of(401, "Bad Request"));
+        }
+    }
+
 }
