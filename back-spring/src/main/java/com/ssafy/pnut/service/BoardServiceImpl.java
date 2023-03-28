@@ -59,6 +59,10 @@ public class BoardServiceImpl implements BoardService{
         return boardRepository.findById(id);
     }
 
+    public Optional<board> findByIdAndUserEmail(Long id, User userEmail) {
+        return boardRepository.findByIdAndUserEmail(id, userEmail);
+    }
+
     public List<BoardDto> findAll() {
         List<board> Boards = boardRepository.findAll();  // 보드 엔티티 모두 찾고
         List<BoardDto> boardDtos = new ArrayList<>();  // DTO로 담을 리스트 생성

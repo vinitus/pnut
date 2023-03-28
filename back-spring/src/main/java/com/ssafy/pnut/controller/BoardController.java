@@ -75,16 +75,16 @@ public class BoardController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<? extends Object> deleteRecipe(@PathVariable("id") Long id) {
+    public ResponseEntity<? extends Object> deleteRecipe(@PathVariable("id") Long id, HttpServletRequest request) {
         try {
-            Optional<board> Board = boardService.findById(id);
+            UserDto userDto = userService.getUserByToken(request.getHeader("Authorization").substring(7));
+            Optional<board> Board = boardService.findByIdAndUserEmail(id, userDto.toEntity());
             if(Board.isPresent()) {
-//                boardStepsService.deleteAllByBoardId(Board.get());
                 boardService.deleteById(id);
             }
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "success"));
         } catch (Exception e) {
-            return ResponseEntity.status(200).body(BaseResponseBody.of(401, "Bad Request"));
+            return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Bad Request"));
         }
     }
 
@@ -110,7 +110,7 @@ public class BoardController {
             return ResponseEntity.status(200).body(Recipes);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(200).body(BaseResponseBody.of(401, "Bad Request"));
+            return ResponseEntity.status(400).body(BaseResponseBody.of(400, "Bad Request"));
         }
     }
 
@@ -176,7 +176,7 @@ public class BoardController {
 
                 // 현재 사용자가 좋아요 했는지 여부
                 if(tokenChk == 1) {  // 토큰이 있다면!
-                    UserDto userDto = userService.getUserByToken(request.getHeader("Bearer"));
+                    UserDto userDto = userService.getUserByToken(request.getHeader("Authorization").substring(7));
                     Optional<likeTable> like = likeService.findByBoardIdAndUserEmail(Board.get(), userDto.toEntity());
                     if (!like.isPresent()) {
                         selectOneRecipeRes.setLikeOrNot(0);  // 좋아요 하지 않음
@@ -189,7 +189,7 @@ public class BoardController {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(200).body(BaseResponseBody.of(401, "Bad Request"));
+            return ResponseEntity.status(400).body(BaseResponseBody.of(400, "Bad Request"));
         }
     }
 
@@ -204,18 +204,17 @@ public class BoardController {
     })
     public ResponseEntity<? extends Object> likeRecipe(@PathVariable("id") Long id, HttpServletRequest request) throws IOException {
         try {
-            UserDto userDto = userService.getUserByToken(request.getHeader("Bearer"));
-            System.out.println(request.getHeader("Bearer"));
+            UserDto userDto = userService.getUserByToken(request.getHeader("Authorization").substring(7));
             Optional<board> Board = boardService.findById(id);
             if(!Board.isPresent()) {
-                return ResponseEntity.status(200).body(BaseResponseBody.of(401, "There's no such BoardId"));
+                return ResponseEntity.status(400).body(BaseResponseBody.of(400, "There's no such BoardId"));
             }
             LikeDto likeDto = new LikeDto(userDto.toEntity(), Board.get());
             likeService.save(likeDto);
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "success"));
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(200).body(BaseResponseBody.of(401, "Bad Request"));
+            return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Bad Request"));
         }
     }
 
@@ -230,17 +229,17 @@ public class BoardController {
     })
     public ResponseEntity<? extends Object> cancelLikeRecipe(@PathVariable("id") Long id, HttpServletRequest request) throws IOException {
         try {
-            UserDto userDto = userService.getUserByToken(request.getHeader("Bearer"));
+            UserDto userDto = userService.getUserByToken(request.getHeader("Authorization").substring(7));
             Optional<board> Board = boardService.findById(id);
             if(!Board.isPresent()) {
-                return ResponseEntity.status(200).body(BaseResponseBody.of(401, "There's no such BoardId"));
+                return ResponseEntity.status(400).body(BaseResponseBody.of(400, "There's no such BoardId"));
             }
             Optional<likeTable> like = likeService.findByBoardIdAndUserEmail(Board.get(), userDto.toEntity());
             likeService.deleteById(like.get().getId());
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "success"));
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(200).body(BaseResponseBody.of(401, "Bad Request"));
+            return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Bad Request"));
         }
     }
 
@@ -255,18 +254,17 @@ public class BoardController {
     })
     public ResponseEntity<? extends Object> commentBoard(@PathVariable("boardId") Long id, @RequestBody @ApiParam(value="댓글 내용", required = true) CommentReq commentReq, HttpServletRequest request) throws IOException {
         try {
-            UserDto userDto = userService.getUserByToken(request.getHeader("Bearer"));
-            System.out.println(request.getHeader("Bearer"));
+            UserDto userDto = userService.getUserByToken(request.getHeader("Authorization").substring(7));
             Optional<board> Board = boardService.findById(id);
             if(!Board.isPresent()) {
-                return ResponseEntity.status(200).body(BaseResponseBody.of(401, "There's no such BoardId"));
+                return ResponseEntity.status(400).body(BaseResponseBody.of(401, "There's no such BoardId"));
             }
             CommentDto commentDto = new CommentDto(userDto.toEntity(), Board.get(), commentReq.getContent(), LocalDateTime.now());
             commentService.save(commentDto);
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "success"));
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(200).body(BaseResponseBody.of(401, "Bad Request"));
+            return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Bad Request"));
         }
     }
 
@@ -282,13 +280,13 @@ public class BoardController {
     public ResponseEntity<? extends Object> deleteCommentBoard(@PathVariable("commentId") Long id, HttpServletRequest request) throws IOException {
         try {
             if(!commentService.findById(id).isPresent()) {
-                return ResponseEntity.status(200).body(BaseResponseBody.of(401, "There's no such BoardId"));
+                return ResponseEntity.status(400).body(BaseResponseBody.of(400, "There's no such BoardId"));
             }
             commentService.deleteById(id);
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "success"));
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(200).body(BaseResponseBody.of(401, "Bad Request"));
+            return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Bad Request"));
         }
     }
 
@@ -306,7 +304,7 @@ public class BoardController {
             List<SelectAllRecipeRes> boards = boardService.findTop3ByOrderByLikesDesc();
             return ResponseEntity.status(200).body(boards);
         } catch (Exception e) {
-            return ResponseEntity.status(200).body(BaseResponseBody.of(401, "Bad Request"));
+            return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Bad Request"));
         }
     }
 
@@ -331,7 +329,7 @@ public class BoardController {
 
             return ResponseEntity.status(200).body(Recipes);
         } catch (Exception e) {
-            return ResponseEntity.status(200).body(BaseResponseBody.of(401, "Bad Request"));
+            return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Bad Request"));
         }
     }
 
@@ -356,7 +354,7 @@ public class BoardController {
 
             return ResponseEntity.status(200).body(Recipes);
         } catch (Exception e) {
-            return ResponseEntity.status(200).body(BaseResponseBody.of(401, "Bad Request"));
+            return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Bad Request"));
         }
     }
 
