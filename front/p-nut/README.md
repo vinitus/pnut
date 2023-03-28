@@ -27,3 +27,7 @@ yarn install
 ## react 프로젝트를 node환경에서 실행하기
 
 yarn dev
+
+## Tailwindcss
+
+Tailwind 설정을 바꿨다면 npx tailwindcss -i ./src/index.css -o ./src/output.css --watch
