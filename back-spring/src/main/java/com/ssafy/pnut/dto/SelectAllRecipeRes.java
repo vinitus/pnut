@@ -25,13 +25,16 @@ public class SelectAllRecipeRes {
 
     private String nickName;
 
+    private int likes;
+
     @Builder
-    public SelectAllRecipeRes(long id, String thumbnail_image_url, String title, Integer visit, String nickName) {
+    public SelectAllRecipeRes(long id, String thumbnail_image_url, String title, Integer visit, String nickName, int likes) {
         this.id = id;
         this.title = title;
         this.visit = visit;
         this.thumbnail_image_url = thumbnail_image_url;
         this.nickName = nickName;
+        this.likes = likes;
     }
 
 }

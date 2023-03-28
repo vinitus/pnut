@@ -46,6 +46,8 @@ public class board {
 
     Integer time;
 
+    int likes;
+
     @Builder
     public board(Integer visit, String thumbnail_image_url, String title, String content, int time, int quantity, String ingredients, User userEmail, LocalDateTime createDate) {
         this.content = content;

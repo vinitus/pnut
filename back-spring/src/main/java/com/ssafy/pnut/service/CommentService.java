@@ -16,4 +16,6 @@ public interface CommentService {
     Optional<comment> findById(Long id);
 
     List<CommentRes> findAllByBoardId(board Board);
+
+    Long countByBoardId(board Board);
 }

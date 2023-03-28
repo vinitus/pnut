@@ -42,4 +42,8 @@ public class CommentServiceImpl implements CommentService{
 
         return comments;
     };
+
+    public Long countByBoardId(board Board) {
+        return commentRepository.countByBoardId(Board);
+    }
 }

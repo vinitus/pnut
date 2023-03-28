@@ -3,10 +3,8 @@ package com.ssafy.pnut.service;
 import com.ssafy.pnut.dto.BoardDto;
 import com.ssafy.pnut.dto.RecipeCreateReq;
 import com.ssafy.pnut.dto.SelectAllRecipeRes;
-import com.ssafy.pnut.dto.SelectOneRecipeRes;
 import com.ssafy.pnut.entity.User;
 import com.ssafy.pnut.entity.board;
-import com.ssafy.pnut.entity.boardSteps;
 import com.ssafy.pnut.repository.BoardRepository;
 import com.ssafy.pnut.repository.BoardStepsRepository;
 import com.ssafy.pnut.repository.UserRepository;
@@ -14,7 +12,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -31,6 +28,12 @@ public class BoardServiceImpl implements BoardService{
     @Override
     public void deleteById(Long id) {
         boardRepository.deleteById(id);
+    }
+
+
+    @Override
+    public void save(board Board){
+        boardRepository.save(Board);
     }
 
     @Override
@@ -58,6 +61,53 @@ public class BoardServiceImpl implements BoardService{
 
     public List<BoardDto> findAll() {
         List<board> Boards = boardRepository.findAll();  // 보드 엔티티 모두 찾고
+        List<BoardDto> boardDtos = new ArrayList<>();  // DTO로 담을 리스트 생성
+        for(int i = 0; i < Boards.size(); i++) {
+            BoardDto boardDto = new BoardDto();
+            boardDto.setId(Boards.get(i).getId());
+            boardDto.setUserEmail(Boards.get(i).getUserEmail());
+            boardDto.setTime(Boards.get(i).getTime());
+            boardDto.setTitle(Boards.get(i).getTitle());
+            boardDto.setContent(Boards.get(i).getContent());
+            boardDto.setIngredients(Boards.get(i).getIngredients());
+            boardDto.setQuantity(Boards.get(i).getQuantity());
+            boardDto.setThumbnail_image_url(Boards.get(i).getThumbnailImageUrl());
+            boardDtos.add(boardDto);
+        }
+        return boardDtos;
+    }
+
+    public List<SelectAllRecipeRes> findTop3ByOrderByLikesDesc() {
+        List<board> Boards = boardRepository.findTop3ByOrderByLikesDesc();
+        List<SelectAllRecipeRes> Recipes = new ArrayList<>();
+        for(int i = 0; i < Boards.size(); i++) {
+            String img = Boards.get(i).getThumbnailImageUrl();
+            SelectAllRecipeRes selectAllRecipeRes = new SelectAllRecipeRes(Boards.get(i).getId(), "https://pnut.s3.ap-northeast-2.amazonaws.com/"+img, Boards.get(i).getTitle(), Boards.get(i).getVisit(), Boards.get(i).getUserEmail().getNickname(), Boards.get(i).getLikes());
+            Recipes.add(selectAllRecipeRes);
+        }
+        return Recipes;
+    };
+
+    public List<BoardDto> findByTitleContainingOrderByCreateDate(String title) {
+        List<board> Boards = boardRepository.findByTitleContainingOrderByCreateDate(title);  // 보드 엔티티 모두 찾고
+        List<BoardDto> boardDtos = new ArrayList<>();  // DTO로 담을 리스트 생성
+        for(int i = 0; i < Boards.size(); i++) {
+            BoardDto boardDto = new BoardDto();
+            boardDto.setId(Boards.get(i).getId());
+            boardDto.setUserEmail(Boards.get(i).getUserEmail());
+            boardDto.setTime(Boards.get(i).getTime());
+            boardDto.setTitle(Boards.get(i).getTitle());
+            boardDto.setContent(Boards.get(i).getContent());
+            boardDto.setIngredients(Boards.get(i).getIngredients());
+            boardDto.setQuantity(Boards.get(i).getQuantity());
+            boardDto.setThumbnail_image_url(Boards.get(i).getThumbnailImageUrl());
+            boardDtos.add(boardDto);
+        }
+        return boardDtos;
+    }
+
+    public List<BoardDto> findByTitleContainingOrderByLikesDesc(String title) {
+        List<board> Boards = boardRepository.findByTitleContainingOrderByLikesDesc(title);  // 보드 엔티티 모두 찾고
         List<BoardDto> boardDtos = new ArrayList<>();  // DTO로 담을 리스트 생성
         for(int i = 0; i < Boards.size(); i++) {
             BoardDto boardDto = new BoardDto();
