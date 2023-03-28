@@ -4,6 +4,7 @@ import com.ssafy.pnut.dto.BoardDto;
 import com.ssafy.pnut.dto.RecipeCreateReq;
 import com.ssafy.pnut.dto.SelectAllRecipeRes;
 import com.ssafy.pnut.dto.SelectOneRecipeRes;
+import com.ssafy.pnut.entity.User;
 import com.ssafy.pnut.entity.board;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public interface BoardService {
     board save(RecipeCreateReq recipeCreateReq, String fileName);
 
     List<BoardDto> findAll();
+    Optional<board> findByIdAndUserEmail(Long id, User userEmail);
 
     Optional<board> findById(Long id);
     List<SelectAllRecipeRes> findTop3ByOrderByLikesDesc();
