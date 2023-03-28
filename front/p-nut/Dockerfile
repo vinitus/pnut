@@ -1,6 +1,6 @@
  # syntax=docker/dockerfile:1
 FROM node:16
-WORKDIR /p-nut
+WORKDIR /fe
 COPY package.json .
 RUN npm install
 COPY . .
