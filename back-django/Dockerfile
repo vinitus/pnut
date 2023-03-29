@@ -3,13 +3,13 @@ ENV PYTHONUNBUFFERED 1
 RUN apt-get -y update
 RUN apt-get -y install vim
 
-RUN mkdir /tmp
-ADD . /tmp
+RUN mkdir /srv/docker-server
+ADD . /srv/docker-server
 
-WORKDIR /tmp
+WORKDIR /srv/docker-server
 
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-EXPOSE 8000
+EXPOSE 666
 CMD ["uwsgi", "--ini", "uwsgi/uwsgi.ini"]
