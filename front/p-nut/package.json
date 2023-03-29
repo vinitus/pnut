@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "concurrently \"yarn vite\" \"npx tailwindcss -i ./src/index.css -o ./src/output.css --watch\"",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prefront": "git switch develop-front",
+    "front": "git pull"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.13",

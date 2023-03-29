@@ -16,6 +16,7 @@ import LoginPage from "./Pages/LoginPage";
 import SignupPage from "./Pages/SignupPage";
 import MyPage from "./Pages/MyPage";
 import SearchRecommendPage from "./Pages/SearchRecommendPage";
+import SurveyPage from "./Pages/SurveyPage";
 
 const router = createBrowserRouter([
   {
@@ -46,7 +47,7 @@ const router = createBrowserRouter([
         element: <RecipeDetailPage />,
       },
       {
-        path: "survey",
+        path: "my-survey",
         element: <SurveyRecommendPage />,
       },
       {
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
       {
         path: "search",
         element: <SearchRecommendPage />,
+      },
+      {
+        path: "newsurvey",
+        element: <SurveyPage />,
       },
     ],
   },

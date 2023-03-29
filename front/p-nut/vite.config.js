@@ -9,6 +9,9 @@ export default defineConfig({
       "/boards": {
         target: "http://j8a704.p.ssafy.io:9090",
       },
+      "/survey": {
+        target: "http://j8a704.p.ssafy.io:9090",
+      },
     },
   },
 });
