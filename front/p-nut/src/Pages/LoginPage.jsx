@@ -1,5 +1,5 @@
-import LoginSignupForm from "../Components/auth/LoginSignupForm";
-import LoginForm from "../Components/auth/LoginForm";
+import LoginSignupFormComponent from "../Components/LoginSignupFormComponent";
+import LoginFormComponent from "../Components/LoginFormComponent";
 
 const LoginPage = () => {
   const phrase = "Not a member yet?";
@@ -7,9 +7,9 @@ const LoginPage = () => {
 
   return (
     <div className="w-full h-screen bg-stone-400 flex justify-center place-items-center">
-      <LoginSignupForm phrase={phrase} direction={direction}>
-        <LoginForm />
-      </LoginSignupForm>
+      <LoginSignupFormComponent phrase={phrase} direction={direction}>
+        <LoginFormComponent />
+      </LoginSignupFormComponent>
     </div>
   );
 };

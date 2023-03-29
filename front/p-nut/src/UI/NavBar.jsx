@@ -1,15 +1,27 @@
 import { Fragment, React } from "react";
 import { Menu, Transition } from "@headlessui/react";
 
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logoutHandler } from "../stores/auth";
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 const NavBar = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const logout = async () => {
+    await dispatch(logoutHandler());
+    navigate("/login");
+  };
+
   return (
     <div className="fixed z-50 flex w-full p-3 h-60 bg-white/80">
       <div className="flex items-center w-full justify-evenly">
-        <img className="h-50" src="\assets\Logo1.png" alt="logo" />
+        <img className="h-50" src="assets\Logo1.png" alt="logo" />
 
         <div className="flex items-center space-x-50">
           {/* 음식추천 */}
@@ -19,7 +31,7 @@ const NavBar = () => {
                 음식추천
                 <img
                   className="h-10 ml-10 rotate-90"
-                  src="\assets\chevron.png"
+                  src="assets\chevron.png"
                   alt=""
                 />
               </Menu.Button>
@@ -86,7 +98,7 @@ const NavBar = () => {
                 게시판
                 <img
                   className="h-10 ml-10 rotate-90"
-                  src="\assets\chevron.png"
+                  src="assets\chevron.png"
                   alt=""
                 />
               </Menu.Button>
@@ -139,7 +151,10 @@ const NavBar = () => {
           <div className="px-12 py-8 text-gray-800 bg-gray-100 rounded-full">
             회원가입
           </div>
-          <div className="px-12 py-8 text-white font-semibold bg-#FF6B6C rounded-full">
+          <div
+            className="px-12 py-8 text-white font-semibold bg-#FF6B6C rounded-full"
+            onClick={logout}
+          >
             로그인
           </div>
         </div>

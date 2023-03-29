@@ -27,8 +27,9 @@ module.exports = {
     "react/destructuring-assignment": "off",
     "jsx-a11y/label-has-associated-control": "off",
     "jsx-a11y/img-redundant-alt": "off",
-    "jsx-a11y/no-static-element-interactions": "off",
+    "jsx-a11y/anchor-is-valid": "off",
     "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/no-static-element-interactions": "off",
     "no-console": "off",
     "func-names": "off",
     "no-shadow": "off",
@@ -39,6 +40,10 @@ module.exports = {
     "no-param-reassign": "off",
     "no-use-before-define": "off",
     "no-useless-return": "off",
+    "no-unused-vars": "off",
+    "import/order": "off",
+    "import/prefer-default-export": "off",
+    "import/no-mutable-exports": "off",
   },
   settings: {
     react: {
