@@ -26,4 +26,6 @@ public interface BoardService {
 
     List<BoardDto> findByTitleContainingOrderByCreateDate(String title);
     List<BoardDto> findByTitleContainingOrderByLikesDesc(String title);
+
+    List<BoardDto> findAllByUserEmail(User userEmail);
 }

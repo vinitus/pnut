@@ -127,4 +127,24 @@ public class BoardServiceImpl implements BoardService{
         }
         return boardDtos;
     }
+
+    public List<BoardDto> findAllByUserEmail(User userEmail) {
+        List<board> Boards = boardRepository.findAllByUserEmail(userEmail);  // 보드 엔티티 모두 찾고
+
+        List<BoardDto> boardDtos = new ArrayList<>();  // DTO로 담을 리스트 생성
+        for(int i = 0; i < Boards.size(); i++) {
+            BoardDto boardDto = new BoardDto();
+            boardDto.setId(Boards.get(i).getId());
+            boardDto.setUserEmail(Boards.get(i).getUserEmail());
+            boardDto.setTime(Boards.get(i).getTime());
+            boardDto.setTitle(Boards.get(i).getTitle());
+            boardDto.setContent(Boards.get(i).getContent());
+            boardDto.setIngredients(Boards.get(i).getIngredients());
+            boardDto.setQuantity(Boards.get(i).getQuantity());
+            boardDto.setThumbnail_image_url(Boards.get(i).getThumbnailImageUrl());
+            boardDtos.add(boardDto);
+        }
+        return boardDtos;
+    }
+
 }
