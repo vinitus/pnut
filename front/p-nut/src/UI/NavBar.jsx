@@ -1,8 +1,8 @@
-import { Fragment, React } from "react";
+import { Fragment, React, useEffect } from "react";
 import { Menu, Transition } from "@headlessui/react";
 
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logoutHandler } from "../stores/auth";
 
 function classNames(...classes) {
@@ -10,13 +10,29 @@ function classNames(...classes) {
 }
 
 const NavBar = () => {
+  const token = useSelector((state) => state.auth.authentication.token);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const logout = async () => {
-    await dispatch(logoutHandler());
+  const logout = () => {
+    dispatch(logoutHandler());
+  };
+  const goToLogin = () => {
     navigate("/login");
   };
+  const goToSignup = () => {
+    navigate("/signup");
+  };
+  const goToMyPage = () => {
+    navigate("/mypage");
+  };
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/");
+    }
+  }, [token, navigate]);
 
   return (
     <div className="fixed z-50 flex w-full p-3 h-60 bg-white/80">
@@ -147,17 +163,38 @@ const NavBar = () => {
           </Menu>
         </div>
 
-        <div className="flex items-center text-sm space-x-30">
-          <div className="px-12 py-8 text-gray-800 bg-gray-100 rounded-full">
-            회원가입
+        {!token && (
+          <div className="flex items-center text-sm space-x-30">
+            <div
+              className="px-12 py-8 text-gray-800 bg-gray-100 rounded-full"
+              onClick={goToSignup}
+            >
+              회원가입
+            </div>
+            <div
+              className="px-12 py-8 text-white font-semibold bg-#FF6B6C rounded-full"
+              onClick={goToLogin}
+            >
+              로그인
+            </div>
           </div>
-          <div
-            className="px-12 py-8 text-white font-semibold bg-#FF6B6C rounded-full"
-            onClick={logout}
-          >
-            로그인
+        )}
+        {token && (
+          <div className="flex items-center text-sm space-x-30">
+            <div
+              className="px-12 py-8 text-gray-800 bg-gray-100 rounded-full"
+              onClick={goToMyPage}
+            >
+              마이페이지
+            </div>
+            <div
+              className="px-12 py-8 text-white font-semibold bg-#FF6B6C rounded-full"
+              onClick={logout}
+            >
+              로그아웃
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

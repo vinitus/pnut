@@ -3,7 +3,7 @@ import React from "react";
 const LoginSignupFormComponent = (props) => {
   return (
     <div className="flex flex-row w-1232 h-661">
-      <div className="w-1/2 bg-stone-300 rounded-l-xl">
+      <div className="w-1/2 bg-white rounded-l-xl">
         <p className="ml-75 my-50 font-semibold text-xl">Welcome !</p>
         <img
           className="mx-136 mt-90 w-300 h-270"

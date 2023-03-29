@@ -15,19 +15,27 @@ function createValidationRule(ruleName, errorMessage, validateFunc) {
   };
 }
 
-export function requiredRule(inputName) {
+export function emailValidation() {
   return createValidationRule(
-    "required",
-    `${inputName}이 필요합니다.`,
-    (inputValue, formObj) => inputValue.length !== 0
+    "emailValidation",
+    "유효하지 않은 형식입니다.",
+    (email) => email.includes("@")
   );
 }
 
-export function minLengthRule(inputName, minCharacters) {
+export function requiredRule(input) {
+  return createValidationRule(
+    "required",
+    `${input}이 필요합니다.`,
+    (input) => input.length !== 0
+  );
+}
+
+export function minLengthRule(input, minCharacters) {
   return createValidationRule(
     "minLength",
-    `${inputName}은 ${minCharacters}이상이어야 합니다.`,
-    (inputValue, formObj) => inputValue.length >= minCharacters
+    `${input}은 ${minCharacters}이상이어야 합니다.`,
+    (input) => input.length >= minCharacters
   );
 }
 
@@ -35,6 +43,6 @@ export function passwordMatchRule() {
   return createValidationRule(
     "passwordMatch",
     `비밀번호가 일치하지 않습니다.`,
-    (inputValue, formObj) => inputValue === formObj.password.value
+    (password1, password2) => password1 === password2
   );
 }

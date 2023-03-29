@@ -1,14 +1,12 @@
-import { Fragment, useState, useEffect } from "react";
-// import { useNavigate } from "react-router-dom";
-// import { useSelector } from "react-redux";
+import { Fragment, useState, useEffect, useReducer } from "react";
+import { useNavigate } from "react-router-dom";
 import createUserAPI from "../api/createUserAPI";
 import checkDuplicationAPI from "../api/checkDuplicationAPI";
 import requestCodeAPI from "../api/requestCodeAPI";
 import checkCodeAPI from "../api/checkCodeAPI";
 
 const SignupFormComponent = () => {
-  // const navigate = useNavigate();
-  // const token = useSelector((state) => state.auth.authentication.token);
+  const navigate = useNavigate();
 
   const [userInputNickname, setUserInputNickname] = useState("");
   const [userInputName, setUserInputName] = useState("");
@@ -16,16 +14,68 @@ const SignupFormComponent = () => {
   const [userInputAge, setUserInputAge] = useState("");
   const [userInputGender, setUserInputGender] = useState("");
   const [userInputCode, setUserInputCode] = useState("");
-  const [userInputPassword1, setUserInputPassword1] = useState("");
-  // const [userInputPassword2, setUserInputPassword2] = useState("");
+
+  const passwordReducer = (state, action) => {
+    if (action.type === "PASSWORD1_INPUT") {
+      return {
+        password1: action.val,
+        password2: state.password2,
+        passwordMatched: action.val === state.password2,
+        passwordIsValid:
+          action.val === state.password2 &&
+          action.val.length !== 0 &&
+          state.password2.length !== 0,
+      };
+    }
+    if (action.type === "PASSWORD2_INPUT") {
+      return {
+        password1: state.password1,
+        password2: action.val,
+        passwordMatched: state.password1 === action.val,
+        passwordIsValid:
+          state.password1 === action.val &&
+          state.password1.length !== 0 &&
+          action.val.length !== 0,
+      };
+    }
+    return {
+      password1: "",
+      password2: "",
+      passwordMatched: false,
+      passwodIsValid: false,
+    };
+  };
+  const [passwordState, dispatchPassword] = useReducer(passwordReducer, {
+    password1: "",
+    password2: "",
+    passwordMatched: null,
+    passwordIsValid: null,
+  });
 
   const [isNicknameDuplicated, setIsNicknameDuplicated] = useState(false);
+  const [isNicknameValid, setIsNicknameValid] = useState(false);
   const [isEmailDuplicated, setIsEmailDuplicated] = useState(false);
+  const [isEmailValid, setIsEmailValid] = useState(false);
   const [isCodeValid, setIsCodeValid] = useState(false);
   const [codeValidationMessage, setCodeValidationMessage] = useState("");
 
+  const isFormValid = (
+    isNicknameValid,
+    isEmailValid,
+    isCodeValid,
+    isPasswordValid
+  ) => {
+    if (isNicknameValid && isEmailValid && isCodeValid && isPasswordValid) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   const nicknameChangeHandler = (event) => {
     setUserInputNickname(event.target.value);
+    setIsNicknameDuplicated(false);
+    setIsNicknameValid(false);
   };
   const nameChangeHandler = (event) => {
     setUserInputName(event.target.value);
@@ -38,32 +88,35 @@ const SignupFormComponent = () => {
   };
   const emailChangeHandler = (event) => {
     setUserInputEmail(event.target.value);
+    setIsEmailDuplicated(false);
+    setIsEmailValid(false);
   };
   const codeChangeHandler = (event) => {
     setUserInputCode(event.target.value);
   };
   const password1ChangeHandler = (event) => {
-    setUserInputPassword1(event.target.value);
+    dispatchPassword({ type: "PASSWORD1_INPUT", val: event.target.value });
   };
-  // const password2ChangeHandler = (event) => {
-  //   setUserInputPassword2(event.target.value);
-  // };
+  const password2ChangeHandler = (event) => {
+    dispatchPassword({ type: "PASSWORD2_INPUT", val: event.target.value });
+  };
 
   const duplicateNicknameCheckHandler = async (event) => {
     const message = await checkDuplicationAPI("nickname", event.target.value);
     if (message === "nickname duplication") {
       setIsNicknameDuplicated(true);
     } else {
-      setIsNicknameDuplicated(false);
+      setIsNicknameValid(true);
     }
   };
 
   const duplicateEmailCheckHandler = async (event) => {
     const message = await checkDuplicationAPI("email", event.target.value);
+    console.log("message: ", message);
     if (message === "email duplication") {
       setIsEmailDuplicated(true);
     } else {
-      setIsEmailDuplicated(false);
+      setIsEmailValid(true);
     }
   };
 
@@ -96,14 +149,15 @@ const SignupFormComponent = () => {
       userInputGender,
       userInputName,
       userInputNickname,
-      userInputPassword1
+      // userInputPassword1
+      passwordState.password2
     );
+    navigate("/login");
   };
 
   useEffect(() => {
-    console.log("isNicknameDuplicated: ", isNicknameDuplicated);
-    console.log("isEmailDuplicated: ", isEmailDuplicated);
-  }, [isNicknameDuplicated, isEmailDuplicated]);
+    isFormValid(isNicknameValid, isEmailValid, isCodeValid, passwordState);
+  }, [isNicknameValid, isEmailValid, isCodeValid, passwordState]);
 
   return (
     <Fragment>
@@ -118,14 +172,19 @@ const SignupFormComponent = () => {
               type="text"
               id="nickname"
               className={`px-10 ml-75 my-10 w-300 h-40 border rounded-10 ${
-                isNicknameDuplicated ? "border-red-500" : "border-gray-300"
+                isNicknameValid ? "border-green-500" : "border-gray-300"
               } focus:border-blue-500`}
               onChange={nicknameChangeHandler}
               onBlur={duplicateNicknameCheckHandler}
             />
             {isNicknameDuplicated && (
               <span className="ml-10 text-red-500">
-                사용 중인 아이디입니다.
+                사용 중인 닉네임입니다.
+              </span>
+            )}
+            {isNicknameValid && (
+              <span className="ml-10 text-green-500">
+                사용 가능한 닉네임입니다.
               </span>
             )}
           </div>
@@ -175,7 +234,7 @@ const SignupFormComponent = () => {
               type="text"
               id="email"
               className={`px-15 mt-10 w-330 h-40 border rounded-10 ${
-                isEmailDuplicated ? "border-red-500" : "border-gray-300"
+                isEmailValid ? "border-green-500" : "border-gray-300"
               } focus:border-blue-500`}
               placeholder="이메일 주소를 입력해주세요."
               onChange={emailChangeHandler}
@@ -195,6 +254,11 @@ const SignupFormComponent = () => {
         {isEmailDuplicated && (
           <span className="ml-75 px-15 text-red-500">
             사용 중인 이메일입니다.
+          </span>
+        )}
+        {isEmailValid && (
+          <span className="ml-75 px-15 text-green-500">
+            사용 가능한 이메일입니다.
           </span>
         )}
         <div>
@@ -234,20 +298,28 @@ const SignupFormComponent = () => {
             <input
               type="password"
               id="password"
-              className="px-10 mt-10 w-200 h-40 border border-gray-300 rounded-10 text-gray-400 font-noto focus:border-blue-500"
+              className="px-10 mt-10 w-150 h-40 border border-gray-300 rounded-10 text-gray-400 font-noto focus:border-blue-500"
               placeholder="********"
               onChange={password1ChangeHandler}
             />
           </div>
-          <div className="flex flex-col ml-62">
+          <div className="flex flex-col ml-35">
             <label htmlFor="passwordcheck">비밀번호 확인</label>
             <input
               type="password"
               id="passwordcheck"
-              className="px-10 mt-10 w-200 h-40 border border-gray-300 rounded-10 text-gray-400 font-noto focus:border-blue-500"
+              className={`px-10 mt-10 w-150 h-40 border rounded-10 text-gray-400 font-noto ${
+                passwordState.passwordIsValid
+                  ? "border-green-500"
+                  : "border-gray-300"
+              }`}
               placeholder="********"
+              onChange={password2ChangeHandler}
             />
           </div>
+          {passwordState.passwordIsValid && (
+            <span className="ml-3 mt-40 px-15 text-green-500">일치합니다.</span>
+          )}
         </div>
         <button
           type="submit"
