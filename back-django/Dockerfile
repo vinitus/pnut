@@ -7,7 +7,7 @@ ADD . /tmp
 WORKDIR /tmp
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
-RUN cd /usr/local/bin/uwsgi
+RUN cd /usr/local/bin
 RUN make PROFILE=nolang
 RUN PYTHON=python3.8 ./uwsgi --build-plugin "plugins/python python38"
 RUN mkdir -p /usr/local/bin/uwsgi/plugins/
