@@ -18,4 +18,6 @@ public interface BoardRepository extends JpaRepository<board, Long> {
 
     List<board> findByTitleContainingOrderByCreateDate(String title);
     List<board> findByTitleContainingOrderByLikesDesc(String title);
+
+    List<board> findAllByUserEmail(User userEmail);
 }
