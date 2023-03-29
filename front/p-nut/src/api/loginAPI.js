@@ -15,11 +15,7 @@ async function loginAPI(email, password) {
       password: password,
     },
   });
-  if (response.status === 200) {
-    return response;
-  }
-
-  return response.response;
+  return response;
 }
 
 export default loginAPI;

@@ -2,12 +2,17 @@ import LoginSignupFormComponent from "../Components/LoginSignupFormComponent";
 import LoginFormComponent from "../Components/LoginFormComponent";
 
 const LoginPage = () => {
-  const phrase = "Not a member yet?";
-  const direction = "Register now";
+  const phrase = "아직 회원이 아니신가요?";
+  const direction = "지금 가입하세요!";
+  const currentPage = "login";
 
   return (
-    <div className="w-full h-screen bg-gray-200 flex justify-center place-items-center">
-      <LoginSignupFormComponent phrase={phrase} direction={direction}>
+    <div className="w-full h-screen bg-orange-200 flex justify-center place-items-center">
+      <LoginSignupFormComponent
+        phrase={phrase}
+        direction={direction}
+        currentPage={currentPage}
+      >
         <LoginFormComponent />
       </LoginSignupFormComponent>
     </div>
