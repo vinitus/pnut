@@ -15,5 +15,5 @@ public interface ResultRepository extends JpaRepository<result, Long> {
 
     void deleteByQuestionIdAndUserEmail(question questionId, User userEmail);
 
-    List<result> findByUserEmail(User userEmail);
+    List<result> findByUserEmailOrderByIdAsc(User userEmail);
 }

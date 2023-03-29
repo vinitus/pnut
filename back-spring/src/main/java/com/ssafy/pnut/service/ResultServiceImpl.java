@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -25,7 +26,12 @@ public class ResultServiceImpl implements ResultService {
         resultRepository.deleteByQuestionIdAndUserEmail(questionId, userEmail);
     }
 
-    public List<result> findByUserEmail(User userEmail) {
-        return resultRepository.findByUserEmail(userEmail);
+    public Optional<result> findById(Long id) {
+        return resultRepository.findById(id);
+    }
+
+
+    public List<result> findByUserEmailOrderByIdAsc(User userEmail) {
+        return resultRepository.findByUserEmailOrderByIdAsc(userEmail);
     }
 }

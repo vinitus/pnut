@@ -151,7 +151,7 @@ public class QuestionController {
         }
     }
 
-    @GetMapping("/mypage/myResponses")
+    @GetMapping("/mypage")
     @ApiOperation(value = "마이페이지에서 본인 설문 조회", notes = "<strong>마이페이지에서 본인 설문 조회</strong>")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -165,7 +165,7 @@ public class QuestionController {
 
             UserDto userDto = userService.getUserByToken(request.getHeader("Authorization").substring(7));
 
-            List<result> results = resultService.findByUserEmail(userDto.toEntity());  // 결과 가져옴
+            List<result> results = resultService.findByUserEmailOrderByIdAsc(userDto.toEntity());  // 결과 가져옴
 
             Long cnt = categoryService.countBy();  // 증상 카테고리 전체갯수
 
@@ -177,10 +177,38 @@ public class QuestionController {
                 MyResultReq myResultReq = new MyResultReq(results.get(i).getQuestionId().getId(), results.get(i).getDegree(), results.get(i).getQuestionId().getCategoryId().getId());
                 myResultReqs.get(results.get(i).getQuestionId().getCategoryId().getId().intValue()).add(myResultReq);
             }
-
-
-
             return ResponseEntity.status(200).body(myResultReqs);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Bad Request"));
+        }
+    }
+
+    @PatchMapping("/mypage/{categoryId}")
+    @ApiOperation(value = "마이페이지에서 본인 설문 수정", notes = "<strong>마이페이지에서 본인 설문 수정</strong>")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 204, message = "No Content"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends Object> modifyMyResponses(@PathVariable("categoryId") Long id, @RequestBody ResultReq resultReq, HttpServletRequest request) throws IOException {
+        try {
+
+            UserDto userDto = userService.getUserByToken(request.getHeader("Authorization").substring(7));
+
+            // 기존 결과 가져오기
+            List<result> myresults = resultService.findByUserEmailOrderByIdAsc(userDto.toEntity());
+            for(int i = 0; i < myresults.size(); i++) {
+                if(myresults.get(i).getQuestionId().getCategoryId().getId() == id) {  // 결과의 카테고리가 수정하려는 증상의 카테고리와 같다면
+                    myresults.get(i).setDegree(Integer.parseInt(resultReq.getResponses().get(i)));  // id순별로 카테고리 질문에 대한 degree를 수정
+                    resultService.save(myresults.get(i));
+                }
+            }
+
+
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Bad Request"));
