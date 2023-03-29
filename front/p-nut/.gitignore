@@ -7,6 +7,9 @@
 .AppleDouble
 .LSOverride
 
+# tailwind css
+src/output.css
+
 # Icon must end with two \r
 Icon
 

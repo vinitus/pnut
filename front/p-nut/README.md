@@ -30,4 +30,6 @@ yarn dev
 
 ## Tailwindcss
 
-Tailwind 설정을 바꿨다면 npx tailwindcss -i ./src/index.css -o ./src/output.css --watch
+Tailwind 설정을 바꿨다면
+
+npx tailwindcss -i ./src/index.css -o ./src/output.css --watch
