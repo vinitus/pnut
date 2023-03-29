@@ -11,5 +11,5 @@ WORKDIR /srv/docker-server
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-EXPOSE 666
+EXPOSE 8000
 CMD ["uwsgi", "--ini", "uwsgi/uwsgi.ini"]
