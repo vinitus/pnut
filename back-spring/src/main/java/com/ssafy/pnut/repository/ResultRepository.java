@@ -7,9 +7,13 @@ import com.ssafy.pnut.entity.result;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 
 @Repository
 public interface ResultRepository extends JpaRepository<result, Long> {
 
     void deleteByQuestionIdAndUserEmail(question questionId, User userEmail);
+
+    List<result> findByUserEmail(User userEmail);
 }

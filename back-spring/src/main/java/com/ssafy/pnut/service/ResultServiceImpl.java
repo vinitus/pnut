@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Slf4j
 @AllArgsConstructor
@@ -21,5 +23,9 @@ public class ResultServiceImpl implements ResultService {
 
     public void deleteByQuestionIdAndUserEmail(question questionId, User userEmail) {
         resultRepository.deleteByQuestionIdAndUserEmail(questionId, userEmail);
+    }
+
+    public List<result> findByUserEmail(User userEmail) {
+        return resultRepository.findByUserEmail(userEmail);
     }
 }
