@@ -4,6 +4,7 @@ import com.ssafy.pnut.common.response.BaseResponseBody;
 import com.ssafy.pnut.dto.*;
 import com.ssafy.pnut.entity.category;
 import com.ssafy.pnut.entity.question;
+import com.ssafy.pnut.entity.result;
 import com.ssafy.pnut.service.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -150,6 +151,41 @@ public class QuestionController {
         }
     }
 
+    @GetMapping("/mypage/myResponses")
+    @ApiOperation(value = "마이페이지에서 본인 설문 조회", notes = "<strong>마이페이지에서 본인 설문 조회</strong>")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 204, message = "No Content"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends Object> selectMyResponses(HttpServletRequest request) throws IOException {
+        try {
+
+            UserDto userDto = userService.getUserByToken(request.getHeader("Authorization").substring(7));
+
+            List<result> results = resultService.findByUserEmail(userDto.toEntity());  // 결과 가져옴
+
+            Long cnt = categoryService.countBy();  // 증상 카테고리 전체갯수
+
+            List<List<MyResultReq>> myResultReqs = new ArrayList<>();  // 증상 갯수별로 리스트만듬
+            for(int i = 0; i <= cnt; i++) {
+                myResultReqs.add(new ArrayList<>());
+            }
+            for(int i = 0; i < results.size(); i++) {  // 결과들 각각을 리스트의 증상에 맞게 저장함
+                MyResultReq myResultReq = new MyResultReq(results.get(i).getQuestionId().getId(), results.get(i).getDegree(), results.get(i).getQuestionId().getCategoryId().getId());
+                myResultReqs.get(results.get(i).getQuestionId().getCategoryId().getId().intValue()).add(myResultReq);
+            }
+
+
+
+            return ResponseEntity.status(200).body(myResultReqs);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Bad Request"));
+        }
+    }
 
 
 }

@@ -9,4 +9,6 @@ public interface CategoryService {
     List<category> findAll();
 
     Optional<category> findById(Long id);
+
+    Long countBy();
 }

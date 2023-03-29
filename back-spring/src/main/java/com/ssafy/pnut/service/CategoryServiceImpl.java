@@ -24,4 +24,8 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryRepository.findById(id);
     }
 
+    public Long countBy() {
+        return categoryRepository.countBy();
+    };
+
 }
