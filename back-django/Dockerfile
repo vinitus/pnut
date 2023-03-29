@@ -8,7 +8,7 @@ ADD . /srv/docker-server
 
 WORKDIR /srv/docker-server
 
-RUN pip install --upgrade pip
+RUN pip install --upgrade pipls
 RUN pip install -r requirements.txt
 
 EXPOSE 8000
