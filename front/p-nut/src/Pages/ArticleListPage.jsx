@@ -1,11 +1,12 @@
 import axios from "axios";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import ArticleListThumbnailComponent from "../Components/ArticleListThumbnailComponent";
 
 const ArticleListPage = () => {
+  // data 파싱
   const data = useLoaderData();
-  console.log(data.data);
+  const [recentArticleList, top3List] = data;
 
   return (
     <div className="flex flex-col items-center">
@@ -33,27 +34,16 @@ const ArticleListPage = () => {
         <div className="mx-auto w-1300">
           <div className="text-45 font-extrabold mb-17">금주의 레시피</div>
           <div className="flex place-content-between">
-            <ArticleListThumbnailComponent
-              imgSrc="./assets/top_recipe_1.png"
-              rank="1"
-              title="닭도리탕"
-              author="콩이"
-              profileImg="./assets/Article_circle.png"
-            />
-            <ArticleListThumbnailComponent
-              imgSrc="./assets/top_recipe_2.png"
-              rank="2"
-              title="닭도리탕"
-              author="콩이"
-              profileImg="./assets/Article_circle.png"
-            />
-            <ArticleListThumbnailComponent
-              imgSrc="./assets/top_recipe_3.png"
-              rank="3"
-              title="닭도리탕"
-              author="콩이"
-              profileImg="./assets/Article_circle.png"
-            />
+            {top3List.data.map((ele, idx) => (
+              <ArticleListThumbnailComponent
+                rank={idx + 1}
+                key={ele.id}
+                imgSrc={ele.thumbnail_image_url}
+                title={ele.title}
+                author={ele.nickName}
+                profileImg="./assets/Article_circle.png"
+              />
+            ))}
           </div>
         </div>
       </div>
@@ -68,17 +58,17 @@ const ArticleListPage = () => {
               className="w-240 h-40 border border-#B3B3B3 rounded-12"
             />
             <select
-              name=""
-              id=""
+              name="sort-option"
+              id="sort-option"
               className="border border-#B3B3B3 rounded-12 p-8"
             >
               <option value="1">최신순</option>
-              <option value="2">오래된 순</option>
+              <option value="2">좋아요 순</option>
             </select>
           </div>
         </div>
         <div className="grid grid-cols-3 gap-65">
-          {data.data.map((ele) => (
+          {recentArticleList.data.map((ele) => (
             <ArticleListThumbnailComponent
               key={ele.id}
               imgSrc={ele.thumbnail_image_url}
@@ -96,11 +86,23 @@ const ArticleListPage = () => {
 export default ArticleListPage;
 
 export async function loader() {
-  const res = await axios("/boards");
-  try {
-    console.log(res);
-  } catch (e) {
-    console.log(e);
-  }
-  return res;
+  const recentArticleList = new Promise((resolve, reject) => {
+    axios("/boards")
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((err) => reject(err));
+  });
+
+  const top3List = new Promise((resolve, reject) => {
+    axios("/boards/top3")
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((err) => reject(err));
+  });
+
+  const data = Promise.all([recentArticleList, top3List]);
+
+  return data;
 }
