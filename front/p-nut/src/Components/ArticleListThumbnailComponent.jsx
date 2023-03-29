@@ -1,8 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const ArticleListThumbnailComponent = (props) => {
-  const { rank, imgSrc, title, author, profileImg } = props;
+  const { rank, imgSrc, title, author, profileImg, articleId } = props;
 
+  const navigate = useNavigate();
   let rankDiv = null;
   if (rank) {
     rankDiv = (
@@ -13,7 +15,13 @@ const ArticleListThumbnailComponent = (props) => {
   }
 
   return (
-    <div className="h-342">
+    <div
+      className="h-342"
+      onClick={() => {
+        window.scrollTo(0, 0);
+        navigate(`/board/${articleId}`);
+      }}
+    >
       <div className="relative">
         <img src={imgSrc} alt="" className="w-390 h-240 rounded-8" />
         {rankDiv && rankDiv}

@@ -3,12 +3,16 @@ import React, { useMemo, useState } from "react";
 import { useLoaderData, useParams } from "react-router-dom";
 import OrderBlockComponent from "../Components/OrderBlockComponent";
 import CommentComponent from "../Components/CommentComponent";
+import { useSelector } from "react-redux";
+import axiosInterface from "../api/axiosInterface";
 
 const ArticleDetailPage = () => {
   // content ingredients nickNAme quantity recipeSteps thumbnail_image_url time title visit
   const data = useLoaderData();
   const [newComment, setNewComment] = useState("");
   const { articleId } = useParams();
+
+  const accessToken = useSelector((state) => state.auth.authentication.token);
 
   const quantityArr = useMemo(() => {
     return ["15분컷", "30분컷", "45분컷", "45분 이상"];
@@ -31,6 +35,18 @@ const ArticleDetailPage = () => {
 
   const profileImgPath = "/assets/Article_circle.png";
   const commentsCnt = comments.length;
+
+  const heartClickHandler = () => {
+    if (likeOrNot === 1) {
+      axiosInterface("delete", `/boards/like/${articleId}`, "", {
+        Authorization: `Bearer ${accessToken}`,
+      });
+    } else {
+      axiosInterface("delete", `/boards/like/${articleId}`, "", {
+        Authorization: `Bearer ${accessToken}`,
+      });
+    }
+  };
 
   // 댓글 보여주기
   let comment = <div className="text-#AEFEAE mb-40">댓글이 아직 없어요</div>;
@@ -93,11 +109,13 @@ const ArticleDetailPage = () => {
             <div className="text-22">
               댓글 {commentsCnt} 좋아요 {likes} 조회수 {visit}
             </div>
-            <img
-              src={`/assets/heart${likeOrNot}.png`}
-              alt=""
-              className="mr-43"
-            />
+            <button type="button" onClick={heartClickHandler}>
+              <img
+                src={`/assets/heart${likeOrNot}.png`}
+                alt=""
+                className="mr-43"
+              />
+            </button>
           </div>
         </div>
       </div>

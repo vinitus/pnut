@@ -38,6 +38,7 @@ const ArticleListPage = () => {
               <ArticleListThumbnailComponent
                 rank={idx + 1}
                 key={ele.id}
+                articleId={ele.id}
                 imgSrc={ele.thumbnail_image_url}
                 title={ele.title}
                 author={ele.nickName}
@@ -71,6 +72,7 @@ const ArticleListPage = () => {
           {recentArticleList.data.map((ele) => (
             <ArticleListThumbnailComponent
               key={ele.id}
+              articleId={ele.id}
               imgSrc={ele.thumbnail_image_url}
               title={ele.title}
               author={ele.nickName}
