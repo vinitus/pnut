@@ -1,8 +1,8 @@
 import React from "react";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const MainPage = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -153,12 +153,17 @@ const MainPage = () => {
                         그에 맞는 맞춤형 음식을 추천합니다.
                       </p>
                     </div>
-                    {/* 이동 */}
-                    <img
-                      className="pt-20 h-80"
-                      src="assets\inspectbutton.png"
-                      alt=""
-                    />
+                    <button
+                      onClick={() => {
+                        navigate("/survey");
+                      }}
+                    >
+                      <img
+                        className="pt-20 h-80"
+                        src="assets\inspectbutton.png"
+                        alt=""
+                      />
+                    </button>
                   </div>
                   <div className="relative flex flex-col items-center justify-center space-y-16 bg-gray-100">
                     <img src="assets\beef.png" alt="" />
