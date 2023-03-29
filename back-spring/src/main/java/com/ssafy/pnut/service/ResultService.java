@@ -5,6 +5,7 @@ import com.ssafy.pnut.entity.question;
 import com.ssafy.pnut.entity.result;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ResultService {
 
@@ -12,5 +13,7 @@ public interface ResultService {
 
     void deleteByQuestionIdAndUserEmail(question questionId, User userEmail);
 
-    List<result> findByUserEmail(User userEmail);
+    List<result> findByUserEmailOrderByIdAsc(User userEmail);
+
+    Optional<result> findById(Long id);
 }
