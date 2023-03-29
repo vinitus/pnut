@@ -11,8 +11,6 @@ import os, sys
 
 from django.core.wsgi import get_wsgi_application
 
-sys.path.append('/home/ubuntu/jenkins_docker/jenkins_home/workspace/Pnut-back-django/back-django')
-sys.path.append('/home/ubuntu/jenkins_docker/jenkins_home/workspace/Pnut-back-django/back-django/backdjango')
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "backdjango.settings")
 
