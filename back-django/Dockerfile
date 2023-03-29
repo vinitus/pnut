@@ -3,10 +3,9 @@ ENV PYTHONUNBUFFERED 1
 RUN apt-get -y update
 RUN apt-get -y install vim
 
-RUN mkdir /tmp/docker-server
-ADD . /tmp/docker-server
+ADD . /tmp
 
-WORKDIR /tmp/docker-server
+WORKDIR /tmp
 
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
