@@ -40,7 +40,7 @@ def lack_of_nutrient(request):
     return JsonResponse(result, status=200)
 
 @csrf_exempt
-def calc_weight(user_email):
+def calc_weight(request):
     """
     Desc :
         설문조사 결과 데이터를 통해 해당 유저의 영양소 별 가중치를 계산하여 DB에 넣는다.
@@ -51,6 +51,7 @@ def calc_weight(user_email):
     Returns :
         None
     """
+    user_email = request.GET["user_email"]
     degree = [0, 0.25, 0.5, 0.75, 1.0]
     nutrient = [0 for _ in range(MAX_NUTRIENT + 1)]
     results = models.Result.objects.filter(user_email=user_email)
@@ -76,7 +77,7 @@ def calc_weight(user_email):
     return HttpResponse(status=200)
 
 @csrf_exempt
-def get_personal_food(user_email):
+def get_personal_food(request):
     """
     Desc :
         (개인별 부족한 영양소 ) x ( 음식의 해당 영양소 함유량 비율 )을 계산하여 가중치 별 상위 5개의 음식을 알려준다..
@@ -85,7 +86,7 @@ def get_personal_food(user_email):
     Returns :
         음식 객체 5개
     """
-
+    user_email = request.GET["user_email"]
     foods = models.Food.objects.all()
     food_list = [[0, 0] for _ in range(len(foods))]
     user_nutrient = models.UserSymptom.objects.filter(user_email=user_email)
@@ -105,20 +106,6 @@ def get_personal_food(user_email):
         result["data"].append(Serializer.foodSerializer(models.Food.objects.get(food_id=food_id)).data)
     return JsonResponse(result, status=200)
 
-@csrf_exempt
-def foods(request):
-    """
-    Desc :
-        food 관련 api를 method에 따라 라우팅 처리하는 함수.
-    Args :
-
-    Returns :
-       JsonResponse
-    """
-    if request.method == "post":
-        return calc_weight(request.POST["user_email"])
-    else:
-        return get_personal_food(request.GET["user_email"])
 
 @csrf_exempt
 def search_food(request):
