@@ -8,6 +8,5 @@ WORKDIR /tmp
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 EXPOSE 8000
-
-VOLUME ["/tmp"]
+RUN ls
 CMD ["uwsgi", "--ini", "uwsgi/uwsgi.ini"]
