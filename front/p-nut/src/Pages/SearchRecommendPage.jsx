@@ -162,10 +162,10 @@ const SearchRecommendPage = () => {
           <div className="h-40" />
           <p className="text-3xl font-semibold ">음식을 검색해보세요!</p>
           <div className="h-40 " />
-          <div className="w-full flex justify-center">
+          <div className="flex justify-center w-full">
             <form className="relative">
               <input
-                className=" placeholder:font-medium w-700 h-60 block py-2 pl-50 pr-3 text-xl text-white font-bold placeholder-gray-200 bg-white/20 border border-gray-300 rounded-full shadow-md"
+                className="block py-2 pr-3 text-xl font-bold text-white placeholder-gray-200 border border-gray-300 rounded-full shadow-md  placeholder:font-medium w-700 h-60 pl-50 bg-white/20"
                 type="text"
                 placeholder="음식이나 식재료를 검색해보세요"
                 value={searchQuery}
@@ -175,7 +175,7 @@ const SearchRecommendPage = () => {
                 <img
                   src="public\assets\Search.png"
                   alt=""
-                  className="absolute top-1 mt-15 right-50 h-30 text-gray-400"
+                  className="absolute text-gray-400 top-1 mt-15 right-50 h-30"
                 />
               </button>
             </form>
@@ -209,6 +209,7 @@ const SearchRecommendPage = () => {
                   kcal={value.kcal}
                   mainIngredients={value.mainIngredients}
                   time={value.time}
+                  id={value.id}
                   key={`${value.id}`}
                 />
               ))}
@@ -222,13 +223,14 @@ const SearchRecommendPage = () => {
                   kcal={value.kcal}
                   mainIngredients={value.mainIngredients}
                   time={value.time}
+                  id={value.id}
                   key={`${value.id}`}
                 />
               ))}
             </div>
           ) : (
             // 검색 결과가 없을 때
-            <div className="h-350 flex flex-col justify-center">
+            <div className="flex flex-col justify-center h-350">
               <div className="w-full h-30" />
               <div className="flex justify-center">
                 <img
@@ -238,10 +240,10 @@ const SearchRecommendPage = () => {
                 />
               </div>
               <div className="w-full h-20" />
-              <p className="text-center text-xl font-semibold mb-10">
+              <p className="mb-10 text-xl font-semibold text-center">
                 검색 결과가 없습니다
               </p>
-              <p className="text-center text-xl text-gray-700 ">
+              <p className="text-xl text-center text-gray-700 ">
                 다른 음식을 검색해주세요
               </p>
             </div>
