@@ -6,6 +6,6 @@ import com.ssafy.pnut.dto.IngredientDto;
 import java.util.List;
 
 public interface FoodService {
-    List<IngredientDto> getIngredients();
-    List<FoodDto> getFoods();
+    List<String> getIngredients();
+    List<String> getFoods();
 }

@@ -36,7 +36,7 @@ public class FoodController {
         HttpStatus status;
 
         try{
-            List<IngredientDto> result = foodService.getIngredients();
+            List<String> result = foodService.getIngredients();
             if(result==null){
                 logger.debug("재료 조회 결과 : {}", "재료 없음");
                 resultMap.put("result", null);
@@ -64,7 +64,7 @@ public class FoodController {
         HttpStatus status;
 
         try{
-            List<FoodDto> result = foodService.getFoods();
+            List<String> result = foodService.getFoods();
             if(result==null){
                 logger.debug("음식 조회 결과 : {}", "음식 없음");
                 resultMap.put("result", null);
