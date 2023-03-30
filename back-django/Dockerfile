@@ -2,7 +2,7 @@ FROM python:3
 ENV PYTHONUNBUFFERED 1
 RUN apt-get -y update
 RUN apt-get -y install vim
-
+VOLUME
 ADD . /tmp
 WORKDIR /tmp
 RUN pip install --upgrade pip
