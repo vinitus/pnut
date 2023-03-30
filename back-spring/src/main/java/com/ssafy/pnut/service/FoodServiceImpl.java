@@ -30,11 +30,4 @@ public class FoodServiceImpl implements FoodService{
         foods.forEach(x->foodDtos.add(FoodDto.toDto(x)));
         return foodDtos;
     }
-
-    @Override
-    public List<FoodDto> getFoodsBySymptom(long symptomId) {
-        List<FoodDto> foodDtos = new ArrayList<>();
-
-        return null;
-    }
 }

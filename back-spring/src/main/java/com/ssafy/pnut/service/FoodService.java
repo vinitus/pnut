@@ -8,5 +8,4 @@ import java.util.List;
 public interface FoodService {
     List<IngredientDto> getIngredients();
     List<FoodDto> getFoods();
-    List<FoodDto> getFoodsBySymptom(long symptomId);
 }
