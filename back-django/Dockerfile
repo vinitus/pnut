@@ -10,4 +10,6 @@ RUN pip install -r requirements.txt
 EXPOSE 8000
 RUN ls
 RUN pwd
-CMD ["uwsgi", "--ini", "/tmp/uwsgi/uwsgi.ini"]
+RUN touch index.txt
+RUN ls
+CMD ["uwsgi", "--ini", "uwsgi/uwsgi.ini"]
