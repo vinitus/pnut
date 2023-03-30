@@ -4,6 +4,7 @@ import com.ssafy.pnut.dto.UserDto;
 import com.ssafy.pnut.dto.UserMailMessageDto;
 import com.ssafy.pnut.dto.UserMailPostDto;
 import com.ssafy.pnut.entity.User;
+import com.ssafy.pnut.service.AwsS3Service;
 import com.ssafy.pnut.service.UserService;
 import com.ssafy.pnut.util.JwtService;
 import com.ssafy.pnut.util.MailService;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
@@ -35,6 +37,8 @@ public class UserController {
     private MailService userMailService;
     @Autowired
     private JwtService jwtService;
+    @Autowired
+    private AwsS3Service awsS3Service;
 
     public static final Logger logger = LoggerFactory.getLogger(UserController.class);
     private static final String SUCCESS = "success in UserController";
@@ -55,7 +59,7 @@ public class UserController {
             LocalDateTime time = LocalDateTime.now();
             userDto.setJoinDate(time);
             userDto.setAuth("");
-            userDto.setProfileImageUrl("");
+            userDto.setProfileImageUrl("basic_profile_image_37d8I092LMX89-removebg-preview.png");
             userDto.setType("");
                 User user = userDto.toEntity();
                 User result = userService.registerUser(user);
@@ -145,12 +149,20 @@ public class UserController {
     @ApiOperation(value = "회원정보 수정", notes = "회원정보를 수정한다", response = Map.class)
     @PutMapping("")
     public ResponseEntity<?> modifyUser(
-            @RequestBody @ApiParam(value = "수정하려는 회원정보", required = true) UserDto userDto, HttpServletRequest request){
+            @RequestPart @ApiParam(value = "수정하려는 회원정보", required = true) UserDto userDto, HttpServletRequest request, @RequestPart @ApiParam(value = "프로필 사진", required = false)MultipartFile multipartFile){
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
 
         if(jwtService.checkToken(request.getHeader("access-token"))){
             try{
+                String fileName;
+                if(multipartFile==null){
+                    fileName = "basic_profile_image_37d8I092LMX89-removebg-preview.png";
+                }else{
+                    fileName = awsS3Service.uploadProfileImage(multipartFile, userDto);
+                }
+
+                userDto.setProfileImageUrl(fileName);
                 User result = userService.modifyUser(userDto.toEntity());
                 if(result != null){
                     //회원정보 수정 성공한 역ㅇ우, 성공 메시지 반환, 200 응답
