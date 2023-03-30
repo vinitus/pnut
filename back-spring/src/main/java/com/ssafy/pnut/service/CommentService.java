@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CommentService {
-    void save(CommentDto commentDto);
+    void save(comment Comment);
 
     void deleteById(Long id);
 

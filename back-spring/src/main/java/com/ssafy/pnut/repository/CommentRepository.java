@@ -12,8 +12,6 @@ import java.util.List;
 @Repository
 public interface CommentRepository extends JpaRepository<comment, Long> {
 
-    void save(CommentDto commentDto);
-
     List<comment> findAllByBoardId(board Board);
 
     Long countByBoardId(board Board);
