@@ -16,6 +16,8 @@ public class FoodDto {
     private String efficiency;
     private int amount;
     private String unit;
+    private String ingredients;
+    private String url;
 
     public static FoodDto toDto(Food food){
         return new FoodDto(
@@ -25,10 +27,12 @@ public class FoodDto {
                 food.getTime(),
                 food.getEfficiency(),
                 food.getAmount(),
-                food.getUnit()
+                food.getUnit(),
+                food.getIngredients(),
+                food.getUrl()
         );
     }
     public Food toEntity(){
-        return new Food(foodId, name, description, time, efficiency, amount, unit);
+        return new Food(foodId, name, description, time, efficiency, amount, unit, ingredients, url);
     }
 }

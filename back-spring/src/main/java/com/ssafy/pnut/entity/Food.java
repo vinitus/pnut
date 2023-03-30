@@ -22,4 +22,6 @@ public class Food {
     private String efficiency;
     private int amount;
     private String unit;
+    private String ingredients;
+    private String url;
 }
