@@ -49,6 +49,7 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     # "django.middleware.csrf.CsrfViewMiddleware",
+    'backdjango.middleware.DisableCSRF',
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
@@ -130,7 +131,6 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-CSRF_TRUSTED_ORIGINS = ['http://j8a704.p.ssafy.io:8000']
 ##CORS
 CORS_ORIGIN_ALLOW_ALL=True # <- 모든 호스트 허용
 CORS_ALLOW_CREDENTIALS = True # <-쿠키가 cross-site HTTP 요청에 포함될 수 있다
@@ -152,7 +152,6 @@ CORS_ALLOW_HEADERS = ( #<-실제 요청을 할 때 사용될 수 있는 non-stan
     'dnt',
     'origin',
     'user-agent',
-    'x-csrftoken',
     'x-requested-with',
 )
 

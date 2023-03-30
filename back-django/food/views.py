@@ -7,7 +7,6 @@ from django.shortcuts import render
 # Create your views here.
 import sys
 
-from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 
 from . import models
