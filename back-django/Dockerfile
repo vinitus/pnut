@@ -9,4 +9,5 @@ RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 EXPOSE 8000
 RUN ls
+RUN pwd
 CMD ["uwsgi", "--ini", "uwsgi/uwsgi.ini"]
