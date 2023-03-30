@@ -1,5 +1,7 @@
 package com.ssafy.pnut.controller;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.pnut.common.response.BaseResponseBody;
 import com.ssafy.pnut.dto.*;
 import com.ssafy.pnut.entity.category;
@@ -12,6 +14,8 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.*;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -121,11 +125,12 @@ public class QuestionController {
                 resultService.save(resultDto.toEntity());
             }
 
-            String user_email = userDto.getEmail();
-            RequestEntity<String> req2 = RequestEntity.post(new URI("http://j8a704.p.ssafy.io:8000/foods"))
-                    .accept(MediaType.APPLICATION_JSON)
-                    .body(user_email);
-            System.out.println(req2);
+//            String user_email = userDto.getEmail();
+//            RequestEntity<String> req2 = RequestEntity.post(new URI("http://j8a704.p.ssafy.io:8000/foods"))
+//                    .accept(MediaType.APPLICATION_JSON)
+//                    .body(user_email);
+//            System.out.println(req2);
+            addHeader(userDto.getEmail());
 //          ResponseEntity<Resource> response = restTemplete.exchange(request, Resource.class);
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
         } catch (Exception e) {
@@ -145,9 +150,32 @@ public class QuestionController {
 
 
 // requestEntity 생성 (방법2)
-        RequestEntity<String> req2 = RequestEntity.post(new URI("http://j8a704.p.ssafy.io:8000/foods/"))
-                .accept(MediaType.APPLICATION_JSON)
-                .body(user_email);
+//        RequestEntity<String> req2 = RequestEntity.post(new URI("http://j8a704.p.ssafy.io:8000/foods/"))
+//                .accept(MediaType.APPLICATION_JSON)
+//                .body(user_email);
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        // Header set
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+        // Body set
+        MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
+        body.add("user_email", user_email);
+
+        // Message
+        HttpEntity<?> requestMessage = new HttpEntity<>(body, httpHeaders);
+
+
+        // Request
+        String url = "http://j8a704.p.ssafy.io:8000/foods/";
+        HttpEntity<String> response = restTemplate.postForEntity(url, requestMessage, String.class);
+
+        // Response 파싱
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT, true);
+//        ResponseDto dto = objectMapper.readValue(response.getBody(), FlaskResponseDto.class);
 
 
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
