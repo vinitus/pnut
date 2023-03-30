@@ -6,10 +6,15 @@ from django.shortcuts import render
 
 # Create your views here.
 import sys
+
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
+
 from . import models
 from . import Serializer
 MAX_NUTRIENT = 24
 
+@method_decorator(csrf_exempt, name='dispatch')
 def lack_of_nutrient(request):
     """
     Desc :
@@ -35,6 +40,7 @@ def lack_of_nutrient(request):
                                ])
     return JsonResponse(result, status=200)
 
+@method_decorator(csrf_exempt, name='dispatch')
 def calc_weight(user_email):
     """
     Desc :
@@ -70,6 +76,7 @@ def calc_weight(user_email):
             user_nutrient.save()
     return HttpResponse(status=200)
 
+@method_decorator(csrf_exempt, name='dispatch')
 def get_personal_food(user_email):
     """
     Desc :
@@ -99,6 +106,7 @@ def get_personal_food(user_email):
         result["data"].append(Serializer.foodSerializer(models.Food.objects.get(food_id=food_id)).data)
     return JsonResponse(result, status=200)
 
+@method_decorator(csrf_exempt, name='dispatch')
 def foods(request):
     """
     Desc :
@@ -113,6 +121,8 @@ def foods(request):
     else:
         return get_personal_food(request.GET["user_email"])
 
+
+@method_decorator(csrf_exempt, name='dispatch')
 def search_food(request):
     """
     Desc :
@@ -139,6 +149,8 @@ def search_food(request):
         result["data"].append(Serializer.searchSerializer(r).data)
     return JsonResponse(result,status=200)
 
+
+@method_decorator(csrf_exempt, name='dispatch')
 def search_symptom(request,symptom_id):
     """
     Desc :
@@ -172,6 +184,7 @@ def search_symptom(request,symptom_id):
     random.shuffle(result["data"])
     return JsonResponse(result,status=200)
 
+@method_decorator(csrf_exempt, name='dispatch')
 def get_single_food(request):
     """
     Desc :
