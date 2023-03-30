@@ -130,7 +130,7 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
+CSRF_TRUSTED_ORIGINS = ['http://j8a704.p.ssafy.io:8000']
 ##CORS
 CORS_ORIGIN_ALLOW_ALL=True # <- 모든 호스트 허용
 CORS_ALLOW_CREDENTIALS = True # <-쿠키가 cross-site HTTP 요청에 포함될 수 있다
