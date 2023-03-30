@@ -11,12 +11,18 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
+import springfox.documentation.spring.web.json.Json;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -115,8 +121,12 @@ public class QuestionController {
                 resultService.save(resultDto.toEntity());
             }
 
-
-
+            String user_email = userDto.getEmail();
+            RequestEntity<String> req2 = RequestEntity.post(new URI("http://j8a704.p.ssafy.io:8000/foods"))
+                    .accept(MediaType.APPLICATION_JSON)
+                    .body(user_email);
+            System.out.println(req2);
+//          ResponseEntity<Resource> response = restTemplete.exchange(request, Resource.class);
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
         } catch (Exception e) {
             e.printStackTrace();
@@ -124,6 +134,24 @@ public class QuestionController {
         }
     }
 
+    public ResponseEntity<? extends Object> addHeader(String user_email) throws URISyntaxException {
+//// url 생성
+//        URI url = URI.create("http://j8a704.p.ssafy.io:8000/foods/");
+//
+//// requestEntity 생성 (방법1)
+////header, method, url 을 파라미터로 하여 생성자 호출
+//        HttpHeaders headers = new HttpHeaders();
+//        RequestEntity<String> req = new RequestEntity<>(headers, HttpMethod.GET, url);
+
+
+// requestEntity 생성 (방법2)
+        RequestEntity<String> req2 = RequestEntity.post(new URI("http://j8a704.p.ssafy.io:8000/foods/"))
+                .accept(MediaType.APPLICATION_JSON)
+                .body(user_email);
+
+
+        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+    }
 
     @Transactional
     @DeleteMapping("/mypage/{categoryId}")
