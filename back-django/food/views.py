@@ -197,7 +197,7 @@ def get_single_food(request):
             output_field=FloatField()
         )
     ).values('name', 'percent')
-    for r in res[:10]:
+    for r in res:
         nut.append([r["name"],round(r["percent"],1)])
     result = dict()
     result["data"] = dict()
