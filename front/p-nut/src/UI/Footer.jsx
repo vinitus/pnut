@@ -1,6 +1,16 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
+  const navigate = useNavigate();
+
+  const goToMain = () => {
+    navigate("/");
+  };
+  const goToMyPage = () => {
+    navigate("/mypage");
+  };
+
   return (
     <div className="w-full h-350 flex justify-center bg-#FF6B6C/5 text-#2B2C2B">
       <div className="flex flex-col divide-y divide-gray-200 w-1200 py-30">
@@ -22,10 +32,16 @@ const Footer = () => {
             </div>
           </div>
           <div className="flex w-1/3 space-x-20 ">
-            <div className="bg-#FF6B6C flex items-center justify-center w-180 h-70">
+            <div
+              className="bg-#FF6B6C flex items-center justify-center w-180 h-70 hover:bg-red-500 transition duration-300"
+              onClick={goToMain}
+            >
               <p className="font-bold text-white text-md">메인으로</p>
             </div>
-            <div className="border border-#FF6B6C flex items-center justify-center w-180 h-70">
+            <div
+              className="border border-#FF6B6C flex items-center justify-center w-180 h-70 hover:bg-gray-100 transition duration-300"
+              onClick={goToMyPage}
+            >
               <p className="font-extrabold text-#FF6B6C text-md">마이페이지</p>
             </div>
           </div>

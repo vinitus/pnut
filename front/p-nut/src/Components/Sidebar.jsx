@@ -9,7 +9,7 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
         <div className="space-y-10">
           <img
             className="mx-auto rounded-full shadow-lg h-100 w-100"
-            src="public\assets\profileimage.png"
+            src="assets\profileimage.png"
             alt=""
           />
           <p className="pt-5 text-lg font-bold">minofficial</p>
@@ -73,11 +73,7 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
           </div>
           <p className="flex items-center justify-center text-gray-500">
             회원탈퇴
-            <img
-              className="pl-5 scale-50"
-              src="public\assets\chevron.png"
-              alt=""
-            />
+            <img className="pl-5 scale-50" src="assets\chevron.png" alt="" />
           </p>
         </div>
       </div>

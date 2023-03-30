@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import SurveyCardThumbnailComponent from "./SurveyCardThumbnailComponent";
 
-const SurveyCardComponent = props => {
+const SurveyCardComponent = (props) => {
   const data = [
     {
       imgPath: "/assets/samplefoodimg.png",
@@ -70,7 +70,7 @@ const SurveyCardComponent = props => {
         <div className="p-40 space-y-50">
           <section>
             <div className=" space-y-30">
-              <img src="public\assets\Improve Guide-1.png" alt="" />
+              <img src="assets\Improve Guide-1.png" alt="" />
               <p className="text-lg font-bold">
                 <strong>01 </strong>
                 {guidetitle}
@@ -80,7 +80,7 @@ const SurveyCardComponent = props => {
           </section>
           <section>
             <div className=" space-y-30">
-              <img src="public\assets\Improve Guide-2.png" alt="" />
+              <img src="assets\Improve Guide-2.png" alt="" />
               <p className="text-lg font-bold">
                 <strong>01 </strong>
                 {nutrienttitle}
@@ -89,9 +89,9 @@ const SurveyCardComponent = props => {
             </div>
           </section>
           <section>
-            <img src="public\assets\Improve Guide.png" alt="" />
+            <img src="assets\Improve Guide.png" alt="" />
             <div className="flex px-40 pt-30 space-x-70">
-              {data.map(food => (
+              {data.map((food) => (
                 <SurveyCardThumbnailComponent
                   imgPath={food.imgPath}
                   foodTitle={food.foodTitle}
