@@ -20,8 +20,8 @@ import java.util.Optional;
 public class CommentServiceImpl implements CommentService{
     final CommentRepository commentRepository;
 
-    public void save(CommentDto commentDto) {
-        commentRepository.save(commentDto.toEntity());
+    public void save(comment Comment) {
+        commentRepository.save(Comment);
     };
 
     public void deleteById(Long id) {
