@@ -44,6 +44,7 @@ module.exports = {
     "import/order": "off",
     "import/prefer-default-export": "off",
     "import/no-mutable-exports": "off",
+    radix: "off",
   },
   settings: {
     react: {

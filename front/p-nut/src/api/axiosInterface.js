@@ -44,7 +44,7 @@ export default async function axiosInterface(
           // token refresh
           const refreshResponse = await axios({
             method: "post",
-            baseURL: "pnut.site/api/",
+            baseURL: "http://j8a704.p.ssafy.io:9090/",
             url: "/users/refresh",
             headers: {
               "refresh-token": authentication.authentication.refreshToken,
@@ -96,7 +96,7 @@ export default async function axiosInterface(
     method: method,
     url: url,
     // baseURL: "http://j8a704.p.ssafy.io:9090/",
-    baseURL: "pnut.site/api/",
+    baseURL: "http://j8a704.p.ssafy.io:9090/",
     data: data,
     headers: headers,
     params: params,

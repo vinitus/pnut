@@ -74,16 +74,16 @@ const LoginFormComponent = () => {
 
   return (
     <Fragment>
-      <p className="mx-75 my-50 text-xl font-semibold">로그인</p>
+      <p className="mx-75 my-50 text-xl text-gray-200 font-semibold">로그인</p>
       <form onSubmit={submitHandler}>
         <div className="flex flex-col">
-          <label htmlFor="email" className="mx-75">
+          <label htmlFor="email" className="mx-75 text-gray-200">
             이메일
           </label>
           <div className="flex items-center">
             <input
               type="text"
-              className="px-10 mx-75 my-12 w-465 h-50 border border-gray-300 rounded-xl focus:border-blue-500"
+              className="px-10 mx-75 my-12 w-465 h-50 border-4 border-gray-300 rounded-xl focus:border-blue-500"
               id="email"
               placeholder="이메일 주소를 입력해주세요."
               onChange={emailChangeHandler}
@@ -97,12 +97,12 @@ const LoginFormComponent = () => {
           </span>
         )}
         <div className="mt-15 flex flex-col">
-          <label htmlFor="password" className="mx-75">
+          <label htmlFor="password" className="mx-75 text-gray-200">
             비밀번호
           </label>
           <input
             type="password"
-            className="px-10 mx-75 my-12 w-465 h-50 border border-gray-300 rounded-xl focus:border-blue-500 font-noto"
+            className="px-10 mx-75 my-12 w-465 h-50 border-4 border-gray-300 rounded-xl focus:border-blue-500 font-noto"
             id="password"
             placeholder="********"
             onChange={passwordChangeHandler}
