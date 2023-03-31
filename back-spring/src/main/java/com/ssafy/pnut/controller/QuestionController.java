@@ -1,6 +1,8 @@
 package com.ssafy.pnut.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.pnut.common.response.BaseResponseBody;
 import com.ssafy.pnut.dto.*;
@@ -30,6 +32,9 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static com.google.common.base.Predicates.equalTo;
+import static com.mysema.commons.lang.Assert.assertThat;
 
 @Api(value = "설문 API", tags = {"survey"})
 @RequiredArgsConstructor
@@ -139,7 +144,7 @@ public class QuestionController {
         }
     }
 
-    public ResponseEntity<? extends Object> addHeader(String user_email) throws URISyntaxException {
+    public ResponseEntity<? extends Object> addHeader(String user_email) throws URISyntaxException, JsonProcessingException {
 //// url 생성
 //        URI url = URI.create("http://j8a704.p.ssafy.io:8000/foods/");
 //
@@ -154,30 +159,37 @@ public class QuestionController {
 //                .accept(MediaType.APPLICATION_JSON)
 //                .body(user_email);
 
-        RestTemplate restTemplate = new RestTemplate();
 
-        // Header set
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-
-        // Body set
-        MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
-        body.add("user_email", user_email);
-
-        // Message
-        HttpEntity<?> requestMessage = new HttpEntity<>(body, httpHeaders);
-
-
-        // Request
-        String url = "http://j8a704.p.ssafy.io:8000/foods/";
-        HttpEntity<String> response = restTemplate.postForEntity(url, requestMessage, String.class);
-
-        // Response 파싱
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT, true);
+//        방법3
+//        RestTemplate restTemplate = new RestTemplate();
+//
+//        // Header set
+//        HttpHeaders httpHeaders = new HttpHeaders();
+//        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+//
+//        // Body set
+//        MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
+//        body.add("user_email", user_email);
+//
+//        // Message
+//        HttpEntity<?> requestMessage = new HttpEntity<>(body, httpHeaders);
+//
+//
+//        // Request
+            String url = "http://j8a704.p.ssafy.io:8000/foods/calc";
+//        HttpEntity<String> response = restTemplate.getForEntity(url, requestMessage, String.class);
+//
+//        // Response 파싱
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        objectMapper.configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT, true);
 //        ResponseDto dto = objectMapper.readValue(response.getBody(), FlaskResponseDto.class);
 
+//        Get으로 하는 방법
+        RestTemplate restTemplate = new RestTemplate();
 
+        ResponseEntity<String> response
+                = restTemplate.getForEntity(url + "?user_email="+  user_email, String.class);
+//        assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
     }
 
