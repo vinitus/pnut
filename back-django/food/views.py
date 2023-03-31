@@ -196,9 +196,11 @@ def get_single_food(request):
         )
     ).values('name', 'percent')
     for r in res:
+
         nut.append([r["name"],round(r["percent"],1)])
     result = dict()
     result["data"] = dict()
+    result["data"]["cal"] = models.FoodNut.objects.get(food_id = food_id, nutrient_id=1).weight
     result["data"]["url"] = food.url
     result["data"]["name"] = food.name
     result["data"]["desc"] = food.description
@@ -206,5 +208,4 @@ def get_single_food(request):
     result["data"]["ingredient"] = food.ingredients
     result["data"]["nutrient"] = nut
     result["message"] = "SUCCESS"
-
     return JsonResponse(result, status=200)
