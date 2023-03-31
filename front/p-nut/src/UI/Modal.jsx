@@ -27,8 +27,6 @@ const Modal = (props) => {
       }
     }
   `;
-  
-    
 
   return (
     <div
@@ -53,6 +51,7 @@ const Modal = (props) => {
           </main>
           <footer className="p-4 text-right">
             <button
+              type="button"
               onClick={close}
               className="px-4 py-2 text-white bg-gray-600 rounded focus:outline-none"
             >

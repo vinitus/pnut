@@ -1,6 +1,12 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { logoutHandler } from "../stores/auth";
 
 const Sidebar = ({ activeTab, setActiveTab }) => {
+  const dispatch = useDispatch();
+  const logout = () => {
+    dispatch(logoutHandler());
+  };
   return (
     <div className="flex justify-center w-full text-center">
       <div className="flex flex-col w-250 space-y-50 my-75">
@@ -67,8 +73,11 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
           </div>
         </div>
         {/* 로그아웃, 회원탈퇴 */}
-        <div className="space-y-10">
-          <div className="rounded-10 text-#FF6B6C border border-#FF6B6C">
+        <div className="space-y-20">
+          <div
+            className="rounded-10 text-#FF6B6C border border-#FF6B6C hover:bg-#FF6B6C hover:text-white"
+            onClick={logout}
+          >
             <p className="font-extrabold py-15">로그아웃</p>
           </div>
           <p className="flex items-center justify-center text-gray-500">

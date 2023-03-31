@@ -10,6 +10,7 @@ import { updateTokenHandler } from "../stores/auth";
  * If axios returned right response, it return common response.
  * If axios raised an error, it return axios error. If you want to get response, you can use key named 'response'.
  */
+
 export default async function axiosInterface(
   method,
   url,
@@ -22,7 +23,7 @@ export default async function axiosInterface(
   // console.error = function () {};
   // console.warn = function () {};
 
-  // authorization이 필요한 요청인 경우
+  // Authorization Required
   // https://gisastudy.tistory.com/127
   if (headers.Authorization) {
     const myInterceptor = axios.interceptors.response.use(
@@ -33,15 +34,13 @@ export default async function axiosInterface(
       async (err) => {
         console.log("invalid token", err);
         const { config, response } = err;
-        // const responseData = err.response;
         const state = JSON.parse(localStorage.getItem("persist:root"));
         const authentication = JSON.parse(state.auth);
 
-        // if (responseDate.data.msg === "Login Require")
         if (response.status === 401) {
           axios.interceptors.response.eject(myInterceptor);
 
-          // token refresh
+          // Token Refresh
           const refreshResponse = await axios({
             method: "post",
             baseURL: "http://j8a704.p.ssafy.io:9090/",
@@ -58,8 +57,6 @@ export default async function axiosInterface(
               return error;
             });
 
-          console.log("refreshResponse: ", refreshResponse);
-
           if (refreshResponse.status === 200) {
             console.log(
               "new access token: ",
@@ -68,13 +65,7 @@ export default async function axiosInterface(
             const newToken = refreshResponse.data["access-token"];
             config.headers.Authorization = `Bearer ${newToken}`;
             const newResponse = await axios(config);
-            console.log("new request! ", newResponse);
-            // 아래 newResponse에 업데이트된 토큰을 넣어줘서
-            // 토큰이 필요한 요청을 보내는 컴포넌트에서 useDispatch를 활용하여
-            // token 값을 업데이트하는 것도 방법
-            // newResponse.newToken = refreshResponse.data["access-token"];
 
-            // 하지만 그 과정이 귀찮으니 직접 리덕스 스토어의 토큰 값을 업데이트
             store.dispatch(updateTokenHandler(newToken));
             return Promise.resolve(newResponse);
           } else if (
@@ -91,11 +82,10 @@ export default async function axiosInterface(
   // django
   // baseURL: http://j8a704.p.ssafy.io:8000/
 
-  // authorization 검증이 필요하지 않은 경우
+  // Authorization Not Required
   let response = await axios({
     method: method,
     url: url,
-    // baseURL: "http://j8a704.p.ssafy.io:9090/",
     baseURL: "http://j8a704.p.ssafy.io:9090/",
     data: data,
     headers: headers,

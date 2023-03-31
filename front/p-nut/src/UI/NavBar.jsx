@@ -1,7 +1,7 @@
 import { Fragment, React } from "react";
 import { Menu, Transition } from "@headlessui/react";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigateToTop } from "../hooks/useNavigateToTop";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutHandler } from "../stores/auth";
 
@@ -13,7 +13,7 @@ const NavBar = () => {
   const token = useSelector((state) => state.auth.authentication.token);
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const navigate = useNavigateToTop();
 
   const logout = () => {
     dispatch(logoutHandler());

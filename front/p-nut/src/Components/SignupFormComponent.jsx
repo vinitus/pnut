@@ -1,12 +1,12 @@
 import { Fragment, useState, useEffect, useReducer } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigateToTop } from "../hooks/useNavigateToTop";
 import createUserAPI from "../api/createUserAPI";
 import checkDuplicationAPI from "../api/checkDuplicationAPI";
 import requestCodeAPI from "../api/requestCodeAPI";
 import checkCodeAPI from "../api/checkCodeAPI";
 
 const SignupFormComponent = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigateToTop();
 
   const [nicknameIsTouched, setNicknameIsTouched] = useState(false);
   const [genderIsTouched, setGenderIsTouched] = useState(false);

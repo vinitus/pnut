@@ -1,11 +1,17 @@
 import React, { useState } from "react";
+import { useLoaderData } from "react-router-dom";
 import Sidebar from "../Components/Sidebar";
 import NutrientStatus from "../Components/NutrientStatus";
 import UpdateUserData from "../Components/UpdateUserData";
 import MyRecipe from "../Components/MyRecipe";
 import BookmarkedRecipe from "../Components/BookmarkedRecipe";
 
+import getUserInfo from "../api/getUserInfo";
+
 const MyPage = () => {
+  const data = useLoaderData();
+  console.log("data: ", data);
+
   const [activeTab, setActiveTab] = useState("nutrientStatus");
 
   return (
@@ -27,3 +33,10 @@ const MyPage = () => {
 };
 
 export default MyPage;
+
+export async function loader() {
+  console.log("Loading...");
+  const userInfo = await getUserInfo();
+
+  return userInfo;
+}

@@ -1,11 +1,11 @@
 import { Fragment, useEffect, useReducer } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigateToTop } from "../hooks/useNavigateToTop";
 import { useDispatch, useSelector } from "react-redux";
 import { loginHandler } from "../stores/auth";
 
 const LoginFormComponent = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const navigate = useNavigateToTop();
   const token = useSelector((state) => state.auth.authentication.token);
 
   const emailReducer = (state, action) => {

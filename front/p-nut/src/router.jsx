@@ -14,7 +14,8 @@ import SymptomsRecommandPage from "./Pages/SymptomsRecommandPage";
 import SurveyRecommendPage from "./Pages/SurveyRecommendPage";
 import LoginPage from "./Pages/LoginPage";
 import SignupPage from "./Pages/SignupPage";
-import MyPage from "./Pages/MyPage";
+import MyPage, { loader as myPageLoader } from "./Pages/MyPage";
+
 import SearchRecommendPage from "./Pages/SearchRecommendPage";
 import SurveyPage from "./Pages/SurveyPage";
 
@@ -53,6 +54,7 @@ const router = createBrowserRouter([
       {
         path: "mypage",
         element: <MyPage />,
+        loader: myPageLoader,
       },
       {
         path: "search",

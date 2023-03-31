@@ -1,8 +1,8 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigateToTop } from "../hooks/useNavigateToTop";
 
 const LoginSignupFormComponent = (props) => {
-  const navigate = useNavigate();
+  const navigate = useNavigateToTop();
   const { currentPage } = props;
   const goToLoginSignup = () => {
     if (currentPage === "login") {
@@ -12,6 +12,9 @@ const LoginSignupFormComponent = (props) => {
       navigate("/login");
     }
   };
+  const goToMain = () => {
+    navigate("/");
+  };
 
   return (
     <div className="flex flex-row w-1232 h-661">
@@ -20,9 +23,10 @@ const LoginSignupFormComponent = (props) => {
           당신만의 영양 솔루션,
         </p>
         <img
-          className="mx-136 mt-90 w-300 h-270"
+          className="mx-136 mt-90 w-300 h-270 hover:border hover:border-orange-500 hover:rounded-xl"
           src="assets\Logo1.png"
           alt="Logo Image"
+          onClick={goToMain}
         />
         <div className="ml-75 mt-110">
           <span className="text-gray-200 font-semibold">{props.phrase}</span>

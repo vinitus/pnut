@@ -1,8 +1,8 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigateToTop } from "../hooks/useNavigateToTop";
 
 const Footer = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigateToTop();
 
   const goToMain = () => {
     navigate("/");
