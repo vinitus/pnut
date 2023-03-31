@@ -10,7 +10,7 @@ async function getUserInfo() {
   console.log("email: ", email);
   const checkResponse = await axios({
     method: "post",
-    baseURL: "http://j8a704.p.ssafy.io:9090/",
+    baseURL: "https://pnut.site/api",
     url: "/users/check",
     headers: {
       "access-token": accessToken,
@@ -21,7 +21,7 @@ async function getUserInfo() {
   if (checkResponse.status === 202) {
     const refreshResponse = await axios({
       method: "post",
-      baseURL: "http://j8a704.p.ssafy.io:9090/",
+      baseURL: "https://pnut.site/api",
       url: "/users/refresh",
       headers: {
         "refresh-token": refreshToken,
@@ -35,7 +35,7 @@ async function getUserInfo() {
   }
   const response = await axios({
     method: "get",
-    baseURL: "http://j8a704.p.ssafy.io:9090/",
+    baseURL: "https://pnut.site/api",
     url: `/users/${email}`,
     headers: {
       "access-token": accessToken,
