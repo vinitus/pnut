@@ -157,9 +157,8 @@ public class BoardController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<? extends Object> selectAllRecipe(HttpServletRequest request) throws IOException {
+    public ResponseEntity<? extends Object> selectAllRecipe() throws IOException {
         try {
-            UserDto userDto = userService.getUserByToken(request.getHeader("Authorization").substring(7));
 
             List<BoardDto> Boards = boardService.findAll();
             List<SelectAllRecipeRes> Recipes = new ArrayList<>();
@@ -398,9 +397,8 @@ public class BoardController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<? extends Object> getTopRecipes(HttpServletRequest request) throws IOException {
+    public ResponseEntity<? extends Object> getTopRecipes() throws IOException {
         try {
-            UserDto userDto = userService.getUserByToken(request.getHeader("Authorization").substring(7));
             List<SelectAllRecipeRes> boards = boardService.findTop3ByOrderByLikesDesc();
             return ResponseEntity.status(200).body(boards);
         } catch (Exception e) {
@@ -417,9 +415,8 @@ public class BoardController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<? extends Object> getBoardCuisineOrderByDate(@PathVariable("cuisineName") String title, HttpServletRequest request) throws IOException {
+    public ResponseEntity<? extends Object> getBoardCuisineOrderByDate(@PathVariable("cuisineName") String title) throws IOException {
         try {
-            UserDto userDto = userService.getUserByToken(request.getHeader("Authorization").substring(7));
             List<BoardDto> Boards = boardService.findByTitleContainingOrderByCreateDate(title);
             List<SelectAllRecipeRes> Recipes = new ArrayList<>();
             for(int i = 0; i < Boards.size(); i++) {
@@ -443,9 +440,8 @@ public class BoardController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<? extends Object> getBoardCuisineOrderByLikes(@PathVariable("cuisineName") String title, HttpServletRequest request) throws IOException {
+    public ResponseEntity<? extends Object> getBoardCuisineOrderByLikes(@PathVariable("cuisineName") String title) throws IOException {
         try {
-            UserDto userDto = userService.getUserByToken(request.getHeader("Authorization").substring(7));
             List<BoardDto> Boards = boardService.findByTitleContainingOrderByLikesDesc(title);
             List<SelectAllRecipeRes> Recipes = new ArrayList<>();
             for(int i = 0; i < Boards.size(); i++) {
