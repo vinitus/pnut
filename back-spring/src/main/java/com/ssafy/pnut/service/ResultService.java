@@ -13,6 +13,8 @@ public interface ResultService {
 
     void deleteByQuestionIdAndUserEmail(question questionId, User userEmail);
 
+    Optional<result> findByQuestionIdAndUserEmail(question questionId, User userEmail);
+
     List<result> findByUserEmailOrderByIdAsc(User userEmail);
 
     Optional<result> findById(Long id);

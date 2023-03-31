@@ -124,6 +124,12 @@ public class QuestionController {
             // id에 맞는 카테고리 엔티티 구하기 (question에 category외래키가 객체로 저장되어있어서)
             Optional<category> category = categoryService.findById(id);
             List<question> questions = questionService.findAllByCategoryIdOrderById(category.get());  // 카테고리에 맞는 질문들을 순서대로 가져오기
+
+            Optional<result> res = resultService.findByQuestionIdAndUserEmail(questions.get(0), userDto.toEntity());
+            if(res.isPresent()) {
+                return ResponseEntity.status(401).body(BaseResponseBody.of(409, "data conflict"));
+            }
+
             for(int i = 0; i < questions.size(); i++) {
                 Optional<question> questionId = questionService.findById(questions.get(i).getId());
                 ResultDto resultDto = new ResultDto(userDto.toEntity(), questionId.get(), Integer.parseInt(resultReq.getResponses().get(i)));

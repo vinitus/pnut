@@ -30,6 +30,11 @@ public class ResultServiceImpl implements ResultService {
         return resultRepository.findById(id);
     }
 
+    public Optional<result> findByQuestionIdAndUserEmail(question questionId, User userEmail){
+        return resultRepository.findByQuestionIdAndUserEmail(questionId, userEmail);
+    }
+
+
 
     public List<result> findByUserEmailOrderByIdAsc(User userEmail) {
         return resultRepository.findByUserEmailOrderByIdAsc(userEmail);
