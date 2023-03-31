@@ -6,36 +6,45 @@ import axios from "axios";
 const RecipeThumbnailComponent = (props) => {
   const { imgPath, title, kcal, mainIngredients, time, id } = props;
 
-  // open일 떄 true로 만들어 열림
+  // open일 때 true로 만들어 열림
   const [modalOpen, setModalOpen] = useState(false);
-  const [ data, setData] = useState() ;
+  const [data, setData] = useState();
   // youtube api key
-  //require("dotenv").config();
-  //const key = process.env.YOUTUBE_KEY;
-  
+  // require("dotenv").config();
+  // const key = process.env.YOUTUBE_KEY;
+
   const openModal = (event) => {
     event.stopPropagation();
     axios
       .get(
-        `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=3&q=${title}&type=video&videoDefinition=high&key=${key}`
+        `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=3&q=${title}&type=video&videoDefinition=high&key=AIzaSyCI8t8M1ADPjcTTAuIOs3G2w-Nev9hXwRs`
       )
-      .then((res)=>{
+      .then((res) => {
         setData(res.data.items);
       })
-      .catch(()=>{});
-    setModalOpen(true);
+
+      .catch(() => {});
+    setModalOpen(() => {
+      return true;
+    });
   };
+
   const closeModal = (event) => {
     event.stopPropagation();
-    setModalOpen(false);
+    // setModalOpen(false);
+    setData(null);
   };
-    
 
   return (
     <div>
-      {modalOpen && <Modal open={modalOpen} close={closeModal} foodId={id} foodTitle={title} searchResult={data}>
-        어쩌구저쩌구
-      </Modal>}
+      {data && (
+        <Modal
+          close={closeModal}
+          foodId={id}
+          foodTitle={title}
+          searchResult={data}
+        />
+      )}
       <img
         className="cursor-pointer"
         onClick={openModal}

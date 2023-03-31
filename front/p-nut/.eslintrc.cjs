@@ -44,6 +44,7 @@ module.exports = {
     "no-use-before-define": "off",
     "no-useless-return": "off",
     "no-unused-vars": "off",
+    "no-nested-ternary": "off",
     "import/order": "off",
     "import/prefer-default-export": "off",
     "import/no-mutable-exports": "off",

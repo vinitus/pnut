@@ -165,7 +165,7 @@ const SearchRecommendPage = () => {
           <div className="flex justify-center w-full">
             <form className="relative">
               <input
-                className="block py-2 pr-3 text-xl font-bold text-white placeholder-gray-200 border border-gray-300 rounded-full shadow-md  placeholder:font-medium w-700 h-60 pl-50 bg-white/20"
+                className="block py-2 pr-3 text-xl font-bold text-white placeholder-gray-200 border border-gray-300 rounded-full shadow-md placeholder:font-medium w-700 h-60 pl-50 bg-white/20"
                 type="text"
                 placeholder="음식이나 식재료를 검색해보세요"
                 value={searchQuery}

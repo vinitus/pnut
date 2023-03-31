@@ -12,6 +12,9 @@ export default defineConfig({
       "/survey": {
         target: "http://j8a704.p.ssafy.io:9090",
       },
+      "/foods/info": {
+        target: "http://j8a704.p.ssafy.io:8000",
+      },
     },
   },
 });
