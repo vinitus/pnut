@@ -48,13 +48,9 @@ const BookmarkedRecipeComponent = (props) => {
               <div className="z-50 flex items-center space-x-5 text-sm text-white">
                 <img className="h-20" src="assets/Favorite.png" alt="" />
                 {likes} |
-                <img
-                  className="h-20"
-                  src="public\assets\Invisible.png"
-                  alt=""
-                />
+                <img className="h-20" src="assets\Invisible.png" alt="" />
                 {views} |
-                <img className="h-20" src="public\assets\Comments.png" alt="" />
+                <img className="h-20" src="assets\Comments.png" alt="" />
                 {comments}개
               </div>
             </div>

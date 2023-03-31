@@ -1,6 +1,16 @@
 import React from "react";
+import { useNavigateToTop } from "../hooks/useNavigateToTop";
 
 const Footer = () => {
+  const navigate = useNavigateToTop();
+
+  const goToMain = () => {
+    navigate("/");
+  };
+  const goToMyPage = () => {
+    navigate("/mypage");
+  };
+
   return (
     <div className="w-full h-350 flex justify-center bg-#FF6B6C/5 text-#2B2C2B">
       <div className="flex flex-col divide-y divide-gray-200 w-1200 py-30">
@@ -22,17 +32,23 @@ const Footer = () => {
             </div>
           </div>
           <div className="flex w-1/3 space-x-20 ">
-            <div className="bg-#FF6B6C flex items-center justify-center w-180 h-70">
+            <div
+              className="bg-#FF6B6C flex items-center justify-center w-180 h-70 hover:bg-red-500 transition duration-300"
+              onClick={goToMain}
+            >
               <p className="font-bold text-white text-md">메인으로</p>
             </div>
-            <div className="border border-#FF6B6C flex items-center justify-center w-180 h-70">
+            <div
+              className="border border-#FF6B6C flex items-center justify-center w-180 h-70 hover:bg-gray-100 transition duration-300"
+              onClick={goToMyPage}
+            >
               <p className="font-extrabold text-#FF6B6C text-md">마이페이지</p>
             </div>
           </div>
         </div>
         <div className=" pt-15">
           <div className="mb-15">
-            <img className="w-90" src="assets\Logo1.png" alt="" />
+            <img className="w-90" src="/assets/Logo1.png" alt="" />
           </div>
           <div className="space-y-5">
             <p className="text-sm">
@@ -52,8 +68,8 @@ const Footer = () => {
               </span>
             </div>
             <div className="flex space-x-10">
-              <img src="assets\instagram.png" alt="" />
-              <img src="assets\ssafy.png" alt="" />
+              <img src="/assets/instagram.png" alt="" />
+              <img src="/assets/ssafy.png" alt="" />
             </div>
           </div>
         </div>

@@ -9,7 +9,6 @@ async function checkCodeAPI(email, code) {
   if (response.status === 200) {
     return "valid code";
   }
-  // 인증번호 만료 시 로직 필요
   if (response.response.status === 408) {
     return "code timeout";
   }

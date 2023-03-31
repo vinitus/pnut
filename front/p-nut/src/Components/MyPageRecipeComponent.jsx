@@ -37,7 +37,7 @@ const MyPageRecipeComponent = (props) => {
               className={`h-30 cursor-pointer transition-transform duration-200 ${
                 isTrashHovering ? "scale-125" : ""
               }`}
-              src="public\assets\Trash Can.png"
+              src="assets\Trash Can.png"
               alt=""
               onMouseEnter={handleTrashMouseEnter}
               onMouseLeave={handleTrashMouseLeave}
@@ -49,7 +49,7 @@ const MyPageRecipeComponent = (props) => {
               className={`h-30 cursor-pointer transition-transform duration-200 ${
                 isEditHovering ? "scale-125" : ""
               }`}
-              src="public\assets\Edit.png"
+              src="assets\Edit.png"
               alt=""
               onMouseEnter={handleEditMouseEnter}
               onMouseLeave={handleEditMouseLeave}

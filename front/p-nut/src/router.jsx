@@ -14,9 +14,13 @@ import SymptomsRecommandPage from "./Pages/SymptomsRecommandPage";
 import SurveyRecommendPage from "./Pages/SurveyRecommendPage";
 import LoginPage from "./Pages/LoginPage";
 import SignupPage from "./Pages/SignupPage";
-import MyPage from "./Pages/MyPage";
+import MyPage, { loader as myPageLoader } from "./Pages/MyPage";
+
 import SearchRecommendPage from "./Pages/SearchRecommendPage";
-import SurveyPage from "./Pages/SurveyPage";
+import SurveyLayout from "./Pages/SurveyLayout";
+import SurveyIndexPage from "./Pages/SurveyIndexPage";
+import SurveySymptomsPage from "./Pages/SurveySymptomsPage";
+import SurveyQuestionsPage from "./Pages/SurveyQuestionsPage";
 
 const router = createBrowserRouter([
   {
@@ -53,6 +57,7 @@ const router = createBrowserRouter([
       {
         path: "mypage",
         element: <MyPage />,
+        loader: myPageLoader,
       },
       {
         path: "search",
@@ -60,7 +65,21 @@ const router = createBrowserRouter([
       },
       {
         path: "newsurvey",
-        element: <SurveyPage />,
+        element: <SurveyLayout />,
+        children: [
+          {
+            index: true,
+            element: <SurveyIndexPage />,
+          },
+          {
+            path: "symptoms",
+            element: <SurveySymptomsPage />,
+          },
+          {
+            path: ":question1/:question2/:question3",
+            element: <SurveyQuestionsPage />,
+          },
+        ],
       },
     ],
   },

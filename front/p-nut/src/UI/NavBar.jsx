@@ -1,8 +1,8 @@
 import { Fragment, React } from "react";
 import { Menu, Transition } from "@headlessui/react";
 
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useNavigateToTop } from "../hooks/useNavigateToTop";
+import { useDispatch, useSelector } from "react-redux";
 import { logoutHandler } from "../stores/auth";
 
 function classNames(...classes) {
@@ -10,18 +10,36 @@ function classNames(...classes) {
 }
 
 const NavBar = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const token = useSelector((state) => state.auth.authentication.token);
 
-  const logout = async () => {
-    await dispatch(logoutHandler());
+  const dispatch = useDispatch();
+  const navigate = useNavigateToTop();
+
+  const logout = () => {
+    dispatch(logoutHandler());
+  };
+  const goToMain = () => {
+    navigate("/");
+  };
+  const goToLogin = () => {
     navigate("/login");
+  };
+  const goToSignup = () => {
+    navigate("/signup");
+  };
+  const goToMyPage = () => {
+    navigate("/mypage");
   };
 
   return (
     <div className="fixed z-50 flex w-full p-3 h-60 bg-white/80">
       <div className="flex items-center w-full justify-evenly">
-        <img className="h-50" src="assets\Logo1.png" alt="logo" />
+        <img
+          className="h-50 hover:border hover:border-white hover:rounded-xl"
+          src="/assets/Logo1.png"
+          alt="logo"
+          onClick={goToMain}
+        />
 
         <div className="flex items-center space-x-50">
           {/* 음식추천 */}
@@ -31,7 +49,7 @@ const NavBar = () => {
                 음식추천
                 <img
                   className="h-10 ml-10 rotate-90"
-                  src="assets\chevron.png"
+                  src="/assets/chevron.png"
                   alt=""
                 />
               </Menu.Button>
@@ -50,20 +68,27 @@ const NavBar = () => {
                 <div className="py-2">
                   <Menu.Item>
                     {({ active }) => (
-                      <a
-                        href="#"
+                      <button
+                        type="button"
+                        onClick={() => {
+                          navigate("/my-survey");
+                        }}
                         className={classNames(
                           active ? "bg-white " : "",
                           "block px-15 py-10 text-md rounded-5"
                         )}
                       >
                         개인설문조사
-                      </a>
+                      </button>
                     )}
                   </Menu.Item>
                   <Menu.Item>
                     {({ active }) => (
-                      <a
+                      <button
+                        type="button"
+                        onClick={() => {
+                          navigate("/symptoms");
+                        }}
                         href="#"
                         className={classNames(
                           active ? "bg-white " : "",
@@ -71,20 +96,21 @@ const NavBar = () => {
                         )}
                       >
                         보편적인 증상
-                      </a>
+                      </button>
                     )}
                   </Menu.Item>
                   <Menu.Item>
                     {({ active }) => (
-                      <a
-                        href="#"
+                      <button
+                        type="button"
+                        onClick={() => navigate("/search")}
                         className={classNames(
                           active ? "bg-white " : "",
                           "block px-15 py-10 text-md rounded-5"
                         )}
                       >
                         식재료 음식 검색
-                      </a>
+                      </button>
                     )}
                   </Menu.Item>
                 </div>
@@ -98,7 +124,7 @@ const NavBar = () => {
                 게시판
                 <img
                   className="h-10 ml-10 rotate-90"
-                  src="assets\chevron.png"
+                  src="/assets/chevron.png"
                   alt=""
                 />
               </Menu.Button>
@@ -117,28 +143,44 @@ const NavBar = () => {
                 <div className="py-2">
                   <Menu.Item>
                     {({ active }) => (
-                      <a
-                        href="#"
+                      <button
+                        type="button"
+                        onClick={() => navigate("/newpost")}
                         className={classNames(
                           active ? "bg-white " : "",
                           "block px-15 py-10 text-md rounded-5"
                         )}
                       >
-                        금주의 레시피
-                      </a>
+                        게시글 작성
+                      </button>
                     )}
                   </Menu.Item>
                   <Menu.Item>
                     {({ active }) => (
-                      <a
-                        href="#"
+                      <button
+                        type="button"
+                        onClick={() => navigate("/board")}
                         className={classNames(
                           active ? "bg-white " : "",
                           "block px-15 py-10 text-md rounded-5"
                         )}
                       >
                         게시물 조회
-                      </a>
+                      </button>
+                    )}
+                  </Menu.Item>
+                  <Menu.Item>
+                    {({ active }) => (
+                      <button
+                        type="button"
+                        onClick={() => navigate("/newsurvey")}
+                        className={classNames(
+                          active ? "bg-white " : "",
+                          "block px-15 py-10 text-md rounded-5"
+                        )}
+                      >
+                        설문조사
+                      </button>
                     )}
                   </Menu.Item>
                 </div>
@@ -147,17 +189,38 @@ const NavBar = () => {
           </Menu>
         </div>
 
-        <div className="flex items-center text-sm space-x-30">
-          <div className="px-12 py-8 text-gray-800 bg-gray-100 rounded-full">
-            회원가입
+        {!token && (
+          <div className="flex items-center text-sm space-x-30">
+            <div
+              className="px-12 py-8 text-gray-800 font-semibold bg-gray-100 rounded-full hover:bg-gray-300 transition duration-300"
+              onClick={goToSignup}
+            >
+              회원가입
+            </div>
+            <div
+              className="px-12 py-8 text-white font-semibold bg-#FF6B6C rounded-full hover:bg-red-500 transition duration-300"
+              onClick={goToLogin}
+            >
+              로그인
+            </div>
           </div>
-          <div
-            className="px-12 py-8 text-white font-semibold bg-#FF6B6C rounded-full"
-            onClick={logout}
-          >
-            로그인
+        )}
+        {token && (
+          <div className="flex items-center text-sm space-x-30">
+            <div
+              className="px-12 py-8 text-gray-800 font-semibold bg-gray-100 rounded-full hover:bg-gray-300 transition duration-300"
+              onClick={goToMyPage}
+            >
+              마이페이지
+            </div>
+            <div
+              className="px-12 py-8 text-white font-semibold bg-#FF6B6C rounded-full hover:bg-red-500 transition duration-300"
+              onClick={logout}
+            >
+              로그아웃
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

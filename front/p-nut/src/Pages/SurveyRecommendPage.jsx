@@ -60,7 +60,7 @@ const SurveyRecommendPage = () => {
           </div>
           <div className="flex justify-center bg-white rounded-50 ">
             <div className="justify-center space-y-20 p-30">
-              <img className="mx-auto" src="public\assets\power.png" alt="" />
+              <img className="mx-auto" src="assets\power.png" alt="" />
               <p className="text-center text-xl font-bold text-#FF6B6C">
                 생활습관 개선이 필요해요
               </p>
@@ -104,7 +104,7 @@ const SurveyRecommendPage = () => {
         </div>
         {/* # 영양소 카드 컴포넌트 */}
         <div className="py-30 ">
-          {data.map(test => (
+          {data.map((test) => (
             <SurveyCardComponent
               title={test.title}
               tag1={test.tag1}
