@@ -155,6 +155,11 @@ public class UserController {
 
         if(jwtService.checkToken(request.getHeader("access-token"))){
             try{
+                String email = jwtService.getUserNameFromToken(request.getHeader("access-token"));
+                User now = userService.getUser(email);
+                if(userDto.getPassword().equals("")){
+                    userDto.setPassword(now.getPassword());
+                }
                 String fileName;
                 if(multipartFile==null){
                     fileName = "basic_profile_image_37d8I092LMX89-removebg-preview.png";
