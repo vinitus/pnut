@@ -26,6 +26,7 @@ module.exports = {
     "react/jsx-fragments": "off",
     "react/destructuring-assignment": "off",
     "react/no-array-index-key": "off",
+    "react-hooks/exhaustive-deps": "off",
     "jsx-a11y/label-has-associated-control": "off",
     "jsx-a11y/img-redundant-alt": "off",
     "jsx-a11y/anchor-is-valid": "off",

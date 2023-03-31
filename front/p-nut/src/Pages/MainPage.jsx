@@ -1,6 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
+import AlertModal from "../UI/AlertModal";
 
 const MainPage = () => {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
   return (
     <>
       {/* 동영상 헤더 */}
@@ -27,7 +38,12 @@ const MainPage = () => {
       </div>
       {/* 문제 */}
       <div className="flex items-center justify-center py-16 border-b-2 border-gray-200 ">
-        <p className="text-lg font-bold text-#FF6B6C">미션</p>
+        <button type="button" onClick={openModal}>
+          <p className="text-lg font-bold text-#FF6B6C">미션</p>
+        </button>
+        <AlertModal open={modalOpen} close={closeModal}>
+          팝업창 확인
+        </AlertModal>
       </div>
       {/* 본문 */}
       <div className="overflow-hidden text-#2B2C2B">
