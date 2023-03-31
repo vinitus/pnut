@@ -17,7 +17,7 @@ async function logoutAPI() {
   console.log("logout");
   const checkResponse = await axios({
     method: "post",
-    baseURL: "http://j8a704.p.ssafy.io:9090/",
+    baseURL: "https://pnut.site/api",
     url: "/users/check",
     headers: {
       "access-token": accessToken,
@@ -28,7 +28,7 @@ async function logoutAPI() {
   if (checkResponse.status === 202) {
     const refreshResponse = await axios({
       method: "post",
-      baseURL: "http://j8a704.p.ssafy.io:9090/",
+      baseURL: "https://pnut.site/api",
       url: "/users/refresh",
       headers: {
         "refresh-token": refreshToken,
@@ -42,7 +42,7 @@ async function logoutAPI() {
   }
   const response = await axios({
     method: "post",
-    baseURL: "http://j8a704.p.ssafy.io:9090/",
+    baseURL: "https://pnut.site/api",
     url: "/users/logout",
     headers: {
       "access-token": accessToken,

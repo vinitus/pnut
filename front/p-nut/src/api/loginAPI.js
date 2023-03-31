@@ -8,7 +8,7 @@ Request needs email, password
 async function loginAPI(email, password) {
   const response = await axios({
     method: "post",
-    baseURL: "http://j8a704.p.ssafy.io:9090/",
+    baseURL: "https://pnut.site/api",
     url: "/users/login",
     data: {
       email: email,
