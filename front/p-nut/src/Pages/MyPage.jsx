@@ -7,6 +7,7 @@ import MyRecipe from "../Components/MyRecipe";
 import BookmarkedRecipe from "../Components/BookmarkedRecipe";
 
 import getUserInfo from "../api/getUserInfo";
+import getMyRecipe from "../api/getMyRecipe";
 
 const MyPage = () => {
   const data = useLoaderData();
@@ -35,8 +36,13 @@ const MyPage = () => {
 export default MyPage;
 
 export async function loader() {
-  console.log("Loading...");
+  console.log("Loading My Page...");
   const userInfo = await getUserInfo();
+  const myRecipe = await getMyRecipe();
+  const data = {
+    userInfo: userInfo,
+    myRecipe: myRecipe,
+  };
 
-  return userInfo;
+  return data;
 }
