@@ -197,7 +197,7 @@ public class UserController {
     @ApiOperation(value = "회원탈퇴", notes = "회원정보를 삭제한다", response = Map.class)
     @DeleteMapping("")
     public ResponseEntity<?> deleteUser(
-            @RequestBody @ApiParam(value = "탈퇴한 회원 정보", required = true) HttpServletRequest request){
+            HttpServletRequest request){
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = HttpStatus.UNAUTHORIZED;
         String access_token = request.getHeader("access-token");
