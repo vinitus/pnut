@@ -35,7 +35,7 @@ const NavBar = () => {
     <div className="fixed z-50 flex w-full p-3 h-60 bg-white/80">
       <div className="flex items-center w-full justify-evenly">
         <img
-          className="h-50 hover:border hover:border-white hover:rounded-xl"
+          className="cursor-pointer h-50 hover:border hover:border-transparent hover:rounded-5xl"
           src="/assets/Logo1.png"
           alt="logo"
           onClick={goToMain}
@@ -75,7 +75,7 @@ const NavBar = () => {
                         }}
                         className={classNames(
                           active ? "bg-white " : "",
-                          "block px-15 py-10 text-md rounded-5"
+                          "block px-15 py-10 text-md rounded-5 w-full text-start"
                         )}
                       >
                         개인설문조사
@@ -92,7 +92,7 @@ const NavBar = () => {
                         href="#"
                         className={classNames(
                           active ? "bg-white " : "",
-                          "block px-15 py-10 text-md rounded-5"
+                          "block px-15 py-10 text-md rounded-5  w-full text-start"
                         )}
                       >
                         보편적인 증상
@@ -106,7 +106,7 @@ const NavBar = () => {
                         onClick={() => navigate("/search")}
                         className={classNames(
                           active ? "bg-white " : "",
-                          "block px-15 py-10 text-md rounded-5"
+                          "block px-15 py-10 text-md rounded-5  w-full text-start"
                         )}
                       >
                         식재료 음식 검색
@@ -148,7 +148,7 @@ const NavBar = () => {
                         onClick={() => navigate("/newpost")}
                         className={classNames(
                           active ? "bg-white " : "",
-                          "block px-15 py-10 text-md rounded-5"
+                          "block px-15 py-10 text-md rounded-5  w-full text-start"
                         )}
                       >
                         게시글 작성
@@ -162,7 +162,7 @@ const NavBar = () => {
                         onClick={() => navigate("/board")}
                         className={classNames(
                           active ? "bg-white " : "",
-                          "block px-15 py-10 text-md rounded-5"
+                          "block px-15 py-10 text-md rounded-5  w-full text-start"
                         )}
                       >
                         게시물 조회
@@ -176,7 +176,7 @@ const NavBar = () => {
                         onClick={() => navigate("/newsurvey")}
                         className={classNames(
                           active ? "bg-white " : "",
-                          "block px-15 py-10 text-md rounded-5"
+                          "block px-15 py-10 text-md rounded-5  w-full text-start"
                         )}
                       >
                         설문조사
@@ -192,7 +192,7 @@ const NavBar = () => {
         {!token && (
           <div className="flex items-center text-sm space-x-30">
             <div
-              className="px-12 py-8 text-gray-800 font-semibold bg-gray-100 rounded-full hover:bg-gray-300 transition duration-300"
+              className="px-12 py-8 font-semibold text-gray-800 transition duration-300 bg-gray-100 rounded-full hover:bg-gray-300"
               onClick={goToSignup}
             >
               회원가입
@@ -208,7 +208,7 @@ const NavBar = () => {
         {token && (
           <div className="flex items-center text-sm space-x-30">
             <div
-              className="px-12 py-8 text-gray-800 font-semibold bg-gray-100 rounded-full hover:bg-gray-300 transition duration-300"
+              className="px-12 py-8 font-semibold text-gray-800 transition duration-300 bg-gray-100 rounded-full hover:bg-gray-300"
               onClick={goToMyPage}
             >
               마이페이지

@@ -33,13 +33,13 @@ const Footer = () => {
           </div>
           <div className="flex w-1/3 space-x-20 ">
             <div
-              className="bg-#FF6B6C flex items-center justify-center w-180 h-70 hover:bg-red-500 transition duration-300"
+              className="cursor-pointer bg-#FF6B6C flex items-center justify-center w-180 h-70 hover:bg-red-500 transition duration-300"
               onClick={goToMain}
             >
               <p className="font-bold text-white text-md">메인으로</p>
             </div>
             <div
-              className="border border-#FF6B6C flex items-center justify-center w-180 h-70 hover:bg-gray-100 transition duration-300"
+              className="cursor-pointer border border-#FF6B6C flex items-center justify-center w-180 h-70 hover:bg-gray-100 transition duration-300"
               onClick={goToMyPage}
             >
               <p className="font-extrabold text-#FF6B6C text-md">마이페이지</p>
@@ -48,7 +48,12 @@ const Footer = () => {
         </div>
         <div className=" pt-15">
           <div className="mb-15">
-            <img className="w-90" src="/assets/Logo1.png" alt="" />
+            <img
+              onClick={goToMain}
+              className="cursor-pointer w-90 hover:border hover:border-transparent hover:rounded-5xl "
+              src="/assets/Logo1.png"
+              alt=""
+            />
           </div>
           <div className="space-y-5">
             <p className="text-sm">
@@ -56,7 +61,7 @@ const Footer = () => {
               강남구 테헤란로 212 (역삼동 718-5번지) 멀티캠퍼스 역삼
             </p>
             <p className="text-sm text-#FF6B6C">
-              제휴 및 남품 문의 : minofficial13@gmail.com{" "}
+              제휴 및 남품 문의 : minofficial13@gmail.com
             </p>
           </div>
           <div className="flex items-end justify-between">
@@ -64,12 +69,16 @@ const Footer = () => {
               <span className="text-sm font-bold">서비스 이용약관</span>
               <span className="text-sm font-bold">개인정보 처리방침</span>
               <span className="text-sm">
-                Copyright ⓒ 2023 주식회사 피넛 All rights reserved.{" "}
+                Copyright ⓒ 2023 주식회사 피넛 All rights reserved.
               </span>
             </div>
             <div className="flex space-x-10">
-              <img src="/assets/instagram.png" alt="" />
-              <img src="/assets/ssafy.png" alt="" />
+              <a href="https://instagram.com/thwyylvm?igshid=MGNiNDI5ZTU=">
+                <img src="/assets/instagram.png" alt="" />
+              </a>
+              <a href="https://www.ssafy.com/ksp/jsp/swp/swpMain.jsp">
+                <img src="/assets/ssafy.png" alt="" />
+              </a>
             </div>
           </div>
         </div>

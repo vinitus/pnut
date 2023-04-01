@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import AlertModal from "../UI/AlertModal";
+import { useNavigateToTop } from "../hooks/useNavigateToTop";
 
 const MainPage = () => {
+  const navigate = useNavigateToTop();
+
   const [modalOpen, setModalOpen] = useState(false);
 
   const openModal = () => {
@@ -166,9 +169,10 @@ const MainPage = () => {
                         그에 맞는 맞춤형 음식을 추천합니다.
                       </p>
                     </div>
-                    {/* 이동 */}
+
                     <img
-                      className="pt-20 h-80"
+                      onClick={() => navigate("/newsurvey")}
+                      className="pt-20 cursor-pointer h-80"
                       src="assets\inspectbutton.png"
                       alt=""
                     />
@@ -180,9 +184,9 @@ const MainPage = () => {
                         <p className="pt-4 pl-12 font-bold text-#2B2C2B">2</p>
                       </div>
                       <div className="flex justify-center w-full">
-                        {/* 이동 */}
                         <img
-                          className="pt-20 h-80"
+                          onClick={() => navigate("/my-survey")}
+                          className="pt-20 cursor-pointer h-80"
                           src="assets\resultbutton.png"
                           alt=""
                         />
@@ -195,10 +199,12 @@ const MainPage = () => {
                   <div className="w-32 h-32 mx-auto bg-#2B2C2B rounded-full flex-center">
                     <p className="pt-4 pl-12 font-bold text-white">3</p>
                   </div>
-                  {/* 이동 */}
-                  <div className="flex flex-row items-center space-x-10">
+                  <div
+                    onClick={() => navigate("/symptoms")}
+                    className="flex flex-row items-center space-x-10 cursor-pointer"
+                  >
                     <p className="text-xl font-bold">
-                      설문조사를 통한 개인별 진단
+                      관심있는 증상 별 음식 톺아보기
                     </p>
                     <img className="h-20" src="assets\chevron.png" alt="" />
                   </div>
@@ -214,10 +220,13 @@ const MainPage = () => {
                   <div className="w-32 h-32 mx-auto bg-#2B2C2B rounded-full flex-center">
                     <p className="pt-4 pl-12 font-bold text-white">4</p>
                   </div>
-                  {/* 이동 */}
-                  <div className="flex flex-row items-center space-x-10">
+
+                  <div
+                    onClick={() => navigate("/search")}
+                    className="flex flex-row items-center space-x-10 cursor-pointer"
+                  >
                     <p className="text-xl font-bold">
-                      식재료, 음식 이름으로 검색하기{" "}
+                      식재료, 음식 이름으로 검색하기
                     </p>
                     <img className="h-20" src="assets\chevron.png" alt="" />
                   </div>
