@@ -4,13 +4,13 @@ from . import models
 class foodSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Food
-        fields  = ('name',"url")
+        fields  = ('food_id','name',"url")
         # 사진도 보내야함
 
 class searchSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Food
-        fields = ("name", "time", "ingredients", "url")
+        fields = ('food_id',"name", "time", "ingredients", "url")
         # 칼로리 보내야함
 
 
