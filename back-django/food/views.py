@@ -13,6 +13,7 @@ from . import models
 from . import Serializer
 MAX_NUTRIENT = 24
 
+
 @csrf_exempt
 def lack_of_nutrient(request):
     """
@@ -201,6 +202,7 @@ def get_single_food(request):
     result = dict()
     result["data"] = dict()
     result["data"]["cal"] = models.FoodNut.objects.get(food_id = food_id, nutrient_id=1).weight
+    result["data"]["food_id"] = food_id
     result["data"]["url"] = food.url
     result["data"]["name"] = food.name
     result["data"]["desc"] = food.description
