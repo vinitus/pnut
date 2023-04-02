@@ -1,8 +1,11 @@
 import React from "react";
 import RecipeCardComponent from "../Components/RecipeCardComponent";
 import OrderBlockComponent from "../Components/OrderBlockComponent";
+import axiosInterface from "../api/axiosInterface";
 
 const RecipeDetailPage = () => {
+  axiosInterface("get", "/foods/recipe-info/").then((res) => console.log(res));
+
   const thumbnail = "/assets/recipe_thumbnail.png/";
   const title = "닭도리탕";
   const description = "닭도리탕을 어쩌구 채소 어쩌구 양념장 어쩌구";

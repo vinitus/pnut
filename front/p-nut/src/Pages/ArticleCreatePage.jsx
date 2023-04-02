@@ -1,6 +1,7 @@
 import React, { createRef, useRef, useState } from "react";
 import ArticleImgBlockComponent from "../Components/ArticleImgBlockComponent";
 import newpostAPI from "../api/newpostAPI";
+import { useSelector } from "react-redux";
 
 const ArticleCreatePage = () => {
   const subTitle = "font-semibold mb-24";
@@ -12,6 +13,7 @@ const ArticleCreatePage = () => {
   const [ingredients, setIngredient] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const thumbnailInputRef = useRef(null);
+  const token = useSelector((state) => state.auth.authentication.token);
 
   const cookingTimeRefArr = [
     useRef(null),
@@ -111,13 +113,12 @@ const ArticleCreatePage = () => {
       recipe_steps: stepContent,
       time: cookingTime.toString(),
       title: title,
-      userEmail: "admin@ssafy.com",
       stepNums: stepNums,
     };
 
     console.log(jsonData);
 
-    newpostAPI(jsonData, thumbnailImgFile, stepImgFile)
+    newpostAPI(jsonData, thumbnailImgFile, stepImgFile, token)
       .then(() => {
         console.log("hi");
       })
@@ -314,6 +315,15 @@ const ArticleCreatePage = () => {
             </button>
           </div>
         </div>
+        <button
+          type="button"
+          className="bg-#2F80ED rounded-20 text-prettywhite font-semibold px-50 py-5 text-xl my-20"
+          onClick={(e) => {
+            newpostBtnClickHandler(e);
+          }}
+        >
+          글 등록하기
+        </button>
       </div>
     </>
   );

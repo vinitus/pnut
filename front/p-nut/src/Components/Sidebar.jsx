@@ -1,12 +1,12 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { logoutHandler } from "../stores/auth";
+// import { useDispatch } from "react-redux";
+// import { logoutHandler } from "../stores/auth";
 
 const Sidebar = ({ activeTab, setActiveTab }) => {
-  const dispatch = useDispatch();
-  const logout = () => {
-    dispatch(logoutHandler());
-  };
+  // const dispatch = useDispatch();
+  // const logout = () => {
+  //   dispatch(logoutHandler());
+  // };
   return (
     <div className="flex justify-center w-full text-center">
       <div className="flex flex-col w-250 space-y-50 my-75">
@@ -74,15 +74,19 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
         </div>
         {/* 로그아웃, 회원탈퇴 */}
         <div className="space-y-20">
-          <div
+          {/* <div
             className="rounded-10 text-#FF6B6C border border-#FF6B6C hover:bg-#FF6B6C hover:text-white"
             onClick={logout}
           >
             <p className="font-extrabold py-15">로그아웃</p>
-          </div>
+          </div> */}
           <p className="flex items-center justify-center text-gray-500">
             회원탈퇴
-            <img className="pl-5 scale-50" src="assets\chevron.png" alt="" />
+            <img
+              className="pl-5 scale-50 hover:rounded-xl hover:bg-gray-200 hover:px-10"
+              src="assets\chevron.png"
+              alt=""
+            />
           </p>
         </div>
       </div>

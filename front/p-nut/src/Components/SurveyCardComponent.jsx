@@ -24,13 +24,14 @@ const SurveyCardComponent = (props) => {
     title,
     tag1,
     tag2,
-    guidetitle,
     guidecontext,
-    nutrienttitle,
     nutrientcontext,
+    nutrientfood,
     initialExpanded = false,
     additionalClass = "",
   } = props;
+
+  console.log("nutrientfood : ", nutrientfood);
 
   const [expanded, setExpanded] = useState(initialExpanded);
   const [headerColor, setHeaderColor] = useState("#000");
@@ -71,31 +72,24 @@ const SurveyCardComponent = (props) => {
           <section>
             <div className=" space-y-30">
               <img src="assets\Improve Guide-1.png" alt="" />
-              <p className="text-lg font-bold">
-                <strong>01 </strong>
-                {guidetitle}
-              </p>
               <p className="text-lg">{guidecontext}</p>
             </div>
           </section>
           <section>
             <div className=" space-y-30">
               <img src="assets\Improve Guide-2.png" alt="" />
-              <p className="text-lg font-bold">
-                <strong>01 </strong>
-                {nutrienttitle}
-              </p>
               <p className="text-lg">{nutrientcontext}</p>
             </div>
           </section>
           <section>
             <img src="assets\Improve Guide.png" alt="" />
             <div className="flex px-40 pt-30 space-x-70">
-              {data.map((food) => (
+              {nutrientfood.map((food, index) => (
                 <SurveyCardThumbnailComponent
-                  imgPath={food.imgPath}
-                  foodTitle={food.foodTitle}
-                  key={`${food.id}`}
+                  imgPath={food.url}
+                  foodTitle={food.name}
+                  foodId={food.food_id}
+                  key={`${index} - ${food.name}`}
                 />
               ))}
             </div>

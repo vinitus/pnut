@@ -1,15 +1,9 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import ModalNutrientComponent from "../Components/ModalNutrientComponent";
 import ModalRecipeComponent from "../Components/ModalRecipeComponent";
-import foodTestAPI from "../api/foodTestAPI";
 
 const Modal = (props) => {
-  const state = JSON.parse(localStorage.getItem("persist:root"));
-  const authentication = JSON.parse(state.auth);
-  const userEmail = authentication.authentication.email;
-
-  const { close, foodId, searchResult, foodTitle } = props;
+  const { close, searchResult, food } = props;
   const open = true;
 
   // background div만 close
@@ -17,14 +11,14 @@ const Modal = (props) => {
     event.stopPropagation();
   };
 
-  const [food, setFood] = useState(null);
-
+  // 유튜브 searchResult 보기
   console.log(
     "searchResult: ",
     searchResult[0].id.videoId,
     searchResult[0].snippet.title
   );
 
+  // 모달 관련
   const modalShow = `
     @keyframes modalShow {
       from {
@@ -36,7 +30,7 @@ const Modal = (props) => {
         margin-top: 0;
       }
     }
-  `;
+    `;
 
   const modalBgShow = `
     @keyframes modalBgShow {
@@ -47,22 +41,7 @@ const Modal = (props) => {
         opacity: 1;
       }
     }
-  `;
-
-  const foodTest = async () => {
-    try {
-      const response = await foodTestAPI(13, userEmail);
-      console.log("test response: ", response.data.data);
-
-      setFood(response.data.data);
-    } catch (err) {
-      console.log("error: ", err);
-    }
-  };
-
-  useEffect(() => {
-    foodTest();
-  }, []);
+    `;
 
   // 탭
   const [activeTab, setActiveTab] = useState("영양성분");

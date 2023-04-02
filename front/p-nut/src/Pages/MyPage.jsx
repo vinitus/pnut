@@ -1,5 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLoaderData } from "react-router-dom";
+import { useNavigateToTop } from "../hooks/useNavigateToTop";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutHandler } from "../stores/auth";
+
 import Sidebar from "../Components/Sidebar";
 import NutrientStatus from "../Components/NutrientStatus";
 import UpdateUserData from "../Components/UpdateUserData";
@@ -7,12 +11,23 @@ import MyRecipe from "../Components/MyRecipe";
 import BookmarkedRecipe from "../Components/BookmarkedRecipe";
 
 import getUserInfo from "../api/getUserInfo";
+import getMyRecipe from "../api/getMyRecipe";
 
 const MyPage = () => {
+  const token = useSelector((state) => state.auth.authentication.token);
+  const dispatch = useDispatch();
+  const navigate = useNavigateToTop();
+
   const data = useLoaderData();
   console.log("data: ", data);
 
   const [activeTab, setActiveTab] = useState("nutrientStatus");
+
+  useEffect(() => {
+    if (!token) {
+      dispatch(logoutHandler(navigate));
+    }
+  }, [token]);
 
   return (
     <div className="w-full flex justify-center text-#2B2C2B bg-gray-100">
@@ -35,8 +50,13 @@ const MyPage = () => {
 export default MyPage;
 
 export async function loader() {
-  console.log("Loading...");
+  console.log("Loading My Page...");
   const userInfo = await getUserInfo();
+  const myRecipe = await getMyRecipe();
+  const data = {
+    userInfo: userInfo,
+    myRecipe: myRecipe,
+  };
 
-  return userInfo;
+  return data;
 }

@@ -1,5 +1,6 @@
 // import axiosInterface from "./axiosInterface";
 import axios from "axios";
+import { baseURL } from "./baseURL";
 
 /*
 Request needs email, password
@@ -8,7 +9,7 @@ Request needs email, password
 async function loginAPI(email, password) {
   const response = await axios({
     method: "post",
-    baseURL: "https://pnut.site/api",
+    baseURL: baseURL,
     url: "/users/login",
     data: {
       email: email,

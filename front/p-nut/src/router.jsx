@@ -6,17 +6,18 @@ import ArticleCreatePage from "./Pages/ArticleCreatePage";
 import ArticleListPage, {
   loader as articleListLoader,
 } from "./Pages/ArticleListPage";
-import ArticleDetailPage, {
-  loader as articleDetailLoader,
-} from "./Pages/ArticleDetailPage";
+import ArticleDetailPage from "./Pages/ArticleDetailPage";
 import RecipeDetailPage from "./Pages/RecipeDetailPage";
 import SymptomsRecommandPage from "./Pages/SymptomsRecommandPage";
-import SurveyRecommendPage from "./Pages/SurveyRecommendPage";
+import SurveyRecommendPage, {
+  loader as surveyRecommendLoader,
+} from "./Pages/SurveyRecommendPage";
 import LoginPage from "./Pages/LoginPage";
 import SignupPage from "./Pages/SignupPage";
 import MyPage, { loader as myPageLoader } from "./Pages/MyPage";
 
 import SearchRecommendPage from "./Pages/SearchRecommendPage";
+
 import SurveyLayout from "./Pages/SurveyLayout";
 import SurveyIndexPage from "./Pages/SurveyIndexPage";
 import SurveySymptomsPage from "./Pages/SurveySymptomsPage";
@@ -40,7 +41,6 @@ const router = createBrowserRouter([
       {
         path: "board/:articleId",
         element: <ArticleDetailPage />,
-        loader: articleDetailLoader,
       },
       {
         path: "newpost",
@@ -53,6 +53,7 @@ const router = createBrowserRouter([
       {
         path: "my-survey",
         element: <SurveyRecommendPage />,
+        loader: surveyRecommendLoader,
       },
       {
         path: "mypage",
