@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { searchArrRequest } from "../stores/searchSlice";
 import { useAutoComplete } from "../hooks/useAutoComplete";
 import RecipeThumbnailComponent from "../Components/RecipeThumbnailComponent";
-import djangoAPI from "../api/djangoAPI";
 
 const SearchRecommendPage = () => {
   const dispatch = useDispatch();
