@@ -1,5 +1,6 @@
 // import axiosInterface from "./axiosInterface";
 import axios from "axios";
+import { baseURL } from "./baseURL";
 
 /*
 Request needs access-token in the header
@@ -17,7 +18,8 @@ async function logoutAPI() {
   console.log("logout");
   const checkResponse = await axios({
     method: "post",
-    baseURL: "https://pnut.site/api",
+    baseURL: baseURL,
+
     url: "/users/check",
     headers: {
       "access-token": accessToken,
@@ -29,7 +31,8 @@ async function logoutAPI() {
   if (checkResponse.status === 202) {
     const refreshResponse = await axios({
       method: "post",
-      baseURL: "https://pnut.site/api",
+      baseURL: baseURL,
+
       url: "/users/refresh",
       headers: {
         "refresh-token": refreshToken,

@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosInterface from "./axiosInterface";
 
 /** @params recipeCreateReq, files
  * recipeCreateReq : object
@@ -7,7 +7,8 @@ import axios from "axios";
 export default async function newpostAPI(
   recipeCreateReq,
   thumbnailImgFile,
-  stepImgFile
+  stepImgFile,
+  token
 ) {
   const data = new FormData();
   data.append(
@@ -20,6 +21,8 @@ export default async function newpostAPI(
       data.append("file", file);
     }
   });
-  const res = await axios.post("/boards/create", data);
+  const res = await axiosInterface("post", "/boards/create", data, {
+    Authorization: `Bearer ${token}`,
+  });
   console.log(res);
 }

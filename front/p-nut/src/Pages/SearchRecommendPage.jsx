@@ -1,26 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { searchArrRequest } from "../stores/searchSlice";
+import { useAutoComplete } from "../hooks/useAutoComplete";
 import RecipeThumbnailComponent from "../Components/RecipeThumbnailComponent";
+import djangoAPI from "../api/djangoAPI";
 
 const SearchRecommendPage = () => {
+  const dispatch = useDispatch();
+
   const [searchQuery, setSearchQuery] = useState("");
   // 검색 버튼 눌리기 전에
   const [searched, setSearched] = useState(false);
   // 검색 결과
   const [searchResults, setSearchResults] = useState([]);
 
-  const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value);
-  };
+  const foodArr = useSelector((state) => state.search.foodArr);
+  const ingredientArr = useSelector((state) => state.search.ingredientArr);
 
-  const handleSearchClick = (event) => {
-    event.preventDefault();
-    const results = [];
-    setSearchResults(results);
-    setSearched(true);
-  };
+  const [totalTitleArr, createFuzzyMatcher] = useAutoComplete(
+    foodArr,
+    ingredientArr
+  );
 
   // 부족한 영양소 기준 재료를 가져와서 10개 슬라이싱
-  const data = [
+  const tag10 = [
     "계란",
     "닭고기",
     "두부",
@@ -32,6 +35,29 @@ const SearchRecommendPage = () => {
     "돼지고기",
     "참치",
   ];
+
+  // const [tag10, setTag10] = useState();
+
+  // const email = useSelector((state) => state.auth.authentication.email);
+
+  useEffect(() => {
+    dispatch(searchArrRequest());
+    // djangoAPI("get", "/ingredients/tags", {
+    //   email,
+    // }).then((res) => console.log(res));
+  }, [dispatch]);
+
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+    autoCompleteHandler(event.target.value);
+  };
+
+  const handleSearchClick = (event) => {
+    event.preventDefault();
+    const results = [];
+    setSearchResults(results);
+    setSearched(true);
+  };
 
   const food = [
     {
@@ -145,6 +171,23 @@ const SearchRecommendPage = () => {
     }
   };
 
+  const [autoCompleteArr, setAutoCompleteArr] = useState([]);
+
+  const autoCompleteHandler = (input) => {
+    const regex = createFuzzyMatcher(input);
+    const arr = [];
+    for (let i = 0; totalTitleArr.length > i; i += 1) {
+      if (arr.length >= 10) {
+        break;
+      }
+      const matchingRegex = totalTitleArr[i].match(regex);
+      if (matchingRegex) {
+        arr.push(matchingRegex);
+      }
+    }
+    setAutoCompleteArr(arr);
+  };
+
   return (
     <div>
       {/* 동영상 헤더 */}
@@ -183,17 +226,18 @@ const SearchRecommendPage = () => {
           <div className="h-20 " />
           <div className="flex flex-col justify-center space-y-20">
             <div className="flex mx-auto space-x-30">
-              {data.map((item, index) => (
-                <div key={index} onClick={() => handlePillClick(index)}>
-                  <p
-                    className={`border border-white rounded-full w-fit px-15 py-8 ${
-                      selectedPills.includes(index) ? "bg-#FF6B6C" : ""
-                    }`}
-                  >
-                    {item}
-                  </p>
-                </div>
-              ))}
+              {tag10 &&
+                tag10.map((item, index) => (
+                  <div key={index} onClick={() => handlePillClick(index)}>
+                    <p
+                      className={`border border-white rounded-full w-fit px-15 py-8 ${
+                        selectedPills.includes(index) ? "bg-#FF6B6C" : ""
+                      }`}
+                    >
+                      {item}
+                    </p>
+                  </div>
+                ))}
             </div>
           </div>
         </div>

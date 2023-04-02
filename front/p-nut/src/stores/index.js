@@ -11,6 +11,7 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import UISlice from "./UISlice";
+import searchSlice from "./searchSlice";
 import authSlice from "./auth";
 
 // https://kyounghwan01.github.io/blog/React/redux/redux-persist/#%E1%84%89%E1%85%A5%E1%86%AF%E1%84%8E%E1%85%B5
@@ -25,6 +26,7 @@ const persistConfig = {
 const reducers = combineReducers({
   ui: UISlice.reducer,
   auth: authSlice.reducer,
+  search: searchSlice.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

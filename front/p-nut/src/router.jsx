@@ -6,9 +6,7 @@ import ArticleCreatePage from "./Pages/ArticleCreatePage";
 import ArticleListPage, {
   loader as articleListLoader,
 } from "./Pages/ArticleListPage";
-import ArticleDetailPage, {
-  loader as articleDetailLoader,
-} from "./Pages/ArticleDetailPage";
+import ArticleDetailPage from "./Pages/ArticleDetailPage";
 import RecipeDetailPage from "./Pages/RecipeDetailPage";
 import SymptomsRecommandPage from "./Pages/SymptomsRecommandPage";
 import SurveyRecommendPage, {
@@ -43,7 +41,6 @@ const router = createBrowserRouter([
       {
         path: "board/:articleId",
         element: <ArticleDetailPage />,
-        loader: articleDetailLoader,
       },
       {
         path: "newpost",
