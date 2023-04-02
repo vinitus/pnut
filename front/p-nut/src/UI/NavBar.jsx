@@ -16,7 +16,7 @@ const NavBar = () => {
   const navigate = useNavigateToTop();
 
   const logout = () => {
-    dispatch(logoutHandler());
+    dispatch(logoutHandler(navigate));
   };
   const goToMain = () => {
     navigate("/");

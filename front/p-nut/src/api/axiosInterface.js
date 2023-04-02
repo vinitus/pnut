@@ -1,6 +1,6 @@
 import axios from "axios";
 import store from "../stores";
-import { updateTokenHandler } from "../stores/auth";
+import { updateTokenHandler, removeTokenHandler } from "../stores/auth";
 
 /** axiosInterface is using axios module.
  * This is just to help easily fetch easly axios's argument.
@@ -52,12 +52,8 @@ export default async function axiosInterface(
             data: {
               email: authentication.authentication.email,
             },
-          })
-            .then((refreshResponse) => refreshResponse)
-            .catch((error) => {
-              return error;
-            });
-
+          });
+          console.log("refreshResponse: ", refreshResponse);
           if (refreshResponse.status === 200) {
             console.log(
               "new access token: ",
@@ -66,13 +62,12 @@ export default async function axiosInterface(
             const newToken = refreshResponse.data["access-token"];
             config.headers.Authorization = `Bearer ${newToken}`;
             const newResponse = await axios(config);
-
             store.dispatch(updateTokenHandler(newToken));
             return Promise.resolve(newResponse);
-          } else if (
-            refreshResponse.response.status === 202 ||
-            refreshResponse.response.status === 401
-          ) {
+          } else if (refreshResponse.status === 202) {
+            store.dispatch(removeTokenHandler());
+            return Promise.reject(refreshResponse);
+          } else {
             return Promise.reject(refreshResponse);
           }
         }

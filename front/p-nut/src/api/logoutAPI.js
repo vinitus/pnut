@@ -21,10 +21,11 @@ async function logoutAPI() {
     url: "/users/check",
     headers: {
       "access-token": accessToken,
+      // "access-token": "asdasd",
     },
   });
 
-  console.log("checkResposne: ", checkResponse);
+  console.log("checkResponse: ", checkResponse);
   if (checkResponse.status === 202) {
     const refreshResponse = await axios({
       method: "post",
@@ -38,23 +39,44 @@ async function logoutAPI() {
       },
     });
     console.log("refreshResponse: ", refreshResponse);
-    accessToken = refreshResponse.data["access-token"];
-  }
-  const response = await axios({
-    method: "post",
-    baseURL: "https://pnut.site/api",
-    url: "/users/logout",
-    headers: {
-      "access-token": accessToken,
-    },
-  });
+    if (refreshResponse.status === 200) {
+      accessToken = refreshResponse.data["access-token"];
 
-  console.log("logout response: ", response);
-  if (response.status === 200) {
-    return response;
-  }
+      const response1 = await axios({
+        method: "post",
+        baseURL: "https://pnut.site/api",
+        url: "/users/logout",
+        headers: {
+          "access-token": accessToken,
+        },
+      });
 
-  return response.response;
+      console.log("logout response1: ", response1);
+      if (response1.status === 200) {
+        return response1;
+      }
+      return response1.response;
+    }
+    if (refreshResponse.status === 202) {
+      return refreshResponse;
+    }
+    return refreshResponse;
+  } else {
+    const response2 = await axios({
+      method: "post",
+      baseURL: "https://pnut.site/api",
+      url: "/users/logout",
+      headers: {
+        "access-token": accessToken,
+      },
+    });
+
+    console.log("logout response2: ", response2);
+    if (response2.status === 200) {
+      return response2;
+    }
+    return response2.response;
+  }
 }
 
 export default logoutAPI;
