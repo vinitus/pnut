@@ -16,6 +16,9 @@ async function logoutAPI() {
   const { refreshToken } = authentication.authentication;
   const { email } = authentication.authentication;
   console.log("logout");
+  if (!accessToken) {
+    return "token does not exist";
+  }
   const checkResponse = await axios({
     method: "post",
     baseURL: baseURL,

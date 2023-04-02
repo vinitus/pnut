@@ -8,6 +8,9 @@ async function getUserInfo() {
   let accessToken = authentication.authentication.token;
   const { refreshToken } = authentication.authentication;
   const { email } = authentication.authentication;
+  if (!accessToken) {
+    return "token does not exist";
+  }
   console.log("refreshToken: ", refreshToken);
   console.log("email: ", email);
   const checkResponse = await axios({

@@ -1,12 +1,10 @@
 import React from "react";
-// import { useDispatch } from "react-redux";
-// import { logoutHandler } from "../stores/auth";
 
-const Sidebar = ({ activeTab, setActiveTab }) => {
-  // const dispatch = useDispatch();
-  // const logout = () => {
-  //   dispatch(logoutHandler());
-  // };
+const Sidebar = ({ activeTab, setActiveTab, onShowModal }) => {
+  const showModal = () => {
+    onShowModal();
+  };
+
   return (
     <div className="flex justify-center w-full text-center">
       <div className="flex flex-col w-250 space-y-50 my-75">
@@ -86,6 +84,7 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
               className="pl-5 scale-50 hover:rounded-xl hover:bg-gray-200 hover:px-10"
               src="assets\chevron.png"
               alt=""
+              onClick={showModal}
             />
           </p>
         </div>
