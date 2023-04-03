@@ -62,7 +62,7 @@ const ModalNutrientComponent = ({ nutrientData }) => {
         font: {
           size: 15,
         },
-        anchor: "end",
+        anchor: "start",
         align: "top",
         formatter: (value) => `${value} %`,
       },

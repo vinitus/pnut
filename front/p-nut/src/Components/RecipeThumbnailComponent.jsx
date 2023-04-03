@@ -5,7 +5,7 @@ import foodTestAPI from "../api/foodTestAPI";
 // import dotenv from "dotenv";
 
 const RecipeThumbnailComponent = (props) => {
-  const { imgPath, title, kcal, mainIngredients, time, id } = props;
+  const { imgPath, title, kcal, mainIngredients, time, foodId } = props;
 
   // youtubeData가 존재하면 true로 만들어 열림
   const [youtubeData, setYoutubeData] = useState();
@@ -62,11 +62,10 @@ const RecipeThumbnailComponent = (props) => {
       {youtubeData && (
         <Modal close={closeModal} searchResult={youtubeData} food={foodData} />
       )}
-      <img
-        className="cursor-pointer"
+      <div
+        className="cursor-pointer bg-cover h-270 bg-center bg-no-repeat rounded-sm"
         onClick={openModal}
-        src={imgPath}
-        alt=""
+        style={{ backgroundImage: `url(${imgPath})` }}
       />
       <div className="flex items-end my-10 space-x-5 text-end">
         <p className="text-xl font-bold">{title}</p>

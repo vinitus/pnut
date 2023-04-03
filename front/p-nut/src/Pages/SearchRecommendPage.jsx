@@ -278,7 +278,7 @@ const SearchRecommendPage = () => {
               <div className="flex justify-center">
                 <img
                   className="animate-bounce h-150"
-                  src="assets/sadpeanut.jpg"
+                  src="assets/sadpeanut.png"
                   alt=""
                 />
               </div>
