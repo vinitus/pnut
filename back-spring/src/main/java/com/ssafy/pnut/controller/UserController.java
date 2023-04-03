@@ -147,28 +147,37 @@ public class UserController {
     }
 
     @ApiOperation(value = "회원정보 수정", notes = "회원정보를 수정한다", response = Map.class)
-    @PutMapping("")
+    @PutMapping(path = "")
     public ResponseEntity<?> modifyUser(
-            @RequestPart @ApiParam(value = "수정하려는 회원정보", required = true) UserDto userDto, HttpServletRequest request, @RequestPart @ApiParam(value = "프로필 사진", required = false)MultipartFile multipartFile){
+            @RequestPart(value = "userDto") @ApiParam(value = "수정하려는 회원정보") UserDto userDto, HttpServletRequest request, @RequestPart(value = "multipartFile", required = false) @ApiParam(value = "multipartFile")MultipartFile multipartFile){
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
 
         if(jwtService.checkToken(request.getHeader("access-token"))){
             try{
+                userDto.setAuth("");
+                userDto.setProfileImageUrl("basic_profile_image_37d8I092LMX89-removebg-preview.png");
+                userDto.setType("");
                 String email = jwtService.getUserNameFromToken(request.getHeader("access-token"));
                 User now = userService.getUser(email);
-                if(userDto.getPassword().equals("")){
-                    userDto.setPassword(now.getPassword());
-                }
+
                 String fileName;
                 if(multipartFile==null){
                     fileName = "basic_profile_image_37d8I092LMX89-removebg-preview.png";
                 }else{
                     fileName = awsS3Service.uploadProfileImage(multipartFile, userDto);
                 }
+                if(userDto.getName()==null){
+                    userDto.setName(now.getName());
+                }
+                if(userDto.getNickname()==null){
+                    userDto.setNickname(now.getNickname());
+                }
 
+                userDto.setJoinDate(now.getJoin_date());
                 userDto.setProfileImageUrl(fileName);
                 User result = userService.modifyUser(userDto.toEntity());
+
                 if(result != null){
                     //회원정보 수정 성공한 역ㅇ우, 성공 메시지 반환, 200 응답
                     resultMap.put("message", SUCCESS);
