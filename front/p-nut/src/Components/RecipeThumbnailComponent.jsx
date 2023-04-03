@@ -38,8 +38,7 @@ const RecipeThumbnailComponent = (props) => {
   const foodTest = async () => {
     try {
       // foodID 바꾸기
-      const response = await foodTestAPI(foodId, userEmail);
-      console.log("Test response: ", response.data.data);
+      const response = await foodTestAPI(id, userEmail);
 
       setFoodData(response.data.data);
     } catch (err) {

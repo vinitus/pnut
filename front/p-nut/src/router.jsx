@@ -16,7 +16,9 @@ import LoginPage from "./Pages/LoginPage";
 import SignupPage from "./Pages/SignupPage";
 import MyPage, { loader as myPageLoader } from "./Pages/MyPage";
 
-import SearchRecommendPage from "./Pages/SearchRecommendPage";
+import SearchRecommendPage, {
+  loader as searchRecommendLoader,
+} from "./Pages/SearchRecommendPage";
 
 import SurveyLayout from "./Pages/SurveyLayout";
 import SurveyIndexPage from "./Pages/SurveyIndexPage";
@@ -63,6 +65,7 @@ const router = createBrowserRouter([
       {
         path: "search",
         element: <SearchRecommendPage />,
+        loader: searchRecommendLoader,
       },
       {
         path: "newsurvey",
