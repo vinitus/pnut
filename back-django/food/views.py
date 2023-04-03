@@ -111,7 +111,6 @@ def get_personal_food(request):
 
 
 @csrf_exempt
-@
 def search_food(request):
     """
     Desc :
