@@ -1,4 +1,5 @@
 import random
+import urllib
 
 from django.db.models import Subquery, ExpressionWrapper, F, FloatField
 from django.http import JsonResponse, HttpResponse
@@ -110,6 +111,7 @@ def get_personal_food(request):
 
 
 @csrf_exempt
+@
 def search_food(request):
     """
     Desc :
@@ -123,8 +125,8 @@ def search_food(request):
     """
 
     type = request.GET["type"]
-    keyword = request.GET["keyword"]
-
+    keyword = request.GET["keyword"].dedode
+    print(keyword)
     if type == "ingredient": # 재료 검색
         search_result = models.Food.objects.filter(ingredients__icontains=keyword)
     else: # 음식 이름으로 검색
