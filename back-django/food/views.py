@@ -53,6 +53,7 @@ def calc_weight(request):
         None
     """
     user_email = request.GET["user_email"]
+    models.UserSymptom.objects.filter(user_email=user_email).delete()
     degree = [0, 0.25, 0.5, 0.75, 1.0]
     nutrient = [0 for _ in range(MAX_NUTRIENT + 1)]
     results = models.Result.objects.filter(user_email=user_email)
