@@ -23,6 +23,8 @@ public class UserServiceImpl implements UserService{
     private UserRepository userRepository;
     @Autowired
     private JwtService jwtService;
+    @Autowired
+    private AwsS3Service awsS3Service;
 //    @Autowired
 //    private S3Upload s3Upload;
 
@@ -74,6 +76,8 @@ public class UserServiceImpl implements UserService{
     public User modifyUser(User user) throws Exception {
         User findUser = userRepository.findByEmail(user.getEmail());
         if(findUser==null) return null;
+        int flag = 1;
+        if(user.getPassword()==null) flag=0;
 
         String salt = findUser.getSalt();
         String userPwd = user.getPassword();
@@ -84,7 +88,11 @@ public class UserServiceImpl implements UserService{
         md.update(userPwd.getBytes());
         userPwd = String.format("%064x", new BigInteger(1, md.digest()));
         findUser.setSalt(salt);
-        findUser.setPassword(userPwd);
+        if(flag==1) findUser.setPassword(userPwd);
+        findUser.setName(user.getName());
+        findUser.setProfile_image_url(user.getProfile_image_url());
+        findUser.setNickname(user.getNickname());
+
         findUser.setType("default");
         return userRepository.save(findUser);
     }
@@ -93,12 +101,12 @@ public class UserServiceImpl implements UserService{
     @Transactional
     public int deleteUser(String email) {
         User user = userRepository.findByEmail(email);
-//        try{
-//            s3Upload.fileDelete(user.getProfile_image_url().split("/")[1]);
-//        }catch(Exception e){
-//            System.err.println("프로필 사진 삭제 중 에러 발생");
-//            e.printStackTrace();
-//        }
+        try{
+            awsS3Service.deleteImage(user.getProfile_image_url().split("/")[1]);
+        }catch(Exception e){
+            System.err.println("프로필 사진 삭제 중 에러 발생");
+            e.printStackTrace();
+        }
         return userRepository.deleteByEmail(email);
     }
 
