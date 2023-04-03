@@ -56,9 +56,9 @@ const Sidebar = ({
             onClick={() => setActiveTab("updateUserData")}
           >
             회원 정보 수정
-            <div className="bg-#FF6B6C rounded-full w-25 h-25 justify-center items-center ml-10 flex">
+            {/* <div className="bg-#FF6B6C rounded-full w-25 h-25 justify-center items-center ml-10 flex">
               <p className="text-sm font-bold text-center text-white">13</p>
-            </div>
+            </div> */}
           </div>
           <div
             className={`flex py-15 px-10 hover:bg-gray-100  ${
@@ -67,9 +67,9 @@ const Sidebar = ({
             onClick={() => setActiveTab("myRecipe")}
           >
             내가 작성한 레시피
-            <div className="bg-#FF6B6C rounded-full w-25 h-25 justify-center items-center ml-10 flex">
+            {/* <div className="bg-#FF6B6C rounded-full w-25 h-25 justify-center items-center ml-10 flex">
               <p className="text-sm font-bold text-center text-white">13</p>
-            </div>
+            </div> */}
           </div>
           {/* <div
             className={`flex py-15 px-10 hover:bg-gray-100  ${
