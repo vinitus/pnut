@@ -125,7 +125,6 @@ def search_food(request):
 
     type = request.GET["type"]
     keyword = request.GET["keyword"]
-    print(keyword)
     if type == "ingredient": # 재료 검색
         search_result = models.Food.objects.filter(ingredients__icontains=keyword)
     else: # 음식 이름으로 검색
@@ -139,7 +138,7 @@ def search_food(request):
 
 
 @csrf_exempt
-def search_symptom(request,symptom_id):
+def search_symptom(request):
     """
     Desc :
         증상별로 요리를 반환한다.
@@ -163,12 +162,20 @@ def search_symptom(request,symptom_id):
     result = dict()
     result["data"] = list()
     result["message"] = "SUCCESS"
+    symptom_id = int(request.GET["symptom_id"])
     if symptom_id == 0:
         search_result = models.Food.objects.all()
     else:
         search_result = models.Food.objects.filter(foodcat__cat_id=symptom_id)
     for r in search_result:
-        result["data"].append(Serializer.searchSerializer(r).data)
+        result["data"].append({
+            'food_id' : r['food_id'],
+            'name' : r["name"],
+            'time' : r["time"],
+            'ingredients' : r["ingredients"],
+            'url' : r["url"],
+            'cal' : models.FoodNut.objects.get(food_id=r["food_id"], nutrient_id=1).weight
+        })
     random.shuffle(result["data"])
     return JsonResponse(result,status=200)
 
@@ -211,5 +218,16 @@ def get_single_food(request):
     result["data"]["efficiency"] = food.efficiency
     result["data"]["ingredient"] = food.ingredients
     result["data"]["nutrient"] = nut
+    result["message"] = "SUCCESS"
+    return JsonResponse(result, status=200)
+
+def get_tags():
+    ing = models.Ingredient.objects.all()
+    result = dict()
+    result["data"] = list()
+    for i in ing:
+        result["data"].append(i["name"])
+    random.shuffle(result["data"])
+    result["data"] = result["data"][:10]
     result["message"] = "SUCCESS"
     return JsonResponse(result, status=200)
