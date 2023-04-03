@@ -13,6 +13,7 @@ import BookmarkedRecipe from "../Components/BookmarkedRecipe";
 
 import getUserInfo from "../api/getUserInfo";
 import getMyRecipe from "../api/getMyRecipe";
+import deleteUser from "../api/deleteUser";
 
 const MyPage = () => {
   const token = useSelector((state) => state.auth.authentication.token);
@@ -31,6 +32,11 @@ const MyPage = () => {
   const closeModal = () => {
     setModalOpen(false);
   };
+  const checkDeleteUser = () => {
+    console.log("checkDeleteUser");
+    deleteUser();
+    dispatch(logoutHandler(navigate));
+  };
 
   useEffect(() => {
     if (!token) {
@@ -40,7 +46,7 @@ const MyPage = () => {
 
   return (
     <div className="w-full flex justify-center text-#2B2C2B bg-gray-100">
-      <AlertModal open={modalOpen} close={closeModal}>
+      <AlertModal open={modalOpen} close={closeModal} onCheck={checkDeleteUser}>
         탈퇴하시겠습니까? 탈퇴 후 정보는 복구되지 않습니다.
       </AlertModal>
       <div className="flex bg-white w-1200">

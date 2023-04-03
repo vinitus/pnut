@@ -26,7 +26,7 @@ const modalBgShow = `
 
 const AlertModal = (props) => {
   // 열기 닫기 모달 텍스트를 부모로부터 받아옴
-  const { open, close } = props;
+  const { open, close, onCheck } = props;
 
   // background div만 close
   const preventionClose = (event) => {
@@ -48,15 +48,24 @@ const AlertModal = (props) => {
           style={{ animation: open ? `modalShow 0.3s` : "" }}
         >
           <style>{modalShow}</style>
-          <main className="flex flex-col p-4 m-50">
+          <main className="flex flex-col p-4 my-50 mx-65 font-semibold">
             {props.children}
-            <button
-              type="button"
-              className="px-4 py-2 text-white bg-gray-600 rounded w-100 h-30 mx-auto my-50"
-              onClick={close}
-            >
-              close
-            </button>
+            <div>
+              <button
+                type="button"
+                className="px-4 py-2 text-white bg-red-600 rounded w-100 h-40 ml-55 my-45"
+                onClick={onCheck}
+              >
+                확인
+              </button>
+              <button
+                type="button"
+                className="px-4 py-2 text-white bg-gray-600 rounded w-100 h-40 ml-35 my-45"
+                onClick={close}
+              >
+                닫기
+              </button>
+            </div>
           </main>
         </section>
       ) : null}
