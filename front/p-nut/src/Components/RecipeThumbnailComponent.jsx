@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Modal from "../UI/Modal";
 import axios from "axios";
-// import dotenv from "dotenv";
-
 import foodTestAPI from "../api/foodTestAPI";
+// import dotenv from "dotenv";
 
 const RecipeThumbnailComponent = (props) => {
   const { imgPath, title, kcal, mainIngredients, time, id } = props;
@@ -24,7 +23,7 @@ const RecipeThumbnailComponent = (props) => {
     event.stopPropagation();
     axios
       .get(
-        `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=3&q=${title}&type=video&videoDefinition=high&key=AIzaSyCI8t8M1ADPjcTTAuIOs3G2w-Nev9hXwRs`
+        `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=3&q=${title}레시피&type=video&videoDefinition=high&key=AIzaSyCI8t8M1ADPjcTTAuIOs3G2w-Nev9hXwRs`
       )
       .then((res) => {
         setYoutubeData(res.data.items);
@@ -33,24 +32,24 @@ const RecipeThumbnailComponent = (props) => {
       .catch((err) => {
         console.log("youtube error: ", err);
       });
-
-    // FoodTestAPI
-    const foodTest = async () => {
-      try {
-        // foodID 바꾸기
-        const response = await foodTestAPI(13, userEmail);
-        console.log("Test response: ", response.data.data);
-
-        setFoodData(response.data.data);
-      } catch (err) {
-        console.log("error: ", err);
-      }
-    };
-
-    useEffect(() => {
-      foodTest();
-    }, []);
   };
+
+  // FoodTestAPI
+  const foodTest = async () => {
+    try {
+      // foodID 바꾸기
+      const response = await foodTestAPI(foodId, userEmail);
+      console.log("Test response: ", response.data.data);
+
+      setFoodData(response.data.data);
+    } catch (err) {
+      console.log("error: ", err);
+    }
+  };
+
+  useEffect(() => {
+    foodTest();
+  }, []);
 
   const closeModal = (event) => {
     event.stopPropagation();
