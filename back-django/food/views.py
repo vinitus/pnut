@@ -124,7 +124,7 @@ def search_food(request):
     """
 
     type = request.GET["type"]
-    keyword = request.GET["keyword"].dedode
+    keyword = request.GET["keyword"]
     print(keyword)
     if type == "ingredient": # 재료 검색
         search_result = models.Food.objects.filter(ingredients__icontains=keyword)
