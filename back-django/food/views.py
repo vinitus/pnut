@@ -221,12 +221,13 @@ def get_single_food(request):
     result["message"] = "SUCCESS"
     return JsonResponse(result, status=200)
 
-def get_tags():
+def get_tags(request):
     ing = models.Ingredient.objects.all()
     result = dict()
     result["data"] = list()
+
     for i in ing:
-        result["data"].append(i["name"])
+        result["data"].append(i.name)
     random.shuffle(result["data"])
     result["data"] = result["data"][:10]
     result["message"] = "SUCCESS"
