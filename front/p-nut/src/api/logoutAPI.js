@@ -10,12 +10,18 @@ If the token is not valid, refresh the token
 
 async function logoutAPI() {
   const state = JSON.parse(localStorage.getItem("persist:root"));
+  if (!state) {
+    return "token does not exist";
+  }
   console.log("state: ", state);
   const authentication = JSON.parse(state.auth);
   let accessToken = authentication.authentication.token;
   const { refreshToken } = authentication.authentication;
   const { email } = authentication.authentication;
   console.log("logout");
+  if (!accessToken) {
+    return "token does not exist";
+  }
   const checkResponse = await axios({
     method: "post",
     baseURL: baseURL,

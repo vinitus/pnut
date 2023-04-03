@@ -8,7 +8,10 @@
     "build": "vite build",
     "preview": "vite preview",
     "prefront": "git switch develop-front",
-    "front": "git pull"
+    "front": "git pull",
+    "head1": "git reset --hard HEAD",
+    "head2": "git reset --hard HEAD^",
+    "head3": "git reset --hard HEAD^^"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.13",

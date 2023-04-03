@@ -95,15 +95,25 @@ export const logoutHandler = (navigate) => {
       try {
         logoutAPI().then((response) => {
           console.log("logoutAPI: ", response);
-          if (response.status !== 200 && response.status !== 202) {
+          if (
+            response.status !== 200 &&
+            response.status !== 202 &&
+            response !== "token does not exist"
+          ) {
             throw new Error(response.data.message);
           }
-
+          if (response === "token does not exist") {
+            navigate("/login");
+          }
           if (response.status === 200) {
             dispatch(authActions.logout());
             navigate("/");
           }
           if (response.status === 202) {
+            dispatch(authActions.logout());
+            navigate("/login");
+          }
+          if (response.status === 401) {
             dispatch(authActions.logout());
             navigate("/login");
           }

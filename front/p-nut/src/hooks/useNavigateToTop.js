@@ -4,7 +4,7 @@ export const useNavigateToTop = () => {
   const navigate = useNavigate();
 
   const navigateAndReset = (to) => {
-    navigate(to, { replace: true });
+    navigate(to);
     window.scrollTo(0, 0);
   };
 
