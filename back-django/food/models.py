@@ -175,6 +175,7 @@ class Food(models.Model):
     unit = models.CharField(max_length=5, blank=True, null=True)
     ingredients = models.CharField(max_length=100, blank=True, null=True)
     url = models.CharField(max_length=255, blank=True, null=True)
+    cal = models.FloatField(blank=True, null=True)
 
     class Meta:
         managed = False
@@ -233,9 +234,9 @@ class LikeTable(models.Model):
 
 
 class NutIngre(models.Model):
-    nut_ingre_id = models.BigAutoField(primary_key=True)
-    ingredient = models.ForeignKey(Ingredient, models.DO_NOTHING)
-    nutrient = models.ForeignKey('Nutrient', models.DO_NOTHING)
+    nut_ingre_id = models.BigIntegerField(primary_key=True)
+    ingredient_ingredient_id = models.BigIntegerField()
+    nutrient_nutrient_id = models.BigIntegerField()
 
     class Meta:
         managed = False
@@ -266,6 +267,16 @@ class Nutrient(models.Model):
         db_table = 'nutrient'
 
 
+class NutrientQuestion(models.Model):
+    nut_quest_id = models.BigAutoField(primary_key=True)
+    nutrient_id = models.IntegerField(blank=True, null=True)
+    question = models.ForeignKey('Question', models.DO_NOTHING, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'nutrient_question'
+
+
 class NutrientRec(models.Model):
     nutrient_rec_id = models.BigAutoField(primary_key=True)
     gender = models.IntegerField(blank=True, null=True)
@@ -294,6 +305,7 @@ class Recipe(models.Model):
     time = models.IntegerField(blank=True, null=True)
     food = models.ForeignKey(Food, models.DO_NOTHING)
     quantitiy = models.IntegerField(blank=True, null=True)
+    quantity = models.IntegerField()
 
     class Meta:
         managed = False
