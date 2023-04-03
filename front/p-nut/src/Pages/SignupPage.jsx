@@ -7,7 +7,7 @@ const SignupPage = () => {
   const currentPage = "signup";
 
   return (
-    <div className="w-full h-screen bg-stone-800 flex justify-center place-items-center">
+    <div className="w-full h-screen bg-stone-100 flex justify-center place-items-center">
       <div className="place-content-center">
         <LoginSignupFormComponent
           phrase={phrase}

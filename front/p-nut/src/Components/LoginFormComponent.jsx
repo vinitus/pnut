@@ -74,10 +74,10 @@ const LoginFormComponent = () => {
 
   return (
     <Fragment>
-      <p className="mx-75 my-50 text-xl text-gray-200 font-semibold">로그인</p>
+      <p className="mx-75 my-50 text-xl text-gray-800 font-semibold">로그인</p>
       <form onSubmit={submitHandler}>
         <div className="flex flex-col">
-          <label htmlFor="email" className="mx-75 text-gray-200">
+          <label htmlFor="email" className="mx-75 text-gray-800">
             이메일
           </label>
           <div className="flex items-center">
@@ -97,7 +97,7 @@ const LoginFormComponent = () => {
           </span>
         )}
         <div className="mt-15 flex flex-col">
-          <label htmlFor="password" className="mx-75 text-gray-200">
+          <label htmlFor="password" className="mx-75 text-gray-800">
             비밀번호
           </label>
           <input
