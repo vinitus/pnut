@@ -138,7 +138,7 @@ def search_food(request):
 
 
 @csrf_exempt
-def search_symptom(request):
+def search_symptom(request,symptom_id):
     """
     Desc :
         증상별로 요리를 반환한다.
@@ -162,19 +162,18 @@ def search_symptom(request):
     result = dict()
     result["data"] = list()
     result["message"] = "SUCCESS"
-    symptom_id = int(request.GET["symptom_id"])
-    if symptom_id == 0:
+    if symptom_id == '0':
         search_result = models.Food.objects.all()
     else:
         search_result = models.Food.objects.filter(foodcat__cat_id=symptom_id)
     for r in search_result:
         result["data"].append({
-            'food_id' : r['food_id'],
-            'name' : r["name"],
-            'time' : r["time"],
-            'ingredients' : r["ingredients"],
-            'url' : r["url"],
-            'cal' : models.FoodNut.objects.get(food_id=r["food_id"], nutrient_id=1).weight
+            'food_id' : r.food_id,
+            'name' : r.name,
+            'time' : r.time,
+            'ingredients' : r.ingredients,
+            'url' : r.url,
+            'cal' : r.cal
         })
     random.shuffle(result["data"])
     return JsonResponse(result,status=200)
@@ -193,8 +192,8 @@ def get_single_food(request):
     """
     food_id = request.GET["food_id"]
     user_email = request.GET["user_email"]
-
     nut = list()
+
     food = models.Food.objects.get(food_id=food_id)
     user = models.User.objects.get(email=user_email)
     age_group = user.age // 10
