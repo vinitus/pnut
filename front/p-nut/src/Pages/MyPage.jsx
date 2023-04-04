@@ -60,12 +60,12 @@ const MyPage = () => {
         </div>
         {/* MainContent */}
         <div className="w-3/4 p-75 px-30">
-          {/* {activeTab === "nutrientStatus" && <NutrientStatus />} */}
           {activeTab === "userInfo" && (
             <MyPageUserInfo userInfo={data.userInfo} />
           )}
-          {activeTab === "myRecipe" && <MyPageRecipe />}
-          {/* {activeTab === "bookmarkedRecipe" && <BookmarkedRecipe />} */}
+          {activeTab === "myRecipe" && (
+            <MyPageRecipe myRecipe={data.myRecipe} />
+          )}
         </div>
       </div>
     </div>

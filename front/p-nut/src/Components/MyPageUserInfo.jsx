@@ -223,12 +223,12 @@ const MyPageUserInfo = ({ userInfo }) => {
       <form onSubmit={submitHandler}>
         <div className="flex flex-col items-center mt-40">
           <img
-            className="rounded-full shadow-md h-125 w-125"
+            className="rounded-full shadow-md h-130 w-130"
             src={newProfileImageURL || oldProfileImageURL}
             alt=""
           />
           <label
-            className="mt-20 mb-10 cursor-pointer text-sky-500 font-semibold"
+            className="mt-20 mb-10 cursor-pointer text-sky-500 font-semibold hover:text-blue-500"
             htmlFor="profileImg"
           >
             프로필 이미지 변경

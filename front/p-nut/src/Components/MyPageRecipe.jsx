@@ -1,43 +1,37 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import MyPageRecipeBlock from "./MyPageRecipeBlock";
 
-const MyPageRecipe = () => {
-  const data = [
-    {
-      imgPath: "/assets/recipe_1.png",
-      foodTitle: "닭도리탕",
-      id: 1,
-    },
-    {
-      imgPath: "/assets/recipe_1.png",
-      foodTitle: "닭도리탕",
-      id: 2,
-    },
-    {
-      imgPath: "/assets/recipe_1.png",
-      foodTitle: "닭도리탕",
-      id: 3,
-    },
-    {
-      imgPath: "/assets/recipe_1.png",
-      foodTitle: "닭도리탕",
-      id: 4,
-    },
-  ];
+const MyPageRecipe = ({ myRecipe }) => {
+  const [recipeNumber, setRecipeNumber] = useState(0);
+  const [recipes, setRecipes] = useState(myRecipe);
+  // console.log("recipes: ", recipes);
+  const updateRecipe = (recipeId) => {
+    // console.log("My Page Recipe: ", recipeId);
+    const updatedRecipes = recipes.filter((recipe) => recipe.id !== recipeId);
+    // console.log("updated recipes: ", updatedRecipes);
+    setRecipes(updatedRecipes);
+  };
 
+  useEffect(() => {
+    setRecipeNumber(recipes.length);
+  }, [recipes]);
   return (
     <div>
       <div className="flex items-center">
         <p className="text-lg font-extrabold">내가 작성한 레시피</p>
-        <p className="font-extrabold text-lg text-#FF6B6C ml-10">13</p>
+        <p className="font-extrabold text-lg text-#FF6B6C ml-10">
+          {recipeNumber}
+        </p>
       </div>
       <div className="flex justify-center py-30">
         <div className="grid grid-cols-3 gap-20 ">
-          {data.map((food) => (
+          {recipes.map((recipe) => (
             <MyPageRecipeBlock
-              imgPath={food.imgPath}
-              foodTitle={food.foodTitle}
-              key={`${food.id}`}
+              imgPath={recipe.thumbnail_image_url}
+              recipeTitle={recipe.title}
+              recipeId={recipe.id}
+              key={`recipe-${recipe.id}`}
+              onRecipeDelete={updateRecipe}
             />
           ))}
         </div>
