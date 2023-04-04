@@ -7,7 +7,8 @@ export default async function djangoAPI(
   data = {},
   headers = {}
 ) {
-  const baseURL = "http://j8a704.p.ssafy.io:8000";
+  // const baseURL = "http://j8a704.p.ssafy.io:8000";
+   const baseURL = "https://pnut.site";
   // django
   // Authorization Not Required
   let response = await axios({
