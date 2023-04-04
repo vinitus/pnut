@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useReducer } from "react";
 import { useNavigateToTop } from "../hooks/useNavigateToTop";
 import { useDispatch, useSelector } from "react-redux";
-import { loginHandler } from "../stores/auth";
+import { loginHandler } from "../stores/authSlice";
 
 const LoginForm = () => {
   const dispatch = useDispatch();

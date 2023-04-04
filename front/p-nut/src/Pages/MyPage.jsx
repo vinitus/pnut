@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLoaderData } from "react-router-dom";
 import { useNavigateToTop } from "../hooks/useNavigateToTop";
 import { useDispatch, useSelector } from "react-redux";
-import { logoutHandler } from "../stores/auth";
+import { logoutHandler } from "../stores/authSlice";
 
 import MyPageSidebar from "../Components/MyPageSidebar";
 import AlertModal from "../UI/AlertModal";
