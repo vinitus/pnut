@@ -1,7 +1,7 @@
 import React from "react";
-import MyPageRecipeComponent from "./MyPageRecipeComponent";
+import MyPageRecipeBlock from "./MyPageRecipeBlock";
 
-const MyRecipe = () => {
+const MyPageRecipe = () => {
   const data = [
     {
       imgPath: "/assets/recipe_1.png",
@@ -34,7 +34,7 @@ const MyRecipe = () => {
       <div className="flex justify-center py-30">
         <div className="grid grid-cols-3 gap-20 ">
           {data.map((food) => (
-            <MyPageRecipeComponent
+            <MyPageRecipeBlock
               imgPath={food.imgPath}
               foodTitle={food.foodTitle}
               key={`${food.id}`}
@@ -46,4 +46,4 @@ const MyRecipe = () => {
   );
 };
 
-export default MyRecipe;
+export default MyPageRecipe;

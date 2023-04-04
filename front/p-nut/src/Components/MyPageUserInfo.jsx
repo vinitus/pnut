@@ -4,7 +4,7 @@ import checkDuplicationAPI from "../api/checkDuplicationAPI";
 import putUserInfo from "../api/putUserInfo";
 import { imageBaseURL } from "../api/baseURL";
 
-const UpdateUserData = ({ userInfo }) => {
+const MyPageUserInfo = ({ userInfo }) => {
   const navigate = useNavigate();
 
   const [nicknameIsTouched, setNicknameIsTouched] = useState(false);
@@ -198,8 +198,10 @@ const UpdateUserData = ({ userInfo }) => {
     );
     if (response.status === 200) {
       setNicknameIsTouched(false);
+      if (newProfileImageURL) {
+        setOldProfileImageURL(newProfileImageURL);
+      }
       setNewProfileImageURL();
-      setOldProfileImageURL(newProfileImageURL);
       navigate("/mypage");
     }
   };
@@ -368,4 +370,4 @@ const UpdateUserData = ({ userInfo }) => {
   );
 };
 
-export default UpdateUserData;
+export default MyPageUserInfo;

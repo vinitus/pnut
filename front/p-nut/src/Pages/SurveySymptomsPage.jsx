@@ -2,7 +2,7 @@ import React, { createRef, useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import symptomsAPI from "../api/symptomsAPI";
-import OptionSelectComponent from "../Components/OptionSelectComponent";
+import OptionSelect from "../Components/OptionSelect";
 import { useDivInputEventHandler } from "../hooks/useInputDivHandler";
 
 const SurveySymptomsPage = () => {
@@ -60,7 +60,7 @@ const SurveySymptomsPage = () => {
           </div>
           <div className="grey-underbar" />
           {data.map((content, idx) => (
-            <OptionSelectComponent
+            <OptionSelect
               type="checkbox"
               content={content}
               idx={idx}

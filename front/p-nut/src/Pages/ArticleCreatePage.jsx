@@ -1,5 +1,5 @@
 import React, { createRef, useRef, useState } from "react";
-import ArticleImgBlockComponent from "../Components/ArticleImgBlockComponent";
+import ArticleImgBlock from "../Components/ArticleImgBlock";
 import newpostAPI from "../api/newpostAPI";
 import { useSelector } from "react-redux";
 
@@ -155,7 +155,7 @@ const ArticleCreatePage = () => {
         }}
       >
         <div className="w-792 h-354">
-          <ArticleImgBlockComponent
+          <ArticleImgBlock
             setRef={thumbnailInputRef}
             division="thumbnail"
             text="대표 이미지 업로드"
@@ -293,7 +293,7 @@ const ArticleCreatePage = () => {
                     placeholder="만드는 방법을 입력하세요."
                   />
                   <div className="w-624 h-303">
-                    <ArticleImgBlockComponent
+                    <ArticleImgBlock
                       setRef={stepImgFileRef[value - 1]}
                       division={`step-img-${value}`}
                       text="이미지 업로드(선택)"

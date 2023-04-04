@@ -1,4 +1,5 @@
 import axios from "axios";
+import { dataBaseURL } from "./baseURL";
 
 export default async function djangoAPI(
   method,
@@ -8,7 +9,7 @@ export default async function djangoAPI(
   headers = {}
 ) {
   // const baseURL = "http://j8a704.p.ssafy.io:8000";
-   const baseURL = "https://pnut.site";
+  const baseURL = dataBaseURL;
   // django
   // Authorization Not Required
   let response = await axios({

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const MyPageRecipeComponent = (props) => {
+const MyPageRecipeBlock = (props) => {
   const { imgPath, foodTitle } = props;
 
   const [isHovering, setIsHovering] = useState(false);
@@ -61,4 +61,4 @@ const MyPageRecipeComponent = (props) => {
   );
 };
 
-export default MyPageRecipeComponent;
+export default MyPageRecipeBlock;
