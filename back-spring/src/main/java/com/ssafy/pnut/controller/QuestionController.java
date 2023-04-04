@@ -44,9 +44,8 @@ public class QuestionController {
 
     private final CategoryServiceImpl categoryService;
     private final QuestionServiceImpl questionService;
-    private final ResultServiceImpl resultService;
-    private final NutrientQuestionServiceImpl nutrientQuestionService;
 
+    private final ResultServiceImpl resultService;
     private final UserServiceImpl userService;
 
     @GetMapping("")
@@ -178,11 +177,12 @@ public class QuestionController {
 //        body.add("user_email", user_email);
 //
 //        // Message
+
 //        HttpEntity<?> requestMessage = new HttpEntity<>(body, httpHeaders);
 //
 //
 //        // Request
-            String url = "http://j8a704.p.ssafy.io:8000/foods/calc";
+            String url = "https://pnut.site/foods/calc";
 //        HttpEntity<String> response = restTemplate.getForEntity(url, requestMessage, String.class);
 //
 //        // Response 파싱
