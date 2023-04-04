@@ -33,11 +33,11 @@ const Sidebar = ({
         </div>
         {/* 설문조사 수정 */}
         {/* <div className="rounded-10 bg-#FF6B6C/30 text-#FF6B6C"> */}
-        <div className="rounded-10 text-#FF6B6C border border-#FF6B6C hover:bg-#FF6B6C hover:text-white">
+        <div className="cursor-pointer rounded-10 text-#FF6B6C border border-#FF6B6C hover:bg-#FF6B6C hover:text-white">
           <p className="font-extrabold py-15">설문조사 수정</p>
         </div>
         {/* 내비게이션 */}
-        <div className="text-start divide-y divide-gray-200 text-#535453 font-semibold ">
+        <div className="cursor-pointer text-start divide-y divide-gray-200 text-#535453 font-semibold ">
           {/* <div
             className={`flex py-15 px-10 hover:bg-gray-100  ${
               activeTab === "nutrientStatus" ? "bg-gray-100 " : ""
@@ -91,10 +91,10 @@ const Sidebar = ({
           >
             <p className="font-extrabold py-15">로그아웃</p>
           </div> */}
-          <p className="flex items-center justify-center text-gray-500">
+          <p className="cursor-pointer flex items-center justify-center text-gray-500">
             회원탈퇴
             <img
-              className="pl-5 scale-50 hover:rounded-xl hover:bg-gray-200 hover:px-10"
+              className="pl-5 scale-50 hover:rounded-xl hover:px-10"
               src="assets\chevron.png"
               alt=""
               onClick={showModal}

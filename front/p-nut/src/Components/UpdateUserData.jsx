@@ -1,13 +1,21 @@
 import React, { Fragment, useState, useReducer, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import checkDuplicationAPI from "../api/checkDuplicationAPI";
 import putUserInfo from "../api/putUserInfo";
 import { imageBaseURL } from "../api/baseURL";
 
 const UpdateUserData = ({ userInfo }) => {
+  const navigate = useNavigate();
+
   const [nicknameIsTouched, setNicknameIsTouched] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
 
   const [userInputGender, setUserInputGender] = useState(userInfo.gender);
+  const [oldProfileImageURL, setOldProfileImageURL] = useState(
+    `${imageBaseURL}/${userInfo.profile_image_url}`
+  );
+  const [newProfileImageURL, setNewProfileImageURL] = useState();
+  const [userProfileImage, setUserProfileImage] = useState();
 
   const nicknameReducer = (state, action) => {
     if (action.type === "USER_INPUT") {
@@ -165,15 +173,35 @@ const UpdateUserData = ({ userInfo }) => {
     }
   };
 
-  const submitHandler = (event) => {
+  const uploadImage = (event) => {
+    console.log("image uploaded: ", event.target.files[0]);
+    const file = event.target.files[0];
+    setUserProfileImage(file);
+
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
+    fileReader.onload = (data) => {
+      // console.log("fileReader data: ", data);
+      setNewProfileImageURL(data.target.result);
+    };
+  };
+
+  const submitHandler = async (event) => {
     event.preventDefault();
-    putUserInfo(
+    const response = await putUserInfo(
       nicknameState.value,
       nameState.value,
       userInputGender,
       ageState.value,
-      passwordState.password2
+      passwordState.password2,
+      userProfileImage
     );
+    if (response.status === 200) {
+      setNicknameIsTouched(false);
+      setNewProfileImageURL();
+      setOldProfileImageURL(newProfileImageURL);
+      navigate("/mypage");
+    }
   };
 
   useEffect(() => {
@@ -193,15 +221,28 @@ const UpdateUserData = ({ userInfo }) => {
       <form onSubmit={submitHandler}>
         <div className="flex flex-col items-center mt-40">
           <img
-            className="rounded-full shadow-md w-125"
-            src={`${imageBaseURL}/${userInfo.profile_image_url}`}
+            className="rounded-full shadow-md h-125 w-125"
+            src={newProfileImageURL || oldProfileImageURL}
             alt=""
           />
-          <img
+          <label
+            className="mt-20 mb-10 cursor-pointer text-sky-500 font-semibold"
+            htmlFor="profileImg"
+          >
+            프로필 이미지 변경
+          </label>
+          <input
+            type="file"
+            className="hidden"
+            accept="image/*"
+            id="profileImg"
+            onChange={uploadImage}
+          />
+          {/* <img
             className="relative transition duration-200 ease-in-out transform left-80 -top-40 hover:opacity-80"
             src="assets/imageUpdatePencil.png"
             alt=""
-          />
+          /> */}
         </div>
 
         <div className="ml-200">
@@ -260,7 +301,7 @@ const UpdateUserData = ({ userInfo }) => {
               <select
                 name="gender"
                 value={userInputGender}
-                className="h-40 border-2 border-gray-300 first-letter:px-10 w-120 rounded-10 focus:border-blue-500"
+                className="cursor-pointer h-40 border-2 border-gray-300 first-letter:px-10 w-120 rounded-10 focus:border-blue-500"
                 onChange={genderChangeHandler}
               >
                 <option value="0">남성</option>

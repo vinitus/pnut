@@ -33,7 +33,7 @@ const MyRecipe = () => {
       </div>
       <div className="flex justify-center py-30">
         <div className="grid grid-cols-3 gap-20 ">
-          {data.map(food => (
+          {data.map((food) => (
             <MyPageRecipeComponent
               imgPath={food.imgPath}
               foodTitle={food.foodTitle}

@@ -3,7 +3,14 @@ import store from "../stores";
 import { removeTokenHandler } from "../stores/auth";
 import { baseURL } from "./baseURL";
 
-async function putUserInfo(nickname, name, gender, age, password) {
+async function putUserInfo(
+  nickname,
+  name,
+  gender,
+  age,
+  password,
+  profileImage
+) {
   const state = JSON.parse(localStorage.getItem("persist:root"));
   if (!state) {
     return "token does not exist";
@@ -14,6 +21,8 @@ async function putUserInfo(nickname, name, gender, age, password) {
   const { email } = authentication.authentication;
   const formData = new FormData();
   let formObj;
+
+  console.log("profileImage: ", profileImage);
 
   if (password.trim()) {
     formObj = {
@@ -40,6 +49,16 @@ async function putUserInfo(nickname, name, gender, age, password) {
       type: "application/json",
     })
   );
+
+  if (profileImage) {
+    formData.append("multipartFile", profileImage);
+  }
+  // for (const key of formData.keys()) {
+  //   console.log(key);
+  // }
+  // for (const value of formData.values()) {
+  //   console.log(value);
+  // }
 
   if (!accessToken) {
     return "token does not exist";
@@ -73,7 +92,6 @@ async function putUserInfo(nickname, name, gender, age, password) {
     if (refreshResponse.status === 200) {
       accessToken = refreshResponse.data["access-token"];
 
-      console.log("response1");
       const response1 = await axios({
         method: "put",
         baseURL: baseURL,
@@ -85,6 +103,7 @@ async function putUserInfo(nickname, name, gender, age, password) {
       });
 
       if (response1.status === 200) {
+        console.log("putUserInfo successed!");
         return response1;
       }
       return response1.response;
@@ -95,7 +114,6 @@ async function putUserInfo(nickname, name, gender, age, password) {
       return refreshResponse;
     }
   } else {
-    console.log("response2");
     const response2 = await axios({
       method: "put",
       baseURL: baseURL,
@@ -107,6 +125,7 @@ async function putUserInfo(nickname, name, gender, age, password) {
     });
 
     if (response2.status === 200) {
+      console.log("putUserInfo successed!");
       return response2;
     }
     return response2.response;
