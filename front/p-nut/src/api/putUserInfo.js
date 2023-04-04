@@ -3,7 +3,7 @@ import store from "../stores";
 import { removeTokenHandler } from "../stores/auth";
 import { baseURL } from "./baseURL";
 
-async function getUserInfo() {
+async function putUserInfo(nickname, name, gender, age, password) {
   const state = JSON.parse(localStorage.getItem("persist:root"));
   if (!state) {
     return "token does not exist";
@@ -12,6 +12,34 @@ async function getUserInfo() {
   let accessToken = authentication.authentication.token;
   const { refreshToken } = authentication.authentication;
   const { email } = authentication.authentication;
+  const formData = new FormData();
+  let formObj;
+
+  if (password.trim()) {
+    formObj = {
+      email: email,
+      nickname: nickname,
+      name: name,
+      gender: gender,
+      age: age,
+      password: password,
+    };
+  } else {
+    formObj = {
+      email: email,
+      nickname: nickname,
+      name: name,
+      gender: gender,
+      age: age,
+    };
+  }
+  console.log("formObj: ", formObj);
+  formData.append(
+    "userDto",
+    new Blob([JSON.stringify(formObj)], {
+      type: "application/json",
+    })
+  );
 
   if (!accessToken) {
     return "token does not exist";
@@ -25,10 +53,10 @@ async function getUserInfo() {
     url: "/users/check",
     headers: {
       "access-token": accessToken,
-      // "access-token": "asdasd",
     },
   });
   console.log("checkResponse: ", checkResponse);
+
   if (checkResponse.status === 202) {
     const refreshResponse = await axios({
       method: "post",
@@ -47,16 +75,17 @@ async function getUserInfo() {
 
       console.log("response1");
       const response1 = await axios({
-        method: "get",
+        method: "put",
         baseURL: baseURL,
-        url: `/users/${email}`,
+        url: "/users",
         headers: {
           "access-token": accessToken,
         },
+        data: formData,
       });
 
       if (response1.status === 200) {
-        return response1.data.userInfo;
+        return response1;
       }
       return response1.response;
     }
@@ -68,19 +97,20 @@ async function getUserInfo() {
   } else {
     console.log("response2");
     const response2 = await axios({
-      method: "get",
+      method: "put",
       baseURL: baseURL,
-      url: `/users/${email}`,
+      url: "/users",
       headers: {
         "access-token": accessToken,
       },
+      data: formData,
     });
 
     if (response2.status === 200) {
-      return response2.data.userInfo;
+      return response2;
     }
     return response2.response;
   }
 }
 
-export default getUserInfo;
+export default putUserInfo;

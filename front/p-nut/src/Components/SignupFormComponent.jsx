@@ -183,10 +183,10 @@ const SignupFormComponent = () => {
   };
   const nameChangeHandler = (event) => {
     dispatchName({ type: "USER_INPUT", val: event.target.value });
-    setGenderIsTouched(true);
   };
   const genderChangeHandler = (event) => {
     setUserInputGender(event.target.value);
+    setGenderIsTouched(true);
   };
   const ageChangeHandler = (event) => {
     dispatchAge({ type: "USER_INPUT", val: event.target.value });
@@ -287,12 +287,12 @@ const SignupFormComponent = () => {
 
   return (
     <Fragment>
-      <p className="mx-75 my-25 text-2xl text-gray-200 font-bold">
+      <p className="text-2xl font-bold text-gray-800 mx-75 my-25">
         이메일로 가입하세요
       </p>
       <form onSubmit={submitHandler}>
         <div className="flex flex-col">
-          <label htmlFor="nickname" className="mx-75 text-gray-200">
+          <label htmlFor="nickname" className="text-gray-800 mx-75">
             닉네임
           </label>
           <div className="flex items-center">
@@ -327,9 +327,9 @@ const SignupFormComponent = () => {
           </div>
         </div>
 
-        <div className="mx-75 my-10 flex">
-          <div className="flex-1 flex flex-col">
-            <label htmlFor="name" className="mb-7 text-gray-200">
+        <div className="flex my-10 mx-75">
+          <div className="flex flex-col flex-1">
+            <label htmlFor="name" className="text-gray-800 mb-7">
               이름 (실명)
             </label>
             <input
@@ -341,8 +341,8 @@ const SignupFormComponent = () => {
               onChange={nameChangeHandler}
             />
           </div>
-          <div className="flex-1 flex flex-col">
-            <label htmlFor="gender" className="mb-7 text-gray-200">
+          <div className="flex flex-col flex-1">
+            <label htmlFor="gender" className="text-gray-800 mb-7">
               성별
             </label>
             <select
@@ -356,8 +356,8 @@ const SignupFormComponent = () => {
               <option value="1">여성</option>
             </select>
           </div>
-          <div className="flex-1 flex flex-col">
-            <label htmlFor="age" className="mb-7 text-gray-200">
+          <div className="flex flex-col flex-1">
+            <label htmlFor="age" className="text-gray-800 mb-7">
               나이 (만)
             </label>
             <input
@@ -371,8 +371,8 @@ const SignupFormComponent = () => {
           </div>
         </div>
         <div className="flex">
-          <div className="ml-75 mt-10 mb-4 flex-1 flex flex-col">
-            <label htmlFor="email" className="text-gray-200">
+          <div className="flex flex-col flex-1 mt-10 mb-4 ml-75">
+            <label htmlFor="email" className="text-gray-800">
               이메일
             </label>
             <input
@@ -389,7 +389,7 @@ const SignupFormComponent = () => {
           <div className="flex-1">
             <button
               type="button"
-              className="mx-15 mt-44 w-120 h-40 bg-red-400 rounded-xl text-white font-semibold"
+              className="h-40 font-semibold text-white bg-red-400 mx-15 mt-44 w-120 rounded-xl"
               onClick={requestCodeHandler}
             >
               인증번호 받기
@@ -397,23 +397,23 @@ const SignupFormComponent = () => {
           </div>
         </div>
         {emailIsTouched && emailState.isDuplicated && !emailState.isValid && (
-          <span className="ml-75 px-15 text-red-500">
+          <span className="text-red-500 ml-75 px-15">
             사용 중인 이메일입니다.
           </span>
         )}
         {emailIsTouched && !emailState.isDuplicated && !emailState.isValid && (
-          <span className="ml-75 px-15 text-red-500">
+          <span className="text-red-500 ml-75 px-15">
             유효하지 않은 이메일입니다.
           </span>
         )}
         {emailIsTouched && emailState.isValid && (
-          <span className="ml-75 px-15 text-green-500">
+          <span className="text-green-500 ml-75 px-15">
             사용 가능한 이메일입니다.
           </span>
         )}
         <div>
           <div className="flex">
-            <div className="ml-75 mt-5 mb-4 flex-1 flex flex-col">
+            <div className="flex flex-col flex-1 mt-5 mb-4 ml-75">
               <input
                 type="text"
                 id="code"
@@ -427,7 +427,7 @@ const SignupFormComponent = () => {
             <div className="flex-1">
               <button
                 type="button"
-                className="mx-15 mt-5 w-120 h-40 bg-blue-500 rounded-xl text-white font-semibold"
+                className="h-40 mt-5 font-semibold text-white bg-blue-500 mx-15 w-120 rounded-xl"
                 onClick={checkCodeHandler}
               >
                 인증번호 확인
@@ -442,21 +442,21 @@ const SignupFormComponent = () => {
             {codeValidationMessage}
           </span>
         </div>
-        <div className="ml-75 mt-10 inline-flex">
+        <div className="inline-flex mt-10 ml-75">
           <div className="flex flex-col">
-            <label htmlFor="password" className="text-gray-200">
+            <label htmlFor="password" className="text-gray-800">
               비밀번호
             </label>
             <input
               type="password"
               id="password"
-              className="px-10 mt-10 w-150 h-40 border-4 border-gray-300 rounded-10 text-gray-400 font-noto focus:border-blue-500"
+              className="h-40 px-10 mt-10 text-gray-400 border-4 border-gray-300 w-150 rounded-10 font-noto focus:border-blue-500"
               placeholder="********"
               onChange={password1ChangeHandler}
             />
           </div>
           <div className="flex flex-col ml-35">
-            <label htmlFor="passwordcheck" className=" text-gray-200">
+            <label htmlFor="passwordcheck" className="text-gray-800 ">
               비밀번호 확인
             </label>
             <input
@@ -472,7 +472,7 @@ const SignupFormComponent = () => {
             />
           </div>
           {passwordState.passwordIsValid && (
-            <span className="ml-3 mt-40 px-15 text-green-500">일치합니다.</span>
+            <span className="mt-40 ml-3 text-green-500 px-15">일치합니다.</span>
           )}
         </div>
         <button

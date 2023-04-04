@@ -45,7 +45,7 @@ const LoginSignupFormComponent = (props) => {
           </button>
         </div>
       </div>
-      <div className="w-1/2 bg-stone-900 rounded-r-xl">{props.children}</div>
+      <div className="w-1/2 bg-white rounded-r-xl">{props.children}</div>
     </div>
   );
 };

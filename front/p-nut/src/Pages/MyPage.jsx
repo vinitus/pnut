@@ -23,7 +23,7 @@ const MyPage = () => {
   const data = useLoaderData();
   console.log("data: ", data);
 
-  const [activeTab, setActiveTab] = useState("nutrientStatus");
+  const [activeTab, setActiveTab] = useState("updateUserData");
 
   const [modalOpen, setModalOpen] = useState(false);
   const openModal = () => {
@@ -55,14 +55,19 @@ const MyPage = () => {
             activeTab={activeTab}
             setActiveTab={setActiveTab}
             onShowModal={openModal}
+            name={data.userInfo.name}
+            email={data.userInfo.email}
+            profileImageURL={data.userInfo.profile_image_url}
           />
         </div>
         {/* MainContent */}
         <div className="w-3/4 p-75 px-30">
-          {activeTab === "nutrientStatus" && <NutrientStatus />}
-          {activeTab === "updateUserData" && <UpdateUserData />}
+          {/* {activeTab === "nutrientStatus" && <NutrientStatus />} */}
+          {activeTab === "updateUserData" && (
+            <UpdateUserData userInfo={data.userInfo} />
+          )}
           {activeTab === "myRecipe" && <MyRecipe />}
-          {activeTab === "bookmarkedRecipe" && <BookmarkedRecipe />}
+          {/* {activeTab === "bookmarkedRecipe" && <BookmarkedRecipe />} */}
         </div>
       </div>
     </div>
