@@ -162,18 +162,18 @@ public class UserController {
                 User now = userService.getUser(email);
 
                 String fileName;
-                if(multipartFile==null){
-                    fileName = "basic_profile_image_37d8I092LMX89-removebg-preview.png";
-                }else{
-                    fileName = awsS3Service.uploadProfileImage(multipartFile, userDto);
-                }
+
                 if(userDto.getName()==null){
                     userDto.setName(now.getName());
                 }
                 if(userDto.getNickname()==null){
                     userDto.setNickname(now.getNickname());
                 }
-
+                if(multipartFile==null){
+                    fileName = "basic_profile_image_37d8I092LMX89-removebg-preview.png";
+                }else{
+                    fileName = awsS3Service.uploadProfileImage(multipartFile, userDto);
+                }
                 userDto.setJoinDate(now.getJoin_date());
                 userDto.setProfileImageUrl(fileName);
                 User result = userService.modifyUser(userDto.toEntity());
