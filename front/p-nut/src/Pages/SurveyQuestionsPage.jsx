@@ -4,23 +4,31 @@ import { useSelector } from "react-redux";
 import { symptomsQuestionAPI } from "../api/symptomsQuestionAPI";
 import axios from "axios";
 import axiosInterface from "../api/axiosInterface";
+import axios from "axios";
 
 const SurveyQuestionsPage = () => {
   const navigate = useNavigate();
-  const { question1, question2, question3 } = useParams();
+  const { question1, question2, question3, preAnswer } = useParams();
   const token = useSelector((state) => state.auth.authentication.token);
   const email = useSelector((state) => state.auth.authentication.email);
-  const [inputRef, setInputRef] = useState([]);
   const [inputValue, setInputValue] = useState([]);
+  const prevAnswer = preAnswer
+    .split("-")
+    .slice(0, 3)
+    .map((categoryAnswer) => {
+      if (categoryAnswer) {
+        return categoryAnswer.split("");
+      }
+      return false;
+    });
+  const deleteReqIdxArr = preAnswer.split("-")[3].split("");
 
   const questionObj = useMemo(() => {
     const [questionId1, question1Thema] = question1.split("=");
     const [questionId2, question2Thema] = question2.split("=");
     const [questionId3, question3Thema] = question3.split("=");
     return {
-      questionId1,
-      questionId2,
-      questionId3,
+      questionIdArr: [questionId1, questionId2, questionId3],
       questionThema: [question1Thema, question2Thema, question3Thema],
     };
   }, [question1, question2, question3]);
@@ -33,121 +41,99 @@ const SurveyQuestionsPage = () => {
   useEffect(() => {
     symptomsQuestionAPI(
       token,
-      Number(questionObj.questionId1) + 1,
-      Number(questionObj.questionId2) + 1,
-      Number(questionObj.questionId3) + 1
+      Number(questionObj.questionIdArr[0]) + 1,
+      Number(questionObj.questionIdArr[1]) + 1,
+      Number(questionObj.questionIdArr[2]) + 1
     ).then((res) => {
       const [question1Data, question2Data, question3Data] = res;
       setNickname(question1Data[0]);
       setQuestion1Data(question1Data.slice(1));
-      setInputRef((prev) => {
-        const refArr = [];
-        for (let i = 1; i < question1Data.length; i += 1) {
-          refArr.push(createRef(null));
-        }
-        prev.push(refArr);
-        return [...prev];
-      });
-      setInputValue((prev) => {
-        const refArr = [];
-        for (let i = 1; i < question1Data.length; i += 1) {
-          refArr.push(0);
-        }
-        prev.push(refArr);
-        return [...prev];
-      });
       setQuestion2Data(question2Data.slice(1));
-      setInputRef((prev) => {
-        const refArr = [];
-        for (let i = 1; i < question2Data.length; i += 1) {
-          refArr.push(createRef(null));
-        }
-        prev.push(refArr);
-        return [...prev];
-      });
-      setInputValue((prev) => {
-        const refArr = [];
-        for (let i = 1; i < question2Data.length; i += 1) {
-          refArr.push(0);
-        }
-        prev.push(refArr);
-        return [...prev];
-      });
       setQuestion3Data(question3Data.slice(1));
-      setInputRef((prev) => {
-        const refArr = [];
-        for (let i = 1; i < question3Data.length; i += 1) {
-          refArr.push(createRef(null));
-        }
-        prev.push(refArr);
-        return [...prev];
-      });
-      setInputValue((prev) => {
-        const refArr = [];
-        for (let i = 1; i < question3Data.length; i += 1) {
-          refArr.push(0);
-        }
-        prev.push(refArr);
-        return [...prev];
-      });
-    });
-  }, [questionObj, token]);
 
+      const inputArr = res.map((key, idx) => {
+        if (!prevAnswer[idx]) {
+          return Array(key.length).fill(1);
+        } else {
+          const parseIntArr = prevAnswer[idx].map((value) => Number(value));
+
+          return parseIntArr;
+        }
+      });
+
+      setInputValue(inputArr);
+    });
+  }, [token]);
+
+  console.log(inputValue);
+  console.log(question1Data);
   // 변경 고
   const inputChangeHandler = (e) => {
+    console.log(e.target.value);
     const [tag, y, x] = e.target.id.split("-");
     inputValue[y][x] = Number(e.target.value);
   };
 
   // 요청 고
   const submitBtnClickHandler = async () => {
-    console.log(inputValue[0]);
-    const req1 = axiosInterface(
-      "POST",
-      `/survey/${Number(questionObj.questionId1) + 1}`,
-      {
-        responses: inputValue[0],
-      },
-      {
-        Authorization: `Bearer ${token}`,
+    const deletePromiseArr = [];
+    deleteReqIdxArr.forEach((key) => {
+      const deleteRequest = axiosInterface(
+        "DELETE",
+        `/survey/mypage/${Number(key) + 1}`,
+        "",
+        {
+          Authorization: `Bearer ${token}`,
+        }
+      ).then((res) => {
+        console.log(res);
+        return res;
+      });
+      deletePromiseArr.push(deleteRequest);
+    });
+    if (deleteReqIdxArr.length > 0) await Promise.all(deleteReqIdxArr);
+
+    const submitRequestPromiseArr = [];
+    prevAnswer.forEach((value, idx) => {
+      console.log(value, inputValue[idx]);
+      if (!value) {
+        const submitRequest = axiosInterface(
+          "POST",
+          `/survey/${Number(questionObj.questionIdArr[idx]) + 1}`,
+          {
+            responses: inputValue[idx],
+          },
+          {
+            Authorization: `Bearer ${token}`,
+          }
+        ).then((res) => {
+          console.log(res);
+          return res;
+        });
+        submitRequestPromiseArr.push(submitRequest);
+      } else {
+        const submitRequest = axiosInterface(
+          "PATCH",
+          `/survey/mypage/${Number(questionObj.questionIdArr[idx]) + 1}`,
+          {
+            responses: inputValue[idx],
+          },
+          {
+            Authorization: `Bearer ${token}`,
+          }
+        ).then((res) => {
+          console.log(res);
+          return res;
+        });
+        submitRequestPromiseArr.push(submitRequest);
       }
-    ).then((res) => {
-      console.log(res);
-      return res;
     });
 
-    const req2 = axiosInterface(
-      "POST",
-      `/survey/${Number(questionObj.questionId2) + 1}`,
-      {
-        responses: inputValue[1],
-      },
-      {
-        Authorization: `Bearer ${token}`,
-      }
-    ).then((res) => {
-      console.log(res);
-      return res;
-    });
-
-    const req3 = axiosInterface(
-      "POST",
-      `/survey/${Number(questionObj.questionId3) + 1}`,
-      {
-        responses: inputValue[2],
-      },
-      {
-        Authorization: `Bearer ${token}`,
-      }
-    ).then((res) => {
-      console.log(res);
-      return res;
-    });
-
-    await Promise.all([req1, req2, req3]);
+    await Promise.all(submitRequestPromiseArr);
     await axios.get(`/foods/calc?user_email=${email}`, {
-      baseURL: "https://pnut.site"
+      baseURL: "https://pnut.site",
     });
+
     navigate("/my-survey");
   };
 
@@ -178,9 +164,9 @@ const SurveyQuestionsPage = () => {
                 min="0"
                 max="3"
                 step="1"
+                value={inputValue[0][idx]}
                 name={content}
                 id={`input-0-${idx}`}
-                ref={inputRef[0][idx]}
                 onChange={inputChangeHandler}
               />
               <p>3</p>
@@ -204,9 +190,9 @@ const SurveyQuestionsPage = () => {
                 min="0"
                 max="3"
                 step="1"
+                value={inputValue[1][idx]}
                 name={content}
                 id={`input-1-${idx}`}
-                ref={inputRef[1][idx]}
                 onChange={inputChangeHandler}
               />
               <p>3</p>
@@ -230,9 +216,9 @@ const SurveyQuestionsPage = () => {
                 min="0"
                 max="3"
                 step="1"
+                value={inputValue[2][idx]}
                 name={content}
                 id={`input-2-${idx}`}
-                ref={inputRef[2][idx]}
                 onChange={inputChangeHandler}
               />
               <p>3</p>

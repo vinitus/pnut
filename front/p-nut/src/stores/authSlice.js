@@ -6,7 +6,9 @@ import logoutAPI from "../api/logoutAPI";
 
 const authSlice = createSlice({
   name: "auth",
-  initialState: { authentication: { token: "", refreshToken: "", email: "" } },
+  initialState: {
+    authentication: { token: "", refreshToken: "", email: "", nickname: "" },
+  },
   reducers: {
     changeAuth(state, action) {
       // console.log("action payload: ", action.payload);
@@ -14,6 +16,7 @@ const authSlice = createSlice({
         token: action.payload.token,
         refreshToken: action.payload.refreshToken,
         email: action.payload.email,
+        nickname: action.payload.nickname,
       };
     },
     logout(state) {
@@ -21,6 +24,7 @@ const authSlice = createSlice({
         token: "",
         refreshToken: "",
         email: "",
+        nickname: "",
       };
     },
     updateToken(state, action) {
@@ -61,6 +65,7 @@ export const loginHandler = (data) => {
         token: response.data["access-token"],
         refreshToken: response.data["refresh-token"],
         email: response.data.email,
+        nickname: response.data.nickname,
       };
       console.log("userData: ", userData);
 
