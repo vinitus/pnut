@@ -8,7 +8,10 @@ import ArticleListPage, {
 } from "./Pages/ArticleListPage";
 import ArticleDetailPage from "./Pages/ArticleDetailPage";
 import RecipeDetailPage from "./Pages/RecipeDetailPage";
-import SymptomsRecommandPage from "./Pages/SymptomsRecommandPage";
+import SymptomsRecommendPage, {
+  loader as symptomRecommendLoader,
+} from "./Pages/SymptomsRecommendPage";
+
 import SurveyRecommendPage, {
   loader as surveyRecommendLoader,
 } from "./Pages/SurveyRecommendPage";
@@ -34,7 +37,8 @@ const router = createBrowserRouter([
       { index: true, element: <MainPage /> },
       {
         path: "symptoms",
-        element: <SymptomsRecommandPage />,
+        element: <SymptomsRecommendPage />,
+        loader: symptomRecommendLoader,
       },
       {
         path: "board",

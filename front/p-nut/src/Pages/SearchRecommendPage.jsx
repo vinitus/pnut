@@ -6,10 +6,15 @@ import { useAutoComplete } from "../hooks/useAutoComplete";
 import RecipeThumbnail from "../Components/RecipeThumbnail";
 import SelectBtn from "../UI/SelectBtn";
 import djangoAPI from "../api/djangoAPI";
+import getUserInfo from "../api/getUserInfo";
 
 const SearchRecommendPage = () => {
+  console.log("123123123123123");
   const dispatch = useDispatch();
-  const [tag10, food] = useLoaderData();
+  const [tag10, food, email] = useLoaderData();
+  console.log("tag10: ", tag10);
+  console.log("food: ", food);
+  console.log("email: ", email);
 
   const [searchQuery, setSearchQuery] = useState("");
   // 검색 버튼 눌리기 전에
@@ -27,9 +32,8 @@ const SearchRecommendPage = () => {
     ingredientArr
   );
 
-  const email = useSelector((state) => state.auth.authentication.email);
-
   useEffect(() => {
+    console.log("456456456");
     dispatch(searchArrRequest());
   }, [dispatch]);
 
@@ -136,7 +140,9 @@ const SearchRecommendPage = () => {
         />
         <div className="absolute inset-0 bg-black/40" />
         <div className="absolute text-center text-white inset-9">
-          <p className="text-3xl font-semibold my-40">음식을 검색해보세요!</p>
+          <p className="text-3xl font-semibold my-40">
+            찾고있는 음식이 있나요?
+          </p>
           <div className="flex flex-col justify-center space-y-20 mb-20">
             <div className="flex mx-auto space-x-30">
               {tag10 &&
@@ -148,7 +154,7 @@ const SearchRecommendPage = () => {
                     }}
                   >
                     <p
-                      className={`border border-white rounded-full w-fit px-15 py-8 ${
+                      className={`cursor-pointer border border-white rounded-full w-fit px-15 py-8 ${
                         selectedPills[Number(index)] ? "bg-#FF6B6C" : ""
                       }`}
                     >
@@ -173,7 +179,7 @@ const SearchRecommendPage = () => {
                 onFocus={() => setAutoCompleteArrShow(true)}
               />
               <div className="absolute text-gray-400 top-1 mt-15 right-10 flex flex-row">
-                <button type="button">
+                <button type="submit">
                   <img src="assets\Search.png" alt="" className="h-30" />
                 </button>
                 <SelectBtn
@@ -204,11 +210,12 @@ const SearchRecommendPage = () => {
                 <RecipeThumbnail
                   imgPath={value.url}
                   title={value.name}
-                  kcal={value.kcal}
+                  kcal={value.cal}
                   mainIngredients={value.ingredients}
                   time={value.time}
-                  id={value.food_id}
+                  foodId={value.food_id}
                   key={`${value.food_id}`}
+                  userEmail={email || "admin@ssafy.com"}
                 />
               ))}
             </div>
@@ -219,11 +226,12 @@ const SearchRecommendPage = () => {
                 <RecipeThumbnail
                   imgPath={value.url}
                   title={value.name}
-                  kcal={value.kcal}
+                  kcal={value.cal}
                   mainIngredients={value.ingredients}
                   time={value.time}
-                  id={value.food_id}
+                  foodId={value.food_id}
                   key={`${value.food_id}`}
+                  userEmail={email || "admin@ssafy.com"}
                 />
               ))}
             </div>
@@ -257,6 +265,10 @@ const SearchRecommendPage = () => {
 export default SearchRecommendPage;
 
 export async function loader() {
+  console.log("Loading SearchRecommend Page...");
+  const userInfo = await getUserInfo();
+  const { email } = userInfo;
+
   const tagRes = await djangoAPI("get", "/foods/tag");
   const tag10 = tagRes.data.data;
   let food = [];
@@ -282,5 +294,5 @@ export async function loader() {
   });
   await setFood;
   const random12Food = food.slice(0, 12);
-  return [tag10, random12Food];
+  return [tag10, random12Food, email];
 }

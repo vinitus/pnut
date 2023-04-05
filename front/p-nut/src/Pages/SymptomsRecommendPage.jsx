@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useLoaderData } from "react-router-dom";
 import RecipeThumbnail from "../Components/RecipeThumbnail";
 
 import getSymptomsCategoryAPI from "../api/getSymptomsCategoryAPI";
+import getUserInfo from "../api/getUserInfo";
 
-const SymptomsRecommandPage = () => {
+const SymptomsRecommendPage = () => {
   const btnIcons = [
     {
       imgPath: "/assets/cate_all.png",
@@ -76,6 +78,15 @@ const SymptomsRecommandPage = () => {
     },
   ];
 
+  const loadedData = useLoaderData();
+  const [userEmail, setUserEmail] = useState("admin@ssafy.com");
+  const changeUserEmail = () => {
+    console.log("loadedData: ", loadedData);
+    if (loadedData.userInfo !== "token does not exist") {
+      setUserEmail(loadedData.userInfo.email);
+    }
+  };
+
   // Symptom 바꾸기
   const [symptomsId, setSymptomsId] = useState(0);
 
@@ -85,7 +96,7 @@ const SymptomsRecommandPage = () => {
   const getSymptomsCategory = async () => {
     try {
       const response = await getSymptomsCategoryAPI(symptomsId);
-      console.log("symptom : ", response);
+      console.log("symptom: ", response);
 
       setFoodData(response ?? []);
     } catch (err) {
@@ -94,6 +105,8 @@ const SymptomsRecommandPage = () => {
   };
 
   useEffect(() => {
+    changeUserEmail();
+    console.log("userEmail: ", userEmail);
     getSymptomsCategory();
   }, [symptomsId]);
 
@@ -143,6 +156,7 @@ const SymptomsRecommandPage = () => {
             time={food.time}
             foodId={food.food_id}
             key={`${food.food_id}`}
+            userEmail={userEmail}
           />
         ))}
       </div>
@@ -150,4 +164,13 @@ const SymptomsRecommandPage = () => {
   );
 };
 
-export default SymptomsRecommandPage;
+export default SymptomsRecommendPage;
+
+export async function loader() {
+  console.log("Loading SymptomRecommend Page...");
+  const userInfo = await getUserInfo();
+  const data = {
+    userInfo: userInfo,
+  };
+  return data;
+}
