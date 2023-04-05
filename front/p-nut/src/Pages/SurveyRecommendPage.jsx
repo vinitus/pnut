@@ -14,7 +14,7 @@ const SurveyRecommendPage = (props) => {
   console.log("data: ", data);
 
   return (
-    <div className="w-full flex justify-center text-#2B2C2B ">
+    <div className="w-full py-50 flex justify-center text-#2B2C2B ">
       <div className="flex flex-col w-1200">
         {/* # 건강설문 결과표 */}
         <div className="w-full px-40 pb-20 bg-#FF6B6C/30 flex flex-col space-y-30">

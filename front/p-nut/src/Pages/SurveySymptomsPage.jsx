@@ -4,8 +4,12 @@ import { useNavigate } from "react-router-dom";
 import symptomsAPI from "../api/symptomsAPI";
 import OptionSelect from "../Components/OptionSelect";
 import { useDivInputEventHandler } from "../hooks/useInputDivHandler";
+import AlertModal from "../UI/AlertModal";
 
 const SurveySymptomsPage = () => {
+  // 모달 관련
+  const [showAlertModal, setShowAlertModal] = useState(false);
+
   const token = useSelector((state) => state.auth.authentication.token);
   const [data, setData] = useState();
   const [nickname, setNickname] = useState();
@@ -38,21 +42,33 @@ const SurveySymptomsPage = () => {
   };
 
   const startBtnClickHandler = () => {
-    let params = "";
-    Object.entries(checkedObj).forEach(([key, value]) => {
-      const transformValue = value.replace("/", "or");
-      params += `/${key}=${transformValue}`;
-    });
-    console.log(`/newsurvey${params}`);
-    navigate(`/newsurvey${params}`);
+    let selectedOptions = Object.entries(checkedObj)
+      .filter(([key, value]) => value !== "")
+      .map(([key, value]) => key);
+
+    if (selectedOptions.length < 3) {
+      setShowAlertModal(true);
+    } else {
+      let params = "";
+      selectedOptions.forEach((key) => {
+        const transformValue = checkedObj[key].replace("/", "or");
+        params += `/${key}=${transformValue}`;
+      });
+      console.log(`/newsurvey${params}`);
+      navigate(`/newsurvey${params}`);
+    }
+  };
+
+  const closeModal = () => {
+    setShowAlertModal(false);
   };
 
   return (
-    <div className="w-674 h-768">
+    <div className="w-674 py-50">
       {data && (
         <>
           <div className="text-22 font-bold text-#7F807F mb-18">질문 1</div>
-          <div className="text-22 font-bold mb-18">
+          <div className="font-bold text-22 mb-18">
             {nickname}님이 불편하시고 걱정되는 3가지를 선택하세요.
           </div>
           <div className="text-22 text-#7F807F pb-18">
@@ -82,6 +98,13 @@ const SurveySymptomsPage = () => {
           >
             시작하기
           </button>
+          <AlertModal
+            open={showAlertModal}
+            close={closeModal}
+            onCheck={closeModal}
+          >
+            <p>3가지를 선택해주세요.</p>
+          </AlertModal>
         </>
       )}
     </div>
