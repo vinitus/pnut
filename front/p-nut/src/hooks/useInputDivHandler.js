@@ -66,6 +66,24 @@ export const useDivInputEventHandler = (inputRef) => {
     });
   };
 
+  const initCheckedObj = (initCheckedArr, nameArr, inputRef) => {
+    console.log(nameArr);
+    let cnt = 0;
+    const checkedObj = {};
+    initCheckedArr.forEach((value, idx) => {
+      if (value) {
+        console.log(inputRef);
+        const inputTag = inputRef[Number(idx)].current;
+        console.log(idx);
+        inputTag.checked = true;
+        checkedObj[idx] = nameArr[idx];
+        cnt += 1;
+      }
+    });
+    setCheckedObj(checkedObj);
+    setClickedCnt(cnt);
+  };
+
   const eventDispatcher = (e) => {
     console.log(e);
     if (!e.target.id) {
@@ -82,5 +100,5 @@ export const useDivInputEventHandler = (inputRef) => {
     }
   };
 
-  return [clickedCnt, checkedObj, eventDispatcher];
+  return [clickedCnt, checkedObj, initCheckedObj, eventDispatcher];
 };

@@ -86,8 +86,9 @@ const ArticleDetailPage = () => {
   if (comments?.length > 0) {
     comment = (
       <div className="mb-40">
-        {comments.map((value) => (
+        {comments.map((value, idx) => (
           <CommentForm
+            key={`comment-${idx}`}
             content={value.content}
             nickName={value.nickName}
             date={value.createDate}

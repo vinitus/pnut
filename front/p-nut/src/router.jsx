@@ -85,7 +85,7 @@ const router = createBrowserRouter([
             element: <SurveySymptomsPage />,
           },
           {
-            path: ":question1/:question2/:question3",
+            path: ":question1/:question2/:question3/:preAnswer",
             element: <SurveyQuestionsPage />,
           },
         ],

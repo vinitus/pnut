@@ -2,11 +2,16 @@ import React from "react";
 import { useLoaderData } from "react-router-dom";
 import axiosInterface from "../api/axiosInterface";
 import ArticleListThumbnail from "../Components/ArticleListThumbnail";
+import getUserInfo from "../api/getUserInfo";
+import { imageBaseURL } from "../api/baseURL";
 
 const ArticleListPage = () => {
   // data 파싱
   const data = useLoaderData();
-  const [recentArticleList, top3List] = data;
+  const [recentArticleList, top3List, userInfo] = data;
+  console.log("recentArticleList: ", recentArticleList);
+  console.log("top3List: ", top3List);
+  console.log("userInfo", userInfo);
 
   return (
     <div className="flex flex-col items-center">
@@ -22,7 +27,11 @@ const ArticleListPage = () => {
         </div>
       </div>
       <div className="w-910 flex flex-row mt-50 h-80">
-        <img src="./assets/Article_circle.png" alt="" className="m-auto" />
+        <img
+          src={`${imageBaseURL}/${userInfo.profile_image_url}`}
+          alt=""
+          className="mx-auto rounded-full shadow-lg w-70 h-70"
+        />
         <div className="text-23 text-#535453 border border-#AEAFAE rounded-10 w-full ml-52 p-26 flex flex-row place-content-between">
           <div className="font-light leading-28">
             자신의 레시피에 대해 자유롭게 이야기 해주세요!
@@ -33,7 +42,7 @@ const ArticleListPage = () => {
       <div className="w-full h-494 bg-#ECECEC mt-62 py-42">
         <div className="mx-auto w-1300">
           <div className="text-45 font-extrabold mb-17">금주의 레시피</div>
-          <div className="flex place-content-between">
+          <div className="flex place-content-between hover:opcaity-70">
             {top3List.data.map((ele, idx) => (
               <ArticleListThumbnail
                 rank={idx + 1}
@@ -41,12 +50,13 @@ const ArticleListPage = () => {
                 imgSrc={ele.thumbnail_image_url}
                 title={ele.title}
                 author={ele.nickName}
-                profileImg="./assets/Article_circle.png"
+                profileImg={`${imageBaseURL}/${ele.nickName}`}
               />
             ))}
           </div>
         </div>
       </div>
+
       <div className="mt-45 mx-auto w-1300">
         <div className="m-8 flex items-center place-content-between">
           <div className="text-45 font-extrabold">레시피</div>
@@ -71,10 +81,11 @@ const ArticleListPage = () => {
           {recentArticleList.data.map((ele) => (
             <ArticleListThumbnail
               key={ele.id}
+              boardId={ele.id}
               imgSrc={ele.thumbnail_image_url}
               title={ele.title}
               author={ele.nickName}
-              profileImg="./assets/Article_circle.png"
+              profileImg={`${imageBaseURL}/${userInfo.nickname}`}
             />
           ))}
         </div>
@@ -102,7 +113,9 @@ export async function loader() {
       .catch((err) => reject(err));
   });
 
-  const data = Promise.all([recentArticleList, top3List]);
+  const userInfo = await getUserInfo();
+
+  const data = Promise.all([recentArticleList, top3List, userInfo]);
 
   return data;
 }
