@@ -276,10 +276,12 @@ public class QuestionController {
 
             // 기존 결과 가져오기
             List<result> myresults = resultService.findByUserEmailOrderByIdAsc(userDto.toEntity());
+            int idx = 0;
             for(int i = 0; i < myresults.size(); i++) {
                 if(myresults.get(i).getQuestionId().getCategoryId().getId() == id) {  // 결과의 카테고리가 수정하려는 증상의 카테고리와 같다면
-                    myresults.get(i).setDegree(Integer.parseInt(resultReq.getResponses().get(i)));  // id순별로 카테고리 질문에 대한 degree를 수정
+                    myresults.get(i).setDegree(Integer.parseInt(resultReq.getResponses().get(idx)));  // id순별로 카테고리 질문에 대한 degree를 수정
                     resultService.save(myresults.get(i));
+                    idx++;
                 }
             }
 
