@@ -2,12 +2,14 @@ import React, { useState, useEffect, useMemo, createRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { symptomsQuestionAPI } from "../api/symptomsQuestionAPI";
+import axios from "axios";
 import axiosInterface from "../api/axiosInterface";
 
 const SurveyQuestionsPage = () => {
   const navigate = useNavigate();
   const { question1, question2, question3 } = useParams();
   const token = useSelector((state) => state.auth.authentication.token);
+  const email = useSelector((state) => state.auth.authentication.email);
   const [inputRef, setInputRef] = useState([]);
   const [inputValue, setInputValue] = useState([]);
 
@@ -143,6 +145,9 @@ const SurveyQuestionsPage = () => {
     });
 
     await Promise.all([req1, req2, req3]);
+    await axios.get(`/foods/calc?user_email=${email}`, {
+      baseURL: "https://pnut.site"
+    });
     navigate("/my-survey");
   };
 
