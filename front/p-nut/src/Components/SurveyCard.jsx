@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import SurveyCardThumbnailComponent from "./SurveyCardThumbnailComponent";
+import SurveyCardThumbnail from "./SurveyCardThumbnail";
 
-const SurveyCardComponent = (props) => {
+const SurveyCard = (props) => {
   const data = [
     {
       imgPath: "/assets/samplefoodimg.png",
@@ -85,7 +85,7 @@ const SurveyCardComponent = (props) => {
             <img src="assets\Improve Guide.png" alt="" />
             <div className="flex px-40 pt-30 space-x-70">
               {nutrientfood.map((food, index) => (
-                <SurveyCardThumbnailComponent
+                <SurveyCardThumbnail
                   imgPath={food.url}
                   foodTitle={food.name}
                   foodId={food.food_id}
@@ -100,4 +100,4 @@ const SurveyCardComponent = (props) => {
   );
 };
 
-export default SurveyCardComponent;
+export default SurveyCard;

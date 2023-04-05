@@ -5,7 +5,7 @@ import checkDuplicationAPI from "../api/checkDuplicationAPI";
 import requestCodeAPI from "../api/requestCodeAPI";
 import checkCodeAPI from "../api/checkCodeAPI";
 
-const SignupFormComponent = () => {
+const SignupForm = () => {
   const navigate = useNavigateToTop();
 
   const [nicknameIsTouched, setNicknameIsTouched] = useState(false);
@@ -245,7 +245,8 @@ const SignupFormComponent = () => {
       setIsCodeValid(true);
     }
     if (checkResult === "code timeout") {
-      setCodeValidationMessage("인증 번호가 만료되었습니다.");
+      // setCodeValidationMessage("인증 번호가 만료되었습니다.");
+      setCodeValidationMessage("유효하지 않은 인증 번호입니다.");
       setIsCodeValid(false);
     }
     if (checkResult === "invalid code") {
@@ -347,7 +348,7 @@ const SignupFormComponent = () => {
             </label>
             <select
               name="gender"
-              className={`px-10 w-120 h-40 border-4 rounded-10 focus:border-blue-500 ${
+              className={`cursor-pointer px-10 w-120 h-40 border-4 rounded-10 focus:border-blue-500 ${
                 genderIsTouched ? "border-green-500" : "border-gray-300"
               }`}
               onChange={genderChangeHandler}
@@ -489,4 +490,4 @@ const SignupFormComponent = () => {
   );
 };
 
-export default SignupFormComponent;
+export default SignupForm;

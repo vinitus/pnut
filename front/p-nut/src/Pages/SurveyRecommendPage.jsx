@@ -1,6 +1,6 @@
 import React from "react";
-import SurveyCardComponent from "../Components/SurveyCardComponent";
-import SurveyCardThumbnailComponent from "../Components/SurveyCardThumbnailComponent";
+import SurveyCard from "../Components/SurveyCard";
+import SurveyCardThumbnail from "../Components/SurveyCardThumbnail";
 
 import getUserInfo from "../api/getUserInfo";
 import getTotalFoodAPI from "../api/getTotalFoodAPI";
@@ -14,7 +14,7 @@ const SurveyRecommendPage = (props) => {
   console.log("data: ", data);
 
   return (
-    <div className="w-full flex justify-center text-#2B2C2B ">
+    <div className="w-full py-50 flex justify-center text-#2B2C2B ">
       <div className="flex flex-col w-1200">
         {/* # 건강설문 결과표 */}
         <div className="w-full px-40 pb-20 bg-#FF6B6C/30 flex flex-col space-y-30">
@@ -40,7 +40,7 @@ const SurveyRecommendPage = (props) => {
               </p>
               <section className="flex font-bold text-gray-800 space-x-50 text-md">
                 {data.totalFood.map((food, index) => (
-                  <SurveyCardThumbnailComponent
+                  <SurveyCardThumbnail
                     imgPath={food.url}
                     foodTitle={food.name}
                     foodId={food.food_id}
@@ -57,7 +57,7 @@ const SurveyRecommendPage = (props) => {
         {/* # 영양소 카드 컴포넌트 */}
         <div className="py-30 ">
           {data.foodNutrient.map((nutrient, index) => (
-            <SurveyCardComponent
+            <SurveyCard
               title={nutrient[0].name}
               tag1={nutrient[0].tag1}
               tag2={nutrient[0].tag2}

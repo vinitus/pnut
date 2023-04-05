@@ -1,6 +1,6 @@
 import React from "react";
 
-const OrderBlockComponent = (props) => {
+const OrderBlock = (props) => {
   const { imgPath, text, idx } = props;
 
   return (
@@ -16,4 +16,4 @@ const OrderBlockComponent = (props) => {
   );
 };
 
-export default OrderBlockComponent;
+export default OrderBlock;

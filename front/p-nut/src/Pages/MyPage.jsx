@@ -2,14 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useLoaderData } from "react-router-dom";
 import { useNavigateToTop } from "../hooks/useNavigateToTop";
 import { useDispatch, useSelector } from "react-redux";
-import { logoutHandler } from "../stores/auth";
+import { logoutHandler } from "../stores/authSlice";
 
-import Sidebar from "../Components/Sidebar";
+import MyPageSidebar from "../Components/MyPageSidebar";
 import AlertModal from "../UI/AlertModal";
-import NutrientStatus from "../Components/NutrientStatus";
-import UpdateUserData from "../Components/UpdateUserData";
-import MyRecipe from "../Components/MyRecipe";
-import BookmarkedRecipe from "../Components/BookmarkedRecipe";
+import MyPageUserInfo from "../Components/MyPageUserInfo";
+import MyPageRecipe from "../Components/MyPageRecipe";
 
 import getUserInfo from "../api/getUserInfo";
 import getMyRecipe from "../api/getMyRecipe";
@@ -23,7 +21,7 @@ const MyPage = () => {
   const data = useLoaderData();
   console.log("data: ", data);
 
-  const [activeTab, setActiveTab] = useState("updateUserData");
+  const [activeTab, setActiveTab] = useState("userInfo");
 
   const [modalOpen, setModalOpen] = useState(false);
   const openModal = () => {
@@ -51,7 +49,7 @@ const MyPage = () => {
       </AlertModal>
       <div className="flex bg-white w-1200">
         <div className="w-1/4 border-r">
-          <Sidebar
+          <MyPageSidebar
             activeTab={activeTab}
             setActiveTab={setActiveTab}
             onShowModal={openModal}
@@ -62,12 +60,12 @@ const MyPage = () => {
         </div>
         {/* MainContent */}
         <div className="w-3/4 p-75 px-30">
-          {/* {activeTab === "nutrientStatus" && <NutrientStatus />} */}
-          {activeTab === "updateUserData" && (
-            <UpdateUserData userInfo={data.userInfo} />
+          {activeTab === "userInfo" && (
+            <MyPageUserInfo userInfo={data.userInfo} />
           )}
-          {activeTab === "myRecipe" && <MyRecipe />}
-          {/* {activeTab === "bookmarkedRecipe" && <BookmarkedRecipe />} */}
+          {activeTab === "myRecipe" && (
+            <MyPageRecipe myRecipe={data.myRecipe} />
+          )}
         </div>
       </div>
     </div>

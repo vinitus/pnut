@@ -1,6 +1,6 @@
 import axios from "axios";
 import store from "../stores";
-import { updateTokenHandler, removeTokenHandler } from "../stores/auth";
+import { updateTokenHandler, removeTokenHandler } from "../stores/authSlice";
 import { baseURL } from "./baseURL";
 
 /** axiosInterface is using axios module.

@@ -3,7 +3,7 @@ import { Menu, Transition } from "@headlessui/react";
 
 import { useNavigateToTop } from "../hooks/useNavigateToTop";
 import { useDispatch, useSelector } from "react-redux";
-import { logoutHandler } from "../stores/auth";
+import { logoutHandler } from "../stores/authSlice";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -192,13 +192,13 @@ const NavBar = () => {
         {!token && (
           <div className="flex items-center text-sm space-x-30">
             <div
-              className="px-12 py-8 font-semibold text-gray-800 transition duration-300 bg-gray-100 rounded-full hover:bg-gray-300"
+              className="cursor-pointer px-12 py-8 font-semibold text-gray-800 transition duration-300 bg-gray-100 rounded-full hover:bg-gray-300"
               onClick={goToSignup}
             >
               회원가입
             </div>
             <div
-              className="px-12 py-8 text-white font-semibold bg-#FF6B6C rounded-full hover:bg-red-500 transition duration-300"
+              className="cursor-pointer px-12 py-8 text-white font-semibold bg-#FF6B6C rounded-full hover:bg-red-500 transition duration-300"
               onClick={goToLogin}
             >
               로그인
@@ -208,13 +208,13 @@ const NavBar = () => {
         {token && (
           <div className="flex items-center text-sm space-x-30">
             <div
-              className="px-12 py-8 font-semibold text-gray-800 transition duration-300 bg-gray-100 rounded-full hover:bg-gray-300"
+              className="cursor-pointer px-12 py-8 font-semibold text-gray-800 transition duration-300 bg-gray-100 rounded-full hover:bg-gray-300"
               onClick={goToMyPage}
             >
               마이페이지
             </div>
             <div
-              className="px-12 py-8 text-white font-semibold bg-#FF6B6C rounded-full hover:bg-red-500 transition duration-300"
+              className="cursor-pointer px-12 py-8 text-white font-semibold bg-#FF6B6C rounded-full hover:bg-red-500 transition duration-300"
               onClick={logout}
             >
               로그아웃
