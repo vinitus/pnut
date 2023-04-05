@@ -10,7 +10,7 @@ class foodSerializer(serializers.ModelSerializer):
 class searchSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Food
-        fields = ('food_id',"name", "time", "ingredients", "url")
+        fields = ('food_id',"name", "time", "ingredients", "url", "cal")
         # 칼로리 보내야함
 
 
