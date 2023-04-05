@@ -28,10 +28,11 @@ def lack_of_nutrient(request):
         [부족한 영양소, [음식1, 음식2, 음식3]]의 형태로 반환
     """
     user_email = request.GET["user_email"]
-    user_symptoms = models.UserSymptom.objects.filter(user_email = user_email).order_by('-value')
+    user_symptoms = models.UserSymptom.objects.filter(user_email = user_email).order_by("-value")
     nutrients = list()
-    for index in range(3):
-        nutrients.append(user_symptoms[index].nutrient_id)
+
+    for us in user_symptoms[:3]:
+        nutrients.append(us.nutrient_id)
     result = dict()
     result["data"] = list()
     result["message"] = "SUCCESS"
