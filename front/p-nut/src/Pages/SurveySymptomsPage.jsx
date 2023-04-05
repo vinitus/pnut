@@ -5,6 +5,7 @@ import symptomsAPI from "../api/symptomsAPI";
 import OptionSelect from "../Components/OptionSelect";
 import { useDivInputEventHandler } from "../hooks/useInputDivHandler";
 import AlertModal from "../UI/AlertModal";
+import axiosInterface from "../api/axiosInterface";
 
 const SurveySymptomsPage = () => {
   // 모달 관련
@@ -17,6 +18,9 @@ const SurveySymptomsPage = () => {
 
   const navigate = useNavigate();
 
+  axiosInterface("get", "/survey/mypage", "", {
+    Authorization: `Bearer ${token}`,
+  }).then((res) => console.log(res));
   const sympHandler = useCallback(async (token) => {
     const res = await symptomsAPI(token);
     setData(res.slice(1));
@@ -82,6 +86,7 @@ const SurveySymptomsPage = () => {
               idx={idx}
               eventDispatcher={eventDispatcher}
               refInfo={symptomsRef[idx]}
+              key={content}
             />
           ))}
           <button
