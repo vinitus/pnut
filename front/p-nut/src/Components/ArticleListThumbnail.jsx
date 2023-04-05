@@ -1,6 +1,6 @@
 import React from "react";
 
-const ArticleListThumbnailComponent = (props) => {
+const ArticleListThumbnail = (props) => {
   const { rank, imgSrc, title, author, profileImg } = props;
 
   let rankDiv = null;
@@ -27,4 +27,4 @@ const ArticleListThumbnailComponent = (props) => {
   );
 };
 
-export default ArticleListThumbnailComponent;
+export default ArticleListThumbnail;

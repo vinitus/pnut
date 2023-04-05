@@ -1,6 +1,6 @@
 import React from "react";
 
-const CommentComponent = (props) => {
+const CommentForm = (props) => {
   const { content, nickName, date } = props;
   const yyyymmdd = date.split("T")[0];
   console.log(yyyymmdd);
@@ -17,4 +17,4 @@ const CommentComponent = (props) => {
   );
 };
 
-export default CommentComponent;
+export default CommentForm;

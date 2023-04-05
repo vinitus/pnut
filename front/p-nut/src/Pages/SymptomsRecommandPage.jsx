@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import RecipeThumbnailComponent from "../Components/RecipeThumbnailComponent";
+import RecipeThumbnail from "../Components/RecipeThumbnail";
 
 import getSymptomsCategoryAPI from "../api/getSymptomsCategoryAPI";
 
@@ -135,7 +135,7 @@ const SymptomsRecommandPage = () => {
       </div>
       <div className="grid grid-cols-4 gap-56 w-1248 pb-50">
         {foodData.map((food) => (
-          <RecipeThumbnailComponent
+          <RecipeThumbnail
             imgPath={food.url}
             title={food.name}
             kcal={food.cal}

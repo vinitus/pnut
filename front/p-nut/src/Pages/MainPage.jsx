@@ -1,19 +1,8 @@
 import React, { useState } from "react";
-import AlertModal from "../UI/AlertModal";
 import { useNavigateToTop } from "../hooks/useNavigateToTop";
 
 const MainPage = () => {
   const navigate = useNavigateToTop();
-
-  const [modalOpen, setModalOpen] = useState(false);
-
-  const openModal = () => {
-    setModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setModalOpen(false);
-  };
 
   return (
     <>
@@ -41,12 +30,7 @@ const MainPage = () => {
       </div>
       {/* 문제 */}
       <div className="flex items-center justify-center py-16 border-b-2 border-gray-200 ">
-        <button type="button" onClick={openModal}>
-          <p className="text-lg font-bold text-#FF6B6C">미션</p>
-        </button>
-        <AlertModal open={modalOpen} close={closeModal}>
-          팝업창 확인
-        </AlertModal>
+        <p className="text-lg font-bold text-#FF6B6C">미션</p>
       </div>
       {/* 본문 */}
       <div className="overflow-hidden text-#2B2C2B">

@@ -1,6 +1,6 @@
 import React from "react";
 
-const RecipeCardComponent = (props) => {
+const RecipeCard = (props) => {
   const { title, description, heart, tag, time, quantity } = props;
 
   return (
@@ -24,4 +24,4 @@ const RecipeCardComponent = (props) => {
   );
 };
 
-export default RecipeCardComponent;
+export default RecipeCard;
