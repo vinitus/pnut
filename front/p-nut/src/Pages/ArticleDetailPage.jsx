@@ -144,6 +144,14 @@ const ArticleDetailPage = () => {
       .catch((err) => console.log(err));
   };
 
+  // 로그인 확인
+  const tokenCheckHandler = (e) => {
+    if (!token) {
+      e.target.blur();
+      return;
+    }
+  };
+
   return (
     <div className="flex w-1200 mx-auto flex-col">
       {data && (
@@ -210,10 +218,12 @@ const ArticleDetailPage = () => {
                     newCommentSubmitHandler();
                   }
                 }}
+                onFocus={tokenCheckHandler}
               />
               <button
                 type="button"
                 className="absolute right-0 bottom-64 bg-[#5B5F97] text-prettywhite text-24 font-bold px-14 py-7"
+                onClick={() => newCommentSubmitHandler()}
               >
                 작성
               </button>
