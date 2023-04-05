@@ -5,7 +5,14 @@ import getFoodAPI from "../api/getFoodAPI";
 // import dotenv from "dotenv";
 
 const RecipeThumbnail = (props) => {
-  const { imgPath, title, kcal, mainIngredients, time, foodId } = props;
+  const { imgPath, title, kcal, mainIngredients, time, foodId, userEmail } =
+    props;
+
+  /*
+  replace the parentheses in the URL with their respective percent-encoded values, 
+  which should resolve the issue of the image not being displayed as a background image
+  */
+  const encodedImgPath = imgPath.replace(/\(/g, "%28").replace(/\)/g, "%29");
 
   // youtubeData가 존재하면 true로 만들어 열림
   const [youtubeData, setYoutubeData] = useState();
@@ -14,13 +21,8 @@ const RecipeThumbnail = (props) => {
   // require("dotenv").config();
   // const key = process.env.YOUTUBE_KEY;
 
-  // getFoodAPI를 위한 userEmail 가져오기
-  const state = JSON.parse(localStorage.getItem("persist:root"));
-  const authentication = JSON.parse(state.auth);
-  const userEmail = authentication.authentication.email;
-
   const openModal = (event) => {
-    event.stopPropagation();
+    // event.stopPropagation();
     axios
       .get(
         `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=3&q=${title}레시피&type=video&videoDefinition=high&key=AIzaSyCI8t8M1ADPjcTTAuIOs3G2w-Nev9hXwRs`
@@ -41,17 +43,18 @@ const RecipeThumbnail = (props) => {
       const response = await getFoodAPI(foodId, userEmail);
 
       setFoodData(response.data.data);
+      openModal();
     } catch (err) {
       console.log("error: ", err);
     }
   };
 
-  useEffect(() => {
-    getFood();
-  }, []);
+  // useEffect(() => {
+  //   getFood();
+  // }, []);
 
   const closeModal = (event) => {
-    event.stopPropagation();
+    // event.stopPropagation();
     setYoutubeData(null);
     setFoodData(null);
   };
@@ -66,9 +69,9 @@ const RecipeThumbnail = (props) => {
         />
       )}
       <div
-        className="cursor-pointer bg-cover h-270 bg-center bg-no-repeat rounded-sm"
-        onClick={openModal}
-        style={{ backgroundImage: `url(${imgPath})` }}
+        className="cursor-pointer bg-cover h-270 bg-center bg-no-repeat rounded-sm hover:opacity-70"
+        onClick={getFood}
+        style={{ backgroundImage: `url(${encodedImgPath})` }}
       />
       <div className="flex items-end my-10 space-x-5 text-end truncate">
         <p className="text-xl font-bold">{title}</p>
