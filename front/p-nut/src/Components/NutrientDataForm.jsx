@@ -1,11 +1,11 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { Chart, registerables } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 
 Chart.register(...registerables);
 
-const ModalNutrientComponent = ({ nutrientData }) => {
+const NutrientDataForm = ({ nutrientData }) => {
   const chartRef = useRef(null);
 
   const sortedNutrientData = nutrientData.slice().sort((a, b) => b[1] - a[1]);
@@ -110,4 +110,4 @@ const ModalNutrientComponent = ({ nutrientData }) => {
   );
 };
 
-export default ModalNutrientComponent;
+export default NutrientDataForm;

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { baseURL } from "./baseURL";
 import store from "../stores";
-import { removeTokenHandler } from "../stores/auth";
+import { removeTokenHandler } from "../stores/authSlice";
 
 async function deleteUser() {
   const state = JSON.parse(localStorage.getItem("persist:root"));

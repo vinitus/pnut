@@ -1,7 +1,7 @@
 import React from "react";
 import { useLoaderData } from "react-router-dom";
 import axiosInterface from "../api/axiosInterface";
-import ArticleListThumbnailComponent from "../Components/ArticleListThumbnailComponent";
+import ArticleListThumbnail from "../Components/ArticleListThumbnail";
 
 const ArticleListPage = () => {
   // data 파싱
@@ -35,7 +35,7 @@ const ArticleListPage = () => {
           <div className="text-45 font-extrabold mb-17">금주의 레시피</div>
           <div className="flex place-content-between">
             {top3List.data.map((ele, idx) => (
-              <ArticleListThumbnailComponent
+              <ArticleListThumbnail
                 rank={idx + 1}
                 key={ele.id}
                 imgSrc={ele.thumbnail_image_url}
@@ -69,7 +69,7 @@ const ArticleListPage = () => {
         </div>
         <div className="grid grid-cols-3 gap-65">
           {recentArticleList.data.map((ele) => (
-            <ArticleListThumbnailComponent
+            <ArticleListThumbnail
               key={ele.id}
               imgSrc={ele.thumbnail_image_url}
               title={ele.title}

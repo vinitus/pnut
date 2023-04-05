@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLoaderData } from "react-router-dom";
 import { searchArrRequest } from "../stores/searchSlice";
 import { useAutoComplete } from "../hooks/useAutoComplete";
-import RecipeThumbnailComponent from "../Components/RecipeThumbnailComponent";
+import RecipeThumbnail from "../Components/RecipeThumbnail";
 import SelectBtn from "../UI/SelectBtn";
 import djangoAPI from "../api/djangoAPI";
 
@@ -201,7 +201,7 @@ const SearchRecommendPage = () => {
           {!searched && (
             <div className="grid grid-cols-4 gap-56 w-1200 mb-50">
               {food.map((value) => (
-                <RecipeThumbnailComponent
+                <RecipeThumbnail
                   imgPath={value.url}
                   title={value.name}
                   kcal={value.kcal}
@@ -216,7 +216,7 @@ const SearchRecommendPage = () => {
           {searched && searchResults.length > 0 && (
             <div className="grid grid-cols-4 gap-56 w-1200 mb-50">
               {searchResults.map((value) => (
-                <RecipeThumbnailComponent
+                <RecipeThumbnail
                   imgPath={value.url}
                   title={value.name}
                   kcal={value.kcal}

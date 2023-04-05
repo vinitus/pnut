@@ -3,7 +3,7 @@ import { Menu, Transition } from "@headlessui/react";
 
 import { useNavigateToTop } from "../hooks/useNavigateToTop";
 import { useDispatch, useSelector } from "react-redux";
-import { logoutHandler } from "../stores/auth";
+import { logoutHandler } from "../stores/authSlice";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");

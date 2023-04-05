@@ -5,7 +5,7 @@ import checkDuplicationAPI from "../api/checkDuplicationAPI";
 import requestCodeAPI from "../api/requestCodeAPI";
 import checkCodeAPI from "../api/checkCodeAPI";
 
-const SignupFormComponent = () => {
+const SignupForm = () => {
   const navigate = useNavigateToTop();
 
   const [nicknameIsTouched, setNicknameIsTouched] = useState(false);
@@ -490,4 +490,4 @@ const SignupFormComponent = () => {
   );
 };
 
-export default SignupFormComponent;
+export default SignupForm;

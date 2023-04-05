@@ -1,6 +1,6 @@
 import React from "react";
-import RecipeCardComponent from "../Components/RecipeCardComponent";
-import OrderBlockComponent from "../Components/OrderBlockComponent";
+import RecipeCard from "../Components/RecipeCard";
+import OrderBlock from "../Components/OrderBlock";
 import axiosInterface from "../api/axiosInterface";
 
 const RecipeDetailPage = () => {
@@ -31,7 +31,7 @@ const RecipeDetailPage = () => {
   return (
     <div className="flex items-center w-full flex-col relative">
       <img src={thumbnail} alt="" className="w-873 h-591" />
-      <RecipeCardComponent
+      <RecipeCard
         title={title}
         description={description}
         heart={heart}
@@ -46,7 +46,7 @@ const RecipeDetailPage = () => {
       <div className="flex items-center flex-col mt-70">
         <div>조리순서</div>
         {cookingOrderInfos.map((value, idx) => (
-          <OrderBlockComponent
+          <OrderBlock
             imgPath={value.imgPath}
             text={value.text}
             idx={idx + 1}

@@ -1,8 +1,8 @@
 import axiosInterface from "../api/axiosInterface";
 import React, { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
-import OrderBlockComponent from "../Components/OrderBlockComponent";
-import CommentComponent from "../Components/CommentComponent";
+import OrderBlock from "../Components/OrderBlock";
+import CommentForm from "../Components/CommentForm";
 import { useSelector } from "react-redux";
 
 const ArticleDetailPage = () => {
@@ -87,7 +87,7 @@ const ArticleDetailPage = () => {
     comment = (
       <div className="mb-40">
         {comments.map((value) => (
-          <CommentComponent
+          <CommentForm
             content={value.content}
             nickName={value.nickName}
             date={value.createDate}
@@ -100,7 +100,6 @@ const ArticleDetailPage = () => {
   // 좋아요
   const heartClickHandler = () => {
     if (!token) {
-      alert("로그인하삼");
       return;
     }
     if (likeOrNot === 1) {
@@ -190,12 +189,7 @@ const ArticleDetailPage = () => {
           </div>
           {recipeSteps &&
             Object.entries(recipeSteps).map(([key, value], idx) => (
-              <OrderBlockComponent
-                key={key}
-                imgPath={value}
-                text={key}
-                idx={idx}
-              />
+              <OrderBlock key={key} imgPath={value} text={key} idx={idx} />
             ))}
           <div className="mt-150 w-1200 mx-auto">
             <div className="flex items-center mb-40">
