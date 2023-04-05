@@ -116,7 +116,7 @@ public class BoardController {
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "success"));
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(200).body(BaseResponseBody.of(401, "Bad Request"));
+            return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Bad Request"));
         }
     }
 
@@ -134,7 +134,7 @@ public class BoardController {
             UserDto userDto = userService.getUserByToken(request.getHeader("Authorization").substring(7));
             Optional<board> Board = boardService.findByIdAndUserEmail(id, userDto.toEntity());
             if(!Board.isPresent())  // id에 맞는 게시글이 없으면 null리턴
-                return ResponseEntity.status(200).body(BaseResponseBody.of(401, "There's no such BoardId"));
+                return ResponseEntity.status(400).body(BaseResponseBody.of(400, "There's no such BoardId"));
             else {
                 if(Board.get().getUserEmail().getEmail() != userDto.getEmail()) {  // 본인이 작성한 레시피가 아니라면
                     return ResponseEntity.status(200).body(BaseResponseBody.of(401, "Unauthorized"));
