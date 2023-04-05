@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigateToTop } from "../hooks/useNavigateToTop";
 import { imageBaseURL } from "../api/baseURL";
 
 const MyPageSidebar = ({
@@ -12,9 +13,11 @@ const MyPageSidebar = ({
   const showModal = () => {
     onShowModal();
   };
-  console.log("name: ", name);
-  console.log("email: ", email);
-  console.log("profileImageURL: ", profileImageURL);
+  const navigate = useNavigateToTop();
+
+  const surveyUpdateBtnClickHandler = () => {
+    navigate("/newsurvey/symptoms");
+  };
 
   return (
     <div className="flex justify-center w-full text-center">
@@ -32,7 +35,10 @@ const MyPageSidebar = ({
         </div>
         {/* 설문조사 수정 */}
         {/* <div className="rounded-10 bg-#FF6B6C/30 text-#FF6B6C"> */}
-        <div className="cursor-pointer rounded-10 text-#FF6B6C border border-#FF6B6C hover:bg-#FF6B6C hover:text-white">
+        <div
+          className="cursor-pointer rounded-10 text-#FF6B6C border border-#FF6B6C hover:bg-#FF6B6C hover:text-white"
+          onClick={surveyUpdateBtnClickHandler}
+        >
           <p className="font-extrabold py-15">설문조사 수정</p>
         </div>
         {/* 내비게이션 */}

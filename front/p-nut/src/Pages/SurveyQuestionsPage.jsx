@@ -142,8 +142,8 @@ const SurveyQuestionsPage = () => {
       return res;
     });
 
-    const req = await Promise.all([req1, req2, req3]);
-    req.then(() => navigate("/my-survey"));
+    await Promise.all([req1, req2, req3]);
+    navigate("/my-survey");
   };
 
   return (
