@@ -9,7 +9,7 @@ const SurveyIndexPage = () => {
   };
 
   return (
-    <div className="w-516">
+    <div className="w-516 py-50 ">
       <img src="/assets/Logo1.png" alt="" className="h-58" />
       <div className="text-40 mt-42 mb-48">
         <div className="h-48">피넛!</div>
