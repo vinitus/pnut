@@ -126,7 +126,7 @@ public class QuestionController {
 
             Optional<result> res = resultService.findByQuestionIdAndUserEmail(questions.get(0), userDto.toEntity());
             if(res.isPresent()) {
-                return ResponseEntity.status(401).body(BaseResponseBody.of(409, "data conflict"));
+                return ResponseEntity.status(409).body(BaseResponseBody.of(409, "data conflict"));
             }
 
             for(int i = 0; i < questions.size(); i++) {
@@ -140,7 +140,7 @@ public class QuestionController {
 //                    .accept(MediaType.APPLICATION_JSON)
 //                    .body(user_email);
 //            System.out.println(req2);
-            addHeader(userDto.getEmail());
+//            addHeader(userDto.getEmail());  // 장고 api 호출 => front에서 하기로함
 //          ResponseEntity<Resource> response = restTemplete.exchange(request, Resource.class);
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
         } catch (Exception e) {
