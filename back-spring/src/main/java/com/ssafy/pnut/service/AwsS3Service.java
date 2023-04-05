@@ -63,7 +63,7 @@ public class AwsS3Service {
     //프로필사진 올리기
     public String uploadProfileImage(MultipartFile file, UserDto userDto) {
 
-        String fileName = createFileName(file.getOriginalFilename());
+        String fileName = userDto.getNickname();
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentLength(file.getSize());
         objectMetadata.setContentType(file.getContentType());
