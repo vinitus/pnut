@@ -43,7 +43,7 @@ export default async function axiosInterface(
         const state = JSON.parse(localStorage.getItem("persist:root"));
         const authentication = JSON.parse(state.auth);
 
-        if (response.status === 401) {
+        if (response.status === 401 || response.status === 400) {
           axios.interceptors.response.eject(myInterceptor);
 
           // Token Refresh
