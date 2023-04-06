@@ -172,7 +172,7 @@ public class UserController {
                 if(multipartFile==null){
                     fileName = "basic_profile_image_37d8I092LMX89-removebg-preview.png";
                 }else{
-                    fileName = awsS3Service.uploadProfileImage(multipartFile, userDto);
+                    fileName = awsS3Service.uploadProfileImage(multipartFile);
                 }
                 userDto.setJoinDate(now.getJoin_date());
                 userDto.setProfileImageUrl(fileName);
