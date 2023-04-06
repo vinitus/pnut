@@ -1,8 +1,6 @@
-import React, { Fragment, useState, useEffect } from "react";
-import axios from "axios";
+import React, { Fragment, useState } from "react";
 
 import { useNavigateToTop } from "../hooks/useNavigateToTop";
-import { imageBaseURL, defaultProfileImageURL } from "../api/baseURL";
 
 const ArticleListThumbnail = (props) => {
   const { rank, imgSrc, title, author, profileImg, boardId } = props;
@@ -10,25 +8,10 @@ const ArticleListThumbnail = (props) => {
   const navigate = useNavigateToTop();
 
   const [processedImg, setProcessedImg] = useState(profileImg);
-  const getProfileImage = () => {
-    axios
-      .get(`${profileImg}`)
-      .then((res) => {
-        // console.log("res", res);
-      })
-      .catch((err) => {
-        // console.log("err", err);
-        setProcessedImg(`${imageBaseURL}/${defaultProfileImageURL}`);
-      });
-  };
 
   const goToBoardDetail = (id) => {
     navigate(`/board/${id}`);
   };
-
-  useEffect(() => {
-    getProfileImage();
-  }, []);
 
   let rankDiv = null;
   let topDiv = null;

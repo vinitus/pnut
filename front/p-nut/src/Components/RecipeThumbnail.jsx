@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import FoodModal from "../UI/FoodModal";
 import axios from "axios";
 import getFoodAPI from "../api/getFoodAPI";
-// import dotenv from "dotenv";
 
 const RecipeThumbnail = (props) => {
   const { imgPath, title, kcal, mainIngredients, time, foodId, userEmail } =
