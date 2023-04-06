@@ -156,7 +156,6 @@ public class UserController {
         if(jwtService.checkToken(request.getHeader("access-token"))){
             try{
                 userDto.setAuth("");
-                userDto.setProfileImageUrl("basic_profile_image_37d8I092LMX89-removebg-preview.png");
                 userDto.setType("");
                 String email = jwtService.getUserNameFromToken(request.getHeader("access-token"));
                 User now = userService.getUser(email);
@@ -169,8 +168,8 @@ public class UserController {
                 if(userDto.getNickname()==null){
                     userDto.setNickname(now.getNickname());
                 }
-                if(multipartFile==null){
-                    fileName = "basic_profile_image_37d8I092LMX89-removebg-preview.png";
+                if(now.getProfile_image_url().equals(userDto.getProfileImageUrl())){
+                    fileName = now.getProfile_image_url();
                 }else{
                     fileName = awsS3Service.uploadProfileImage(multipartFile);
                 }
