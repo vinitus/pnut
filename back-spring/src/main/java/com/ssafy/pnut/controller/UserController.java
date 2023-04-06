@@ -178,7 +178,7 @@ public class UserController {
                     fileName = awsS3Service.uploadProfileImage(multipartFile);
                 }
                 else {
-                    fileName = now.getProfile_image_url();
+                    fileName = BASEURL+now.getProfile_image_url();
                 }
                 userDto.setJoinDate(now.getJoin_date());
                 userDto.setProfileImageUrl(fileName);
