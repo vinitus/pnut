@@ -192,7 +192,7 @@ const MyPageUserInfo = ({ userInfo }) => {
       nicknameState.value,
       nameState.value,
       userInputGender,
-      ageState.value,
+      Number(ageState.value),
       passwordState.password2,
       userProfileImage
     );
