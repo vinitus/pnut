@@ -9,20 +9,32 @@ import { useNavigateToTop } from "../hooks/useNavigateToTop";
 
 import { useLoaderData } from "react-router-dom";
 import AlertModal from "../UI/AlertModal";
+import { useSelector } from "react-redux";
 
 const SurveyRecommendPage = (props) => {
   // 개인정보 받아오기
   const data = useLoaderData();
   const navigate = useNavigateToTop();
   const [modalOpen, setModalOpen] = useState(false);
+  const email = useSelector((state) => state.auth.authentication.email);
 
   const modalClosedHandler = () => {
+    if (!email) {
+      navigate("/login");
+      return;
+    }
     navigate("/newsurvey");
   };
 
   console.log("data: ", data);
+  const [ment, setMent] = useState("로그인이 필요한 서비스입니다.");
   useEffect(() => {
     if (data.foodNutrient.length === 0) {
+      if (!email) {
+        setMent(
+          "맞춤형 음식 추천을 받으시고 싶으시다면, 설문조사를 먼저 진행해주시길바랍니다."
+        );
+      }
       setModalOpen(true);
     }
   }, []);
@@ -35,8 +47,7 @@ const SurveyRecommendPage = (props) => {
           close={modalClosedHandler}
           onCheck={modalClosedHandler}
         >
-          맞춤형 음식 추천을 받으시고 싶으시다면,
-          <br /> 설문조사를 먼저 진행해주시길바랍니다.
+          {ment}
         </AlertModal>
       )}
       {!modalOpen && (

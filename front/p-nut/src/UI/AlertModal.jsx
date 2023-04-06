@@ -24,6 +24,11 @@ const modalBgShow = `
     }
   `;
 
+/**
+ * @param open boolean
+ * @param close default click handler
+ * @param onCheck 확인 btn click handler
+ */
 const AlertModal = (props) => {
   // 열기 닫기 모달 텍스트를 부모로부터 받아옴
   const { open, close, onCheck } = props;
