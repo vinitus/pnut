@@ -6,6 +6,8 @@ import getFoodAPI from "../api/getFoodAPI";
 const SurveyCardThumbnail = (props) => {
   const { imgPath, foodTitle, foodId } = props;
 
+  const encodedImgPath = imgPath.replace(/\(/g, "%28").replace(/\)/g, "%29");
+
   const [youtubeData, setYoutubeData] = useState();
   const [foodData, setFoodData] = useState(null);
 
@@ -66,7 +68,7 @@ const SurveyCardThumbnail = (props) => {
       <button type="button" onClick={openModal}>
         <div
           className="h-150 w-150 rounded-full bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url(${imgPath})` }}
+          style={{ backgroundImage: `url(${encodedImgPath})` }}
         />
         <br />
         <p className="text-lg text-center font-extrabold"> {foodTitle} </p>
