@@ -1,9 +1,9 @@
 import { Fragment, useEffect, useReducer } from "react";
 import { useNavigateToTop } from "../hooks/useNavigateToTop";
 import { useDispatch, useSelector } from "react-redux";
-import { loginHandler } from "../stores/authSlice";
+import { loginHandler } from "../stores/auth";
 
-const LoginForm = () => {
+const LoginFormComponent = () => {
   const dispatch = useDispatch();
   const navigate = useNavigateToTop();
   const token = useSelector((state) => state.auth.authentication.token);
@@ -125,4 +125,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default LoginFormComponent;

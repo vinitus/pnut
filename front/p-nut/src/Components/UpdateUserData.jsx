@@ -4,7 +4,7 @@ import checkDuplicationAPI from "../api/checkDuplicationAPI";
 import putUserInfo from "../api/putUserInfo";
 import { imageBaseURL } from "../api/baseURL";
 
-const MyPageUserInfo = ({ userInfo }) => {
+const UpdateUserData = ({ userInfo }) => {
   const navigate = useNavigate();
 
   const [nicknameIsTouched, setNicknameIsTouched] = useState(false);
@@ -198,10 +198,8 @@ const MyPageUserInfo = ({ userInfo }) => {
     );
     if (response.status === 200) {
       setNicknameIsTouched(false);
-      if (newProfileImageURL) {
-        setOldProfileImageURL(newProfileImageURL);
-      }
       setNewProfileImageURL();
+      setOldProfileImageURL(newProfileImageURL);
       navigate("/mypage");
     }
   };
@@ -223,12 +221,12 @@ const MyPageUserInfo = ({ userInfo }) => {
       <form onSubmit={submitHandler}>
         <div className="flex flex-col items-center mt-40">
           <img
-            className="rounded-full shadow-md h-130 w-130"
+            className="rounded-full shadow-md h-125 w-125"
             src={newProfileImageURL || oldProfileImageURL}
             alt=""
           />
           <label
-            className="mt-20 mb-10 cursor-pointer text-sky-500 font-semibold hover:text-blue-500"
+            className="mt-20 mb-10 cursor-pointer text-sky-500 font-semibold"
             htmlFor="profileImg"
           >
             프로필 이미지 변경
@@ -370,4 +368,4 @@ const MyPageUserInfo = ({ userInfo }) => {
   );
 };
 
-export default MyPageUserInfo;
+export default UpdateUserData;

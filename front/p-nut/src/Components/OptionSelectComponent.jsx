@@ -1,6 +1,6 @@
 import React from "react";
 
-const OptionSelect = (props) => {
+const OptionSelectComponent = (props) => {
   const { content, idx, eventDispatcher, refInfo, type } = props;
   return (
     <div className="mt-15 flex flex-row" key={content}>
@@ -18,4 +18,4 @@ const OptionSelect = (props) => {
   );
 };
 
-export default OptionSelect;
+export default OptionSelectComponent;

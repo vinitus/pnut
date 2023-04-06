@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigateToTop } from "../hooks/useNavigateToTop";
 
-const LoginSignupForm = (props) => {
+const LoginSignupFormComponent = (props) => {
   const navigate = useNavigateToTop();
   const { currentPage } = props;
   const goToLoginSignup = () => {
@@ -50,4 +50,4 @@ const LoginSignupForm = (props) => {
   );
 };
 
-export default LoginSignupForm;
+export default LoginSignupFormComponent;

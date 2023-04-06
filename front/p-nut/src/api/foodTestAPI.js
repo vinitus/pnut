@@ -1,12 +1,11 @@
+import axiosInterface from "./axiosInterface";
 import axios from "axios";
-import { dataBaseURL } from "./baseURL";
 
-async function getFoodAPI(foodId, userEmail) {
+async function foodTestAPI(foodId, userEmail) {
   const response = await axios({
     method: "get",
-    // baseURL: "http://j8a704.p.ssafy.io:8000/",
-    // baseURL: "https://pnut.site/api/foods",
-    baseURL: dataBaseURL,
+    baseURL: "http://j8a704.p.ssafy.io:8000/",
+    // baseURL: "https://pnut.site/api",
     url: "/foods/info",
     params: {
       food_id: foodId,
@@ -19,4 +18,4 @@ async function getFoodAPI(foodId, userEmail) {
   return response.response;
 }
 
-export default getFoodAPI;
+export default foodTestAPI;

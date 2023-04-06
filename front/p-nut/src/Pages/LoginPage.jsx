@@ -1,5 +1,5 @@
-import LoginSignupForm from "../Components/LoginSignupForm";
-import LoginForm from "../Components/LoginForm";
+import LoginSignupFormComponent from "../Components/LoginSignupFormComponent";
+import LoginFormComponent from "../Components/LoginFormComponent";
 
 const LoginPage = () => {
   const phrase = "아직 회원이 아니신가요?";
@@ -8,13 +8,13 @@ const LoginPage = () => {
 
   return (
     <div className="w-full h-screen bg-stone-100 flex justify-center place-items-center">
-      <LoginSignupForm
+      <LoginSignupFormComponent
         phrase={phrase}
         direction={direction}
         currentPage={currentPage}
       >
-        <LoginForm />
-      </LoginSignupForm>
+        <LoginFormComponent />
+      </LoginSignupFormComponent>
     </div>
   );
 };

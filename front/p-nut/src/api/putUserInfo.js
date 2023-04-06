@@ -1,6 +1,6 @@
 import axios from "axios";
 import store from "../stores";
-import { removeTokenHandler } from "../stores/authSlice";
+import { removeTokenHandler } from "../stores/auth";
 import { baseURL } from "./baseURL";
 
 async function putUserInfo(

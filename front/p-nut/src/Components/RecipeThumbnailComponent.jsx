@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import FoodModal from "../UI/FoodModal";
+import Modal from "../UI/Modal";
 import axios from "axios";
-import getFoodAPI from "../api/getFoodAPI";
+import foodTestAPI from "../api/foodTestAPI";
 // import dotenv from "dotenv";
 
-const RecipeThumbnail = (props) => {
+const RecipeThumbnailComponent = (props) => {
   const { imgPath, title, kcal, mainIngredients, time, foodId } = props;
 
   // youtubeData가 존재하면 true로 만들어 열림
@@ -14,7 +14,7 @@ const RecipeThumbnail = (props) => {
   // require("dotenv").config();
   // const key = process.env.YOUTUBE_KEY;
 
-  // getFoodAPI를 위한 userEmail 가져오기
+  // FoodTestAPI를 위한 userEmail 가져오기
   const state = JSON.parse(localStorage.getItem("persist:root"));
   const authentication = JSON.parse(state.auth);
   const userEmail = authentication.authentication.email;
@@ -34,11 +34,11 @@ const RecipeThumbnail = (props) => {
       });
   };
 
-  // getFoodAPI
-  const getFood = async () => {
+  // FoodTestAPI
+  const foodTest = async () => {
     try {
       // foodID 바꾸기
-      const response = await getFoodAPI(foodId, userEmail);
+      const response = await foodTestAPI(id, userEmail);
 
       setFoodData(response.data.data);
     } catch (err) {
@@ -47,7 +47,7 @@ const RecipeThumbnail = (props) => {
   };
 
   useEffect(() => {
-    getFood();
+    foodTest();
   }, []);
 
   const closeModal = (event) => {
@@ -59,11 +59,7 @@ const RecipeThumbnail = (props) => {
   return (
     <div>
       {youtubeData && (
-        <FoodModal
-          close={closeModal}
-          searchResult={youtubeData}
-          food={foodData}
-        />
+        <Modal close={closeModal} searchResult={youtubeData} food={foodData} />
       )}
       <div
         className="cursor-pointer bg-cover h-270 bg-center bg-no-repeat rounded-sm"
@@ -82,4 +78,4 @@ const RecipeThumbnail = (props) => {
   );
 };
 
-export default RecipeThumbnail;
+export default RecipeThumbnailComponent;

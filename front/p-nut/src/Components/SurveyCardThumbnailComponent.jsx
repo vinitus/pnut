@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import FoodModal from "../UI/FoodModal";
+import Modal from "../UI/Modal";
 import axios from "axios";
-import getFoodAPI from "../api/getFoodAPI";
+import foodTestAPI from "../api/foodTestAPI";
 
-const SurveyCardThumbnail = (props) => {
+const SurveyCardThumbnailComponent = (props) => {
   const { imgPath, foodTitle, foodId } = props;
 
   const [youtubeData, setYoutubeData] = useState();
   const [foodData, setFoodData] = useState(null);
 
-  // getFoodAPI를 위한 userEmail 가져오기
+  // FoodTestAPI를 위한 userEmail 가져오기
   const state = JSON.parse(localStorage.getItem("persist:root"));
   const authentication = JSON.parse(state.auth);
   const userEmail = authentication.authentication.email;
@@ -33,10 +33,10 @@ const SurveyCardThumbnail = (props) => {
       });
   };
 
-  const getFood = async () => {
+  const foodTest = async () => {
     try {
       // foodID 바꾸기
-      const response = await getFoodAPI(foodId, userEmail);
+      const response = await foodTestAPI(foodId, userEmail);
       console.log("Test response: ", response.data.data);
 
       setFoodData(response.data.data);
@@ -46,7 +46,7 @@ const SurveyCardThumbnail = (props) => {
   };
 
   useEffect(() => {
-    getFood();
+    foodTest();
   }, []);
 
   const closeModal = (event) => {
@@ -57,11 +57,7 @@ const SurveyCardThumbnail = (props) => {
   return (
     <div className="flex flex-col justify-center">
       {youtubeData && (
-        <FoodModal
-          close={closeModal}
-          searchResult={youtubeData}
-          food={foodData}
-        />
+        <Modal close={closeModal} searchResult={youtubeData} food={foodData} />
       )}
       <button type="button" onClick={openModal}>
         <div
@@ -75,4 +71,4 @@ const SurveyCardThumbnail = (props) => {
   );
 };
 
-export default SurveyCardThumbnail;
+export default SurveyCardThumbnailComponent;

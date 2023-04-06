@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 
 /** @params division, size, text */
-const ArticleImgBlock = (props) => {
+const ArticleImgBlockComponent = (props) => {
   const [previewImgSrc, setPreviewImgSrc] = useState("");
   const { division, width, height, text, setRef, fileSet } = props;
 
@@ -70,7 +70,7 @@ const ArticleImgBlock = (props) => {
       <input
         type="file"
         id={division}
-        className="hidden opacity-90"
+        className="hidden opacity-90 opacity-10"
         ref={setRef}
         onChange={(e) => {
           fileSet(e.target.files[0]);
@@ -85,4 +85,4 @@ const ArticleImgBlock = (props) => {
   );
 };
 
-export default ArticleImgBlock;
+export default ArticleImgBlockComponent;

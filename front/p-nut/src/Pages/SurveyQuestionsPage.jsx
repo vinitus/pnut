@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo, createRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { symptomsQuestionAPI } from "../api/symptomsQuestionAPI";
+import OptionSelectComponen from "../Components/OptionSelectComponent";
 import axiosInterface from "../api/axiosInterface";
 
 const SurveyQuestionsPage = () => {

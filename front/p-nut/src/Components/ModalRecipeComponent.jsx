@@ -1,6 +1,6 @@
 import React from "react";
 
-const RecipeVideoForm = (props) => {
+const ModalRecipeComponent = (props) => {
   const { videoUrl, videoTitle } = props;
 
   console.log(videoUrl, videoTitle);
@@ -19,4 +19,4 @@ const RecipeVideoForm = (props) => {
   );
 };
 
-export default RecipeVideoForm;
+export default ModalRecipeComponent;

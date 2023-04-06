@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import NutrientDataForm from "../Components/NutrientDataForm";
-import RecipeVideoForm from "../Components/RecipeVideoForm";
+import React, { useEffect, useState } from "react";
+import ModalNutrientComponent from "../Components/ModalNutrientComponent";
+import ModalRecipeComponent from "../Components/ModalRecipeComponent";
 
-const FoodModal = (props) => {
+const Modal = (props) => {
   const { close, searchResult, food } = props;
   const open = true;
 
@@ -54,7 +54,7 @@ const FoodModal = (props) => {
     if (activeTab === "영양성분") {
       return (
         <div>
-          <NutrientDataForm nutrientData={food.nutrient} />
+          <ModalNutrientComponent nutrientData={food.nutrient} />
         </div>
       );
     } else if (activeTab === "레시피") {
@@ -66,7 +66,7 @@ const FoodModal = (props) => {
       return (
         <div className="flex justify-center space-x-30 pt-40">
           {videoData.map((video, index) => (
-            <RecipeVideoForm
+            <ModalRecipeComponent
               key={index}
               videoUrl={video.url}
               videoTitle={video.title}
@@ -168,4 +168,4 @@ const FoodModal = (props) => {
   );
 };
 
-export default React.memo(FoodModal);
+export default React.memo(Modal);
