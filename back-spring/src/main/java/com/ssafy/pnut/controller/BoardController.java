@@ -17,10 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Api(value = "게시판 API", tags = {"Board"})
 @RequiredArgsConstructor
@@ -217,7 +214,7 @@ public class BoardController {
                 selectOneRecipeRes.setNickName(Board.get().getUserEmail().getNickname());
 
                 List<boardSteps> BoardSteps = boardStepsService.findAllByBoardIdOrderByIdAsc(Board.get());
-                HashMap<String, String> steps = new HashMap<>();  // 레시피 단계 담을 해시맵
+                Map<String, String> steps = new LinkedHashMap<>();  // 레시피 단계 담을 해시맵
                 for(int i = 0; i < BoardSteps.size(); i++) {
                     if(BoardSteps.get(i).getImageUrl() == null)
                         steps.put(BoardSteps.get(i).getContent(), BoardSteps.get(i).getImageUrl());

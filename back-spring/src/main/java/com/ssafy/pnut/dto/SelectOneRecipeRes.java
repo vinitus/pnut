@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -27,7 +28,7 @@ public class SelectOneRecipeRes {
 
     private int visit;
 
-    private HashMap<String, String> recipeSteps;
+    private Map<String, String> recipeSteps;
 
     private Long likes;
 
