@@ -175,12 +175,10 @@ public class UserController {
                     userDto.setNickname(now.getNickname());
                 }
                 if(userDto.getProfileImageUrl()==null){
-                    fileName = now.getProfile_image_url();
-                }
-                else if(userDto.getProfileImageUrl().equals(BASEURL+now.getProfile_image_url())){
-                    fileName = now.getProfile_image_url();
-                }else{
                     fileName = awsS3Service.uploadProfileImage(multipartFile);
+                }
+                else {
+                    fileName = now.getProfile_image_url();
                 }
                 userDto.setJoinDate(now.getJoin_date());
                 userDto.setProfileImageUrl(fileName);
