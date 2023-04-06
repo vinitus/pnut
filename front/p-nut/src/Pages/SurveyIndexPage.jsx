@@ -22,7 +22,7 @@ const SurveyIndexPage = () => {
       </div>
       <button
         type="button"
-        className="bg-#FF6B6C rounded-42 w-full h-57 font-bold text-21 flex flex-col items-center justify-center text-prettywhite"
+        className="bg-#FF6B6C rounded-42 w-full h-57 font-bold text-21 flex flex-col items-center justify-center text-prettywhite hover:bg-red-500"
         onClick={() => {
           startBtnClickHandler();
         }}
