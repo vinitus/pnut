@@ -157,7 +157,7 @@ const FoodModal = (props) => {
             <button
               type="button"
               onClick={close}
-              className="px-4 py-2 text-white bg-gray-600 rounded w-100 h-30 mx-auto focus:outline-none"
+              className="px-4 py-2 text-white bg-gray-600 rounded w-100 h-30 mx-auto focus:outline-none hover:bg-gray-700"
             >
               닫기
             </button>

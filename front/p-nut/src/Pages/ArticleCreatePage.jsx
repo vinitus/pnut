@@ -340,7 +340,7 @@ const ArticleCreatePage = () => {
                   onChange={handleTitleChange}
                   maxLength={30}
                 />
-                <div className="inline pr-30">{title.length}/30</div>
+                {/* <div className="inline pr-30">{title.length}/30</div> */}
               </div>
               <div className="flex flex-col items-center w-full grey-underbar">
                 <textarea
@@ -353,7 +353,7 @@ const ArticleCreatePage = () => {
                   onChange={handleContentChange}
                   maxLength={255}
                 />
-                <div className="w-full p-30 text-end">{content.length}/255</div>
+                {/* <div className="w-full p-30 text-end">{content.length}/255</div> */}
               </div>
               {/* 이 요소의 하위 항목에 버튼이 존재하고 키보드 작동이 가능합니다. */}
               {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
@@ -434,7 +434,7 @@ const ArticleCreatePage = () => {
                     maxLength={255}
                   />
                   <div className="inline text-end">
-                    {ingredients.length}/255
+                    {/* {ingredients.length}/255 */}
                   </div>
                 </div>
               </div>
@@ -462,7 +462,7 @@ const ArticleCreatePage = () => {
                           }}
                         />
                         <div className="inline">
-                          {stepContentLetterCount[value - 1]}/50
+                          {/* {stepContentLetterCount[value - 1]}/50 */}
                         </div>
                       </div>
                       <div className="w-624 h-303">

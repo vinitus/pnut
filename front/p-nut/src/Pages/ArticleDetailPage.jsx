@@ -6,14 +6,12 @@ import CommentForm from "../Components/CommentForm";
 import { useSelector } from "react-redux";
 
 const ArticleDetailPage = () => {
-  // content ingredients nickNAme quantity recipeSteps thumbnail_image_url time title visit
   const [data, setData] = useState();
   const [newComment, setNewComment] = useState("");
   const { articleId } = useParams();
   const token = useSelector((state) => state.auth.authentication.token);
   const [content, setContent] = useState();
   const [ingredients, setIngredients] = useState();
-  const [nickName, setNickName] = useState();
   const [quantity, setQuantity] = useState();
   const [recipeSteps, setRecipeSteps] = useState();
   const [thumbnailImageUrl, setThumbnailImageUrl] = useState();
@@ -23,8 +21,6 @@ const ArticleDetailPage = () => {
   const [comments, setComments] = useState();
   const [likes, setLikes] = useState();
   const [likeOrNot, setLikeOrNot] = useState();
-
-  const profileImgPath = "/assets/Article_circle.png";
 
   const quantityArr = useMemo(() => {
     return ["15분컷", "30분컷", "45분컷", "45분 이상"];
@@ -46,7 +42,6 @@ const ArticleDetailPage = () => {
       const {
         content,
         ingredients,
-        nickName,
         quantity,
         recipeSteps,
         thumbnailImageUrl,
@@ -60,7 +55,6 @@ const ArticleDetailPage = () => {
 
       setContent(content);
       setIngredients(ingredients);
-      setNickName(nickName);
       setQuantity(quantity);
       setRecipeSteps(recipeSteps);
       setThumbnailImageUrl(thumbnailImageUrl);
@@ -82,7 +76,7 @@ const ArticleDetailPage = () => {
   }, [articleId, data, token]);
 
   // 댓글 보여주기
-  let comment = <div className="text-#AEFEAE mb-40">댓글이 아직 없어요</div>;
+  let comment = <div className="text-#AEFEAE mb-40" />;
   if (comments?.length > 0) {
     comment = (
       <div className="mb-40">
@@ -144,6 +138,7 @@ const ArticleDetailPage = () => {
         }
       })
       .catch((err) => console.log(err));
+    setNewComment("");
   };
 
   // 로그인 확인
@@ -162,17 +157,9 @@ const ArticleDetailPage = () => {
             <img
               src={`${thumbnailImageUrl}`}
               alt=""
-              className="w-586 h-407 mx-7 my-auto"
+              className="w-586 h-407 mx-7 my-auto mt-20"
             />
-            <div className="w-600 pl-80">
-              <div className="flex items-center mb-30">
-                <img
-                  className="rounded-full shadow-lg h-40 w-40"
-                  src={`https://pnut.s3.ap-northeast-2.amazonaws.com/${nickName}`}
-                  alt=""
-                />
-                <div className="mx-15 text-27">{nickName}</div>
-              </div>
+            <div className="w-600 pl-80 mt-20">
               <div className="text-33 font-bold mb-32 h-auto">{title}</div>
               <div className="flex items-center pb-32 grey-underbar">
                 <div className="border border-#2B2C2B text-26 px-10 py-5 font-semibold">
@@ -218,6 +205,7 @@ const ArticleDetailPage = () => {
                 type="text"
                 className="text-26 w-full border border-[#DFE0DF] py-27 px-23"
                 placeholder="댓글을 입력하세요."
+                value={newComment}
                 onChange={(e) => setNewComment(e.target.value)}
                 onKeyUp={(e) => {
                   if (e.key === "Enter") {
@@ -228,7 +216,7 @@ const ArticleDetailPage = () => {
               />
               <button
                 type="button"
-                className="absolute right-0 bottom-64 bg-[#5B5F97] text-prettywhite text-24 font-bold px-14 py-7"
+                className="absolute right-0 bottom-64 bg-[#5B5F97] text-prettywhite text-24 font-bold px-14 py-7 hover:bg-indigo-600"
                 onClick={() => newCommentSubmitHandler()}
               >
                 작성

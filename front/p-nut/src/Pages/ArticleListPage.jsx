@@ -37,15 +37,17 @@ const ArticleListPage = () => {
             alt=""
             className="mx-auto rounded-full shadow-lg w-70 h-70"
           />
-          <div className="text-23 text-#535453 border border-#AEAFAE rounded-10 w-full ml-52 p-26 flex flex-row place-content-between">
+          <div
+            className="cursor-pointer text-23 text-#535453 border border-#AEAFAE rounded-10 w-full ml-52 p-26 flex flex-row place-content-between hover:border-gray-900 hover:text-gray-900"
+            onClick={() => navigate("/newpost")}
+          >
             <div className="font-light leading-28">
               자신의 레시피에 대해 자유롭게 이야기 해주세요!
             </div>
             <img
               src="./assets/Pencil.png"
               alt=""
-              className="rounded-10 hover:bg-gray-200 hover:w-40 hover:h-40 hover:px-5 hover:py-5"
-              onClick={() => navigate("/newpost")}
+              // className="rounded-10 hover:bg-gray-200 hover:w-40 hover:h-40 hover:px-5 hover:py-5"
             />
           </div>
         </div>
@@ -62,7 +64,7 @@ const ArticleListPage = () => {
                 imgSrc={ele.thumbnail_image_url}
                 title={ele.title}
                 author={ele.nickName}
-                profileImg={`${imageBaseURL}/${ele.nickName}`}
+                // profileImg={`${imageBaseURL}/${ele.nickName}`}
               />
             ))}
           </div>
@@ -97,7 +99,7 @@ const ArticleListPage = () => {
               imgSrc={ele.thumbnail_image_url}
               title={ele.title}
               author={ele.nickName}
-              profileImg={`${imageBaseURL}/${ele.nickName}`}
+              // profileImg={`${imageBaseURL}/${ele.nickName}`}
             />
           ))}
         </div>
