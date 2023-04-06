@@ -53,19 +53,19 @@ const AlertModal = (props) => {
           style={{ animation: open ? `modalShow 0.3s` : "" }}
         >
           <style>{modalShow}</style>
-          <main className="flex flex-col p-4 my-50 mx-65 font-semibold">
+          <main className="flex flex-col p-4 my-50 mx-65 font-semibold text-center">
             {props.children}
-            <div>
+            <div className="flex flex-row justify-evenly">
               <button
                 type="button"
-                className="px-4 py-2 text-white bg-red-600 rounded w-100 h-40 ml-55 my-45"
+                className="px-4 py-2 text-white bg-red-600 rounded w-100 h-40 my-45"
                 onClick={onCheck}
               >
                 확인
               </button>
               <button
                 type="button"
-                className="px-4 py-2 text-white bg-gray-600 rounded w-100 h-40 ml-35 my-45"
+                className="px-4 py-2 text-white bg-gray-600 rounded w-100 h-40 my-45"
                 onClick={close}
               >
                 닫기

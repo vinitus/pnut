@@ -18,12 +18,16 @@ const SurveyRecommendPage = (props) => {
   const [modalOpen, setModalOpen] = useState(false);
   const email = useSelector((state) => state.auth.authentication.email);
 
-  const modalClosedHandler = () => {
+  const loginPageHandler = () => {
     if (!email) {
       navigate("/login");
       return;
     }
     navigate("/newsurvey");
+  };
+
+  const modalClosedHandler = () => {
+    navigate("/");
   };
 
   console.log("data: ", data);
@@ -45,7 +49,7 @@ const SurveyRecommendPage = (props) => {
         <AlertModal
           open={modalOpen}
           close={modalClosedHandler}
-          onCheck={modalClosedHandler}
+          onCheck={loginPageHandler}
         >
           {ment}
         </AlertModal>

@@ -113,7 +113,9 @@ const ArticleDetailPage = () => {
       axiosInterface("post", `/boards/like/${articleId}`, "", {
         Authorization: `Bearer ${token}`,
       }).then(() => {
-        setLikeOrNot(1);
+        axiosInterface("GET", `/boards/board/${articleId}`, "", {
+          Authorization: `Bearer ${token}`,
+        }).then((res) => setData(res));
       });
     }
   };

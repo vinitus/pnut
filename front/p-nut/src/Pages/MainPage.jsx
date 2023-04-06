@@ -152,8 +152,10 @@ const MainPage = () => {
                       <p className="text-lg font-light">
                         그에 맞는 맞춤형 음식을 추천합니다.
                       </p>
+                      <p className="text-lg font-light mt-20">
+                        피넛과 함께 설문조사부터 해볼까요?
+                      </p>
                     </div>
-
                     <img
                       onClick={() => navigate("/newsurvey")}
                       className="pt-20 cursor-pointer h-80"

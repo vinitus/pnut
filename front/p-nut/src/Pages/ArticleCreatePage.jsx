@@ -80,8 +80,6 @@ const ArticleCreatePage = () => {
       stepNums: stepNums,
     };
 
-    console.log(jsonData);
-
     newpostAPI(jsonData, thumbnailImgFile, stepImgFile, token)
       .then(() => {
         console.log("hi");
