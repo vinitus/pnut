@@ -33,7 +33,7 @@ const NavBar = () => {
   };
 
   return (
-    <div className="fixed z-50 flex w-full p-3 h-60 bg-white/80">
+    <div className="fixed z-50 flex w-full p-3 h-60 bg-white/80 z-100">
       <div className="flex items-center w-full justify-evenly">
         <img
           className="cursor-pointer h-50 hover:border hover:border-transparent hover:rounded-5xl"
@@ -65,7 +65,7 @@ const NavBar = () => {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute right-0 z-10 mt-2 origin-top-right w-170 rounded-5 bg-white/70 ">
+              <Menu.Items className="absolute right-0 mt-2 origin-top-right w-170 rounded-5 bg-white/70 ">
                 <div className="py-2">
                   <Menu.Item>
                     {({ active }) => (
