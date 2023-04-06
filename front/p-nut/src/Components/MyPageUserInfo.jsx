@@ -4,6 +4,8 @@ import checkDuplicationAPI from "../api/checkDuplicationAPI";
 import putUserInfo from "../api/putUserInfo";
 import { imageBaseURL } from "../api/baseURL";
 
+import imageCompression from "browser-image-compression";
+
 const MyPageUserInfo = ({ userInfo }) => {
   const navigate = useNavigate();
 
@@ -173,17 +175,45 @@ const MyPageUserInfo = ({ userInfo }) => {
     }
   };
 
+  const actionImgCompress = async (fileSrc) => {
+    console.log("Compressing...");
+
+    const options = {
+      maxSizeMB: 0.2,
+      maxWidthOrHeight: 1920,
+      useWebWorker: true,
+    };
+
+    try {
+      const compressedBlob = await imageCompression(fileSrc, options);
+      console.log("compressed blob: ", compressedBlob);
+      const compressedFile = new File([compressedBlob], fileSrc.name, {
+        type: fileSrc.type,
+      });
+      console.log("compressed file: ", compressedFile);
+      setUserProfileImage(compressedFile);
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(compressedFile);
+      fileReader.onload = (data) => {
+        setNewProfileImageURL(data.target.result);
+      };
+    } catch (error) {
+      console.log("compressing error: ", error);
+    }
+  };
+
   const uploadImage = (event) => {
     console.log("image uploaded: ", event.target.files[0]);
     const file = event.target.files[0];
-    setUserProfileImage(file);
+    actionImgCompress(file);
+    // setUserProfileImage(file);
 
-    const fileReader = new FileReader();
-    fileReader.readAsDataURL(file);
-    fileReader.onload = (data) => {
-      // console.log("fileReader data: ", data);
-      setNewProfileImageURL(data.target.result);
-    };
+    // const fileReader = new FileReader();
+    // fileReader.readAsDataURL(file);
+    // fileReader.onload = (data) => {
+    //   // console.log("fileReader data: ", data);
+    //   setNewProfileImageURL(data.target.result);
+    // };
   };
 
   const submitHandler = async (event) => {

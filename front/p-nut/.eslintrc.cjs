@@ -50,6 +50,7 @@ module.exports = {
     "import/order": "off",
     "import/prefer-default-export": "off",
     "import/no-mutable-exports": "off",
+    "import/no-extraneous-dependencies": "off",
     radix: "off",
   },
   settings: {
