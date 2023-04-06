@@ -174,25 +174,16 @@ public class UserController {
                 if(userDto.getNickname()==null){
                     userDto.setNickname(now.getNickname());
                 }
-                System.out.println(userDto.getGender()+" "+userDto.getAge());
-                if(userDto.getProfileImageUrl().equals(BASEURL+now.getProfile_image_url())){
+                if(userDto.getProfileImageUrl()==null){
+                    fileName = now.getProfile_image_url();
+                }
+                else if(userDto.getProfileImageUrl().equals(BASEURL+now.getProfile_image_url())){
                     fileName = now.getProfile_image_url();
                 }else{
                     fileName = awsS3Service.uploadProfileImage(multipartFile);
                 }
                 userDto.setJoinDate(now.getJoin_date());
                 userDto.setProfileImageUrl(fileName);
-                System.out.println(userDto.getEmail());
-                System.out.println(userDto.getPassword());
-                System.out.println(userDto.getNickname());
-                System.out.println(userDto.getName());
-                System.out.println(userDto.getType());
-                System.out.println(userDto.getJoinDate());
-                System.out.println(userDto.getAge());
-                System.out.println(userDto.getGender());
-                System.out.println(userDto.getProfileImageUrl());
-
-
                 User result = userService.modifyUser(userDto.toEntity());
 
                 if(result != null){
