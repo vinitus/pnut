@@ -44,6 +44,7 @@ public class UserController {
     private static final String SUCCESS = "success in UserController";
     private static final String FAIL = "fail in UserController";
     private static final String ALREADY_EXIST = "already exists in UserController";
+    private static final String BASEURL = "https://pnut.s3.ap-northeast-2.amazonaws.com/";
 
     @ApiOperation(value = "회원가입", notes = "회원가입 요청 API", response = Map.class)
     @PostMapping("")
@@ -173,9 +174,8 @@ public class UserController {
                 if(userDto.getNickname()==null){
                     userDto.setNickname(now.getNickname());
                 }
-                System.out.println(now.getProfile_image_url());
-                System.out.println(userDto.getProfileImageUrl());
-                if(now.getProfile_image_url().equals(userDto.getProfileImageUrl())){
+                System.out.println(userDto.getGender()+" "+userDto.getAge());
+                if(userDto.getProfileImageUrl().equals(BASEURL+now.getProfile_image_url())){
                     fileName = now.getProfile_image_url();
                 }else{
                     fileName = awsS3Service.uploadProfileImage(multipartFile);
