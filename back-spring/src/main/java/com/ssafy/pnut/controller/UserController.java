@@ -182,6 +182,17 @@ public class UserController {
                 }
                 userDto.setJoinDate(now.getJoin_date());
                 userDto.setProfileImageUrl(fileName);
+                System.out.println(userDto.getEmail());
+                System.out.println(userDto.getPassword());
+                System.out.println(userDto.getNickname());
+                System.out.println(userDto.getName());
+                System.out.println(userDto.getType());
+                System.out.println(userDto.getJoinDate());
+                System.out.println(userDto.getAge());
+                System.out.println(userDto.getGender());
+                System.out.println(userDto.getProfileImageUrl());
+
+
                 User result = userService.modifyUser(userDto.toEntity());
 
                 if(result != null){
