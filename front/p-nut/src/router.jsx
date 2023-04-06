@@ -94,15 +94,15 @@ const router = createBrowserRouter([
         path: "*",
         element: <PageNotFound />,
       },
+      {
+        path: "/login",
+        element: <LoginPage />,
+      },
+      {
+        path: "/signup",
+        element: <SignupPage />,
+      },
     ],
-  },
-  {
-    path: "/login",
-    element: <LoginPage />,
-  },
-  {
-    path: "/signup",
-    element: <SignupPage />,
   },
 ]);
 
