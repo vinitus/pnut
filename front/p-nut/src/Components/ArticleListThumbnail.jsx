@@ -51,7 +51,7 @@ const ArticleListThumbnail = (props) => {
       >
         <img src={imgSrc} alt="" className="w-390 h-240 rounded-8" />
       </div>
-      <div className="font-bold text-22 mt-15 mb-9 ml-20">{title}</div>
+      <div className="font-bold text-22 mt-15 mb-9 ml-20 h-">{title}</div>
       <div className="flex items-center ml-20">
         <img
           src={processedImg}
@@ -75,7 +75,7 @@ const ArticleListThumbnail = (props) => {
     //     <div className="font-medium text-14 ml-5">{author}</div>
     //   </div>
     // </div>
-    <div className="h-342">
+    <div className="h-390">
       {rank && topDiv}
       {!rank && boardDiv}
     </div>
