@@ -30,7 +30,7 @@ const SurveyRecommendPage = (props) => {
   const [ment, setMent] = useState("로그인이 필요한 서비스입니다.");
   useEffect(() => {
     if (data.foodNutrient.length === 0) {
-      if (!email) {
+      if (email) {
         setMent(
           "맞춤형 음식 추천을 받으시고 싶으시다면, 설문조사를 먼저 진행해주시길바랍니다."
         );

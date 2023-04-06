@@ -52,7 +52,7 @@ const SurveyCard = (props) => {
           ? "rounded-b-lg shadow-md mb-30"
           : "shadow-md"
       }`}
-      style={{ transitionDelay: expanded ? "1s" : "0s" }}
+      style={{ transitionDelay: expanded ? "0.3s" : "0s" }}
     >
       <div
         className="px-40 pt-40 space-y-5 rounded-t-lg cursor-pointer pb-100"
