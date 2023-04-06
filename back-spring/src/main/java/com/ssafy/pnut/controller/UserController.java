@@ -161,7 +161,12 @@ public class UserController {
                 User now = userService.getUser(email);
 
                 String fileName;
-
+                if(userDto.getAge()==null) {
+                    userDto.setAge(now.getAge());
+                }
+                if(userDto.getGender()==null) {
+                    userDto.setGender(now.getGender());
+                }
                 if(userDto.getName()==null){
                     userDto.setName(now.getName());
                 }

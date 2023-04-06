@@ -89,6 +89,8 @@ public class UserServiceImpl implements UserService{
         userPwd = String.format("%064x", new BigInteger(1, md.digest()));
         findUser.setSalt(salt);
         if(flag==1) findUser.setPassword(userPwd);
+        findUser.setAge(user.getAge());
+        findUser.setGender(user.getGender());
         findUser.setName(user.getName());
         findUser.setProfile_image_url(user.getProfile_image_url());
         findUser.setNickname(user.getNickname());
