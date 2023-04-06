@@ -335,6 +335,7 @@ const MyPageUserInfo = ({ userInfo }) => {
                 className="h-40 px-10 mt-10 text-gray-400 border-2 border-gray-300 w-205 rounded-10 font-noto focus:border-blue-500"
                 placeholder="********"
                 onChange={password1ChangeHandler}
+                autoComplete="off"
               />
             </div>
             <div className="flex flex-col ml-35">
@@ -347,6 +348,7 @@ const MyPageUserInfo = ({ userInfo }) => {
                 className="px-10 mt-10 w-205 h-40 border-2 border-gray rounded-10 text-gray-400 font-noto"
                 placeholder="********"
                 onChange={password2ChangeHandler}
+                autoComplete="off"
               />
             </div>
             {passwordState.passwordMatched && passwordState.passwordIsValid && (

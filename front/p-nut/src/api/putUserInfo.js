@@ -53,12 +53,14 @@ async function putUserInfo(
   if (profileImage) {
     formData.append("multipartFile", profileImage);
   }
-  // for (const key of formData.keys()) {
-  //   console.log(key);
-  // }
-  // for (const value of formData.values()) {
-  //   console.log(value);
-  // }
+
+  // console.log("formData: ", formData);
+  for (const key of formData.keys()) {
+    console.log(key);
+  }
+  for (const value of formData.values()) {
+    console.log(value);
+  }
 
   if (!accessToken) {
     return "token does not exist";

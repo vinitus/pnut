@@ -162,17 +162,17 @@ const ArticleDetailPage = () => {
             <img
               src={`${thumbnailImageUrl}`}
               alt=""
-              className="w-586 h-407 mx-7 my-auto"
+              className="w-586 h-407 mx-7 my-auto mt-20"
             />
-            <div className="w-600 pl-80">
-              <div className="flex items-center mb-30">
+            <div className="w-600 pl-80 mt-20">
+              {/* <div className="flex items-center mb-30">
                 <img
                   className="rounded-full shadow-lg h-40 w-40"
                   src={`https://pnut.s3.ap-northeast-2.amazonaws.com/${nickName}`}
                   alt=""
                 />
                 <div className="mx-15 text-27">{nickName}</div>
-              </div>
+              </div> */}
               <div className="text-33 font-bold mb-32 h-auto">{title}</div>
               <div className="flex items-center pb-32 grey-underbar">
                 <div className="border border-#2B2C2B text-26 px-10 py-5 font-semibold">
