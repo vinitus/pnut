@@ -61,13 +61,13 @@ public class AwsS3Service {
         return fileName;
     }
     //프로필사진 올리기
-    public String uploadProfileImage(MultipartFile file, UserDto userDto) {
+    public String uploadProfileImage(MultipartFile file) {
 
-        String fileName = userDto.getNickname();
+        String fileName = createFileName(file.getOriginalFilename());
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentLength(file.getSize());
         objectMetadata.setContentType(file.getContentType());
-        deleteImage(fileName);
+
         try(InputStream inputStream = file.getInputStream()) {
             amazonS3.putObject(new PutObjectRequest(bucket, fileName, inputStream, objectMetadata)
                     .withCannedAcl(CannedAccessControlList.PublicRead));
