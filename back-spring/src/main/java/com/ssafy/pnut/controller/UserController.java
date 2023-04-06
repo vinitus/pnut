@@ -168,6 +168,8 @@ public class UserController {
                 if(userDto.getNickname()==null){
                     userDto.setNickname(now.getNickname());
                 }
+                System.out.println(now.getProfile_image_url());
+                System.out.println(userDto.getProfileImageUrl());
                 if(now.getProfile_image_url().equals(userDto.getProfileImageUrl())){
                     fileName = now.getProfile_image_url();
                 }else{
