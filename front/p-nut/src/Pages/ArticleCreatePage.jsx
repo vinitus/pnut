@@ -280,7 +280,7 @@ const ArticleCreatePage = () => {
       )}
       {!modalOpen && (
         <>
-          <div className="fixed z-50 flex items-center w-full justify-evenly h-100 px-auto grey-underbar bg-white/80">
+          <div className="fixed z-10 flex items-center w-full justify-evenly h-100 px-auto grey-underbar bg-white/80">
             <div className="ml-48 text-center text-23">
               자신의 레시피에 대해 자유롭게 이야기 해주세요!
             </div>
