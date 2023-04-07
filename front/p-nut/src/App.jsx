@@ -1,27 +1,9 @@
-import React, { useState } from "react";
-import "./App.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import React from "react";
+import { RouterProvider } from "react-router-dom";
+import router from "./router";
 
-import RootLayout from "./Pages/RootLayout";
-import HomePage from "./Pages/HomePage";
-import ArticleCreatePage from "./Pages/ArticleCreatePage";
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <RootLayout />,
-    children: [
-      { index: true, element: <HomePage /> },
-      {
-        path: "newpost",
-        element: <ArticleCreatePage />,
-      },
-    ],
-  },
-]);
-
-function App() {
+const App = () => {
   return <RouterProvider router={router} />;
-}
+};
 
 export default App;
