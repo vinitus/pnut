@@ -164,7 +164,7 @@ const SearchRecommendPage = () => {
                 ))}
             </div>
           </div>
-          <div className="flex justify-center w-full pt-40">
+          <div className="flex justify-center w-full">
             <form className="relative w-700" onSubmit={handleSearchClick}>
               <input
                 className={`block py-2 pr-3 text-xl font-bold text-white placeholder-gray-200 border border-gray-300 rounded-t-30 shadow-md placeholder:font-medium w-full h-60 pl-50 bg-white/20 ${
