@@ -123,11 +123,11 @@ const SurveySymptomsPage = () => {
     <div className="w-674 py-50">
       {symptomsRef.length > 0 && (
         <>
-          <div className="text-22 font-bold text-#7F807F mb-18">질문 1</div>
-          <div className="font-bold text-22 mb-18">
+          <div className="text-xl font-bold text-#7F807F mb-18">질문 1</div>
+          <div className="font-bold text-xl mb-18">
             {nickname}님이 불편하시고 걱정되는 3가지를 선택하세요.
           </div>
-          <div className="text-22 text-#7F807F pb-18">
+          <div className="text-lg text-#7F807F pb-18">
             우선적으로 관리가 필요한 곳을 선택하세요.
           </div>
           <div className="grey-underbar" />

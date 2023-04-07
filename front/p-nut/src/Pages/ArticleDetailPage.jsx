@@ -165,18 +165,18 @@ const ArticleDetailPage = () => {
               className="w-586 h-407 mx-7 my-auto mt-20"
             />
             <div className="w-600 pl-80 mt-20">
-              <div className="text-33 font-bold mb-32 h-auto">{title}</div>
+              <div className="text-2xl font-bold mb-32 h-auto">{title}</div>
               <div className="flex items-center pb-32 grey-underbar">
-                <div className="border border-#2B2C2B text-26 px-10 py-5 font-semibold">
+                <div className="border border-#2B2C2B text-xl px-10 py-5 font-semibold">
                   {quantityArr[time]}
                 </div>
-                <div className="ml-27 text-26 font-semibold">
+                <div className="ml-27 text-xl font-semibold">
                   {quantity}인분
                 </div>
               </div>
-              <div className="my-26 text-22 font-medium">{content}</div>
+              <div className="my-26 text-xl font-medium">{content}</div>
               <div className="w-full flex place-content-between">
-                <div className="text-22">
+                <div className="text-lg">
                   댓글 {comments?.length} 좋아요 {likes} 조회수 {visit}
                 </div>
                 <img
@@ -188,10 +188,10 @@ const ArticleDetailPage = () => {
               </div>
             </div>
           </div>
-          <div className="text-42 font-bold h-auto mb-21">재료</div>
+          <div className="text-2xl font-bold h-auto mb-21">재료</div>
           <div className="w-1200 px-65 pb-56 grey-underbar border-#2B2C2B">
-            <div className="bg-#F2F2F2 text-26 w-1070 py-20 px-75">
-              {ingredients}
+            <div className="bg-#F2F2F2 text-lg w-1070 py-20 px-75">
+              <p className="text-center">{ingredients}</p>
             </div>
           </div>
           {recipeSteps &&
@@ -200,15 +200,15 @@ const ArticleDetailPage = () => {
             ))}
           <div className="mt-150 w-1200 mx-auto">
             <div className="flex items-center mb-40">
-              <div className="text-37 font-bold">댓글</div>
-              <div className="text-55 text-#FF6B6C font-extrabold ml-22">
+              <div className="text-2xl font-bold">댓글</div>
+              <div className="text-3xl text-#FF6B6C font-extrabold ml-22">
                 {comments?.length}
               </div>
             </div>
             <div className="relative h-219 pb-64 grey-underbar mb-25">
               <input
                 type="text"
-                className="text-26 w-full border border-[#DFE0DF] py-27 px-23"
+                className="text-lg w-full border border-[#DFE0DF] py-27 px-23"
                 placeholder="댓글을 입력하세요."
                 value={newComment}
                 onChange={(e) => setNewComment(e.target.value)}
@@ -221,7 +221,7 @@ const ArticleDetailPage = () => {
               />
               <button
                 type="button"
-                className="absolute right-0 bottom-64 bg-[#5B5F97] text-prettywhite text-24 font-bold px-14 py-7 hover:bg-indigo-600"
+                className="absolute right-0 bottom-64 bg-#2F80ED hover:bg-#2F80ED/80 rounded-full w-100 text-prettywhite text-lg font-bold px-14 py-7 "
                 onClick={() => newCommentSubmitHandler()}
               >
                 작성

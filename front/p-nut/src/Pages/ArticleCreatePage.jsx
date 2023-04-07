@@ -299,7 +299,7 @@ const ArticleCreatePage = () => {
       {!modalOpen && (
         <>
           <div className="fixed z-10 flex items-center w-full justify-evenly h-100 px-auto grey-underbar bg-white/80">
-            <div className="ml-48 text-center text-23">
+            <div className="ml-48 text-center text-xl">
               자신의 레시피에 대해 자유롭게 이야기 해주세요!
             </div>
             <button
@@ -323,7 +323,7 @@ const ArticleCreatePage = () => {
                 fileSet={setThumbnailImgFile}
               />
             </div>
-            <div className="flex flex-col w-full text-21">
+            <div className="flex flex-col w-full text-xl">
               <div className="flex items-center w-full grey-underbar">
                 <input
                   type="text"
@@ -334,7 +334,7 @@ const ArticleCreatePage = () => {
                   onChange={handleTitleChange}
                   maxLength={30}
                 />
-                {/* <div className="inline pr-30">{title.length}/30</div> */}
+                <div className="inline pr-30">{title.length}/30</div>
               </div>
               <div className="flex flex-col items-center w-full grey-underbar">
                 <textarea
@@ -347,7 +347,7 @@ const ArticleCreatePage = () => {
                   onChange={handleContentChange}
                   maxLength={255}
                 />
-                {/* <div className="w-full p-30 text-end">{content.length}/255</div> */}
+                <div className="w-full p-30 text-end">{content.length}/255</div>
               </div>
               {/* 이 요소의 하위 항목에 버튼이 존재하고 키보드 작동이 가능합니다. */}
               {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
@@ -394,24 +394,24 @@ const ArticleCreatePage = () => {
                 <div className="flex flex-row items-center mx-27-center">
                   <button
                     type="button"
-                    className="w-45 h-45 text-41 leading-none bg-#ECECEC"
+                    className="w-45 h-45 text-2xl leading-none bg-#ECECEC"
                     onClick={() => {
                       quantityHandler("-");
                     }}
                   >
                     -
                   </button>
-                  <div className="mx-20 text-27">{quantity}</div>
+                  <div className="mx-20 text-xl">{quantity}</div>
                   <button
                     type="button"
-                    className="w-45 h-45 text-41 leading-none bg-#ECECEC"
+                    className="w-45 h-45 text-2xl leading-none bg-#ECECEC"
                     onClick={() => {
                       quantityHandler("+");
                     }}
                   >
                     +
                   </button>
-                  <div className="mx-20 text-27">인분</div>
+                  <div className="mx-20 text-xl">인분</div>
                 </div>
               </div>
               <div className="w-full px-40 mt-26 pb-31 grey-underbar">

@@ -7,11 +7,11 @@ const CommentForm = (props) => {
 
   return (
     <div className="my-15 flex flex-row items-center justify-between">
-      <div className="flex flex-row items-center">
-        <div className="text-28 font-bold ml-14 mr-34">{nickName}</div>
-        <div className="text-26">{content}</div>
+      <div className="flex flex-row items-baseline">
+        <div className="text-xl font-bold ml-14 mr-34">{nickName}</div>
+        <div className="text-lg">{content}</div>
       </div>
-      <div className="text-17 font-bold">{yyyymmdd}</div>
+      <div className="text-lg font-bold">{yyyymmdd}</div>
     </div>
   );
 };

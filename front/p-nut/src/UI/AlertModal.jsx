@@ -58,14 +58,14 @@ const AlertModal = (props) => {
             <div className="flex flex-row justify-evenly">
               <button
                 type="button"
-                className="px-4 py-2 text-white bg-red-400 rounded w-100 h-40 ml-55 my-45 hover:bg-red-500"
+                className="px-4 py-2 text-white bg-red-400 rounded w-100 h-40 my-45 hover:bg-red-500"
                 onClick={onCheck}
               >
                 확인
               </button>
               <button
                 type="button"
-                className="px-4 py-2 text-white bg-gray-600 rounded w-100 h-40 ml-35 my-45 hover:bg-gray-700"
+                className="px-4 py-2 text-white bg-gray-600 rounded w-100 h-40 my-45 hover:bg-gray-700"
                 onClick={close}
               >
                 닫기
