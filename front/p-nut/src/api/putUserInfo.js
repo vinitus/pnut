@@ -9,7 +9,8 @@ async function putUserInfo(
   gender,
   age,
   password,
-  profileImage
+  profileImage,
+  profileImageUrl
 ) {
   const state = JSON.parse(localStorage.getItem("persist:root"));
   if (!state) {
@@ -30,7 +31,7 @@ async function putUserInfo(
       nickname: nickname,
       name: name,
       gender: gender,
-      age: age,
+      age: `${age}`,
       password: password,
     };
   } else {
@@ -39,9 +40,14 @@ async function putUserInfo(
       nickname: nickname,
       name: name,
       gender: gender,
-      age: age,
+      age: `${age}`,
     };
   }
+
+  if (!profileImage) {
+    formObj.profileImageUrl = profileImageUrl;
+  }
+
   console.log("formObj: ", formObj);
   formData.append(
     "userDto",
@@ -53,12 +59,14 @@ async function putUserInfo(
   if (profileImage) {
     formData.append("multipartFile", profileImage);
   }
-  // for (const key of formData.keys()) {
-  //   console.log(key);
-  // }
-  // for (const value of formData.values()) {
-  //   console.log(value);
-  // }
+
+  // console.log("formData: ", formData);
+  for (const key of formData.keys()) {
+    console.log("formData key: ", key);
+  }
+  for (const value of formData.values()) {
+    console.log("formData value: ", value);
+  }
 
   if (!accessToken) {
     return "token does not exist";

@@ -158,7 +158,7 @@ const MainPage = () => {
                     </div>
                     <img
                       onClick={() => navigate("/newsurvey")}
-                      className="pt-20 cursor-pointer h-80"
+                      className="pt-20 cursor-pointer h-80 hover:opacity-70"
                       src="assets\inspectbutton.png"
                       alt=""
                     />
@@ -172,7 +172,7 @@ const MainPage = () => {
                       <div className="flex justify-center w-full">
                         <img
                           onClick={() => navigate("/my-survey")}
-                          className="pt-20 cursor-pointer h-80"
+                          className="pt-20 cursor-pointer h-80 hover:opacity-70"
                           src="assets\resultbutton.png"
                           alt=""
                         />
@@ -192,7 +192,11 @@ const MainPage = () => {
                     <p className="text-xl font-bold">
                       관심있는 증상 별 음식 톺아보기
                     </p>
-                    <img className="h-20" src="assets\chevron.png" alt="" />
+                    <img
+                      className="h-20 hover:h-25"
+                      src="assets\chevron.png"
+                      alt=""
+                    />
                   </div>
                   <div>
                     <p className="text-lg">
@@ -214,7 +218,11 @@ const MainPage = () => {
                     <p className="text-xl font-bold">
                       식재료, 음식 이름으로 검색하기
                     </p>
-                    <img className="h-20" src="assets\chevron.png" alt="" />
+                    <img
+                      className="h-20 hover:h-25"
+                      src="assets\chevron.png"
+                      alt=""
+                    />
                   </div>
                   <div>
                     <p className="text-lg">

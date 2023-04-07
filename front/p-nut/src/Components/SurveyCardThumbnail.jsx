@@ -67,7 +67,7 @@ const SurveyCardThumbnail = (props) => {
       )}
       <button type="button" onClick={openModal}>
         <div
-          className="h-150 w-150 rounded-full bg-cover bg-center bg-no-repeat"
+          className="h-150 w-150 rounded-full bg-cover bg-center bg-no-repeat hover:opacity-70"
           style={{ backgroundImage: `url(${encodedImgPath})` }}
         />
         <br />

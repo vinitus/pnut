@@ -1,13 +1,10 @@
-import React, { Fragment, useState } from "react";
-
+import React, { Fragment } from "react";
 import { useNavigateToTop } from "../hooks/useNavigateToTop";
 
 const ArticleListThumbnail = (props) => {
-  const { rank, imgSrc, title, author, profileImg, boardId } = props;
+  const { rank, imgSrc, title, author, boardId } = props;
 
   const navigate = useNavigateToTop();
-
-  const [processedImg, setProcessedImg] = useState(profileImg);
 
   const goToBoardDetail = (id) => {
     navigate(`/board/${id}`);
@@ -31,14 +28,11 @@ const ArticleListThumbnail = (props) => {
           />
           {rankDiv && rankDiv}
         </div>
-        <div className="font-bold text-22 mt-15 mb-9 ml-20">{title}</div>
-        <div className="flex items-center ml-20">
-          <img
-            src={processedImg}
-            alt="./assets/Article_circle.png"
-            className="rounded-full shadow-lg w-40 h-40"
-          />
-          <div className="font-semibold text-14 ml-10">{author}</div>
+        <div className="font-bold text-22 mt-15 mb-9 ml-5 truncate">
+          {title}
+        </div>
+        <div className="flex items-center ml-5">
+          <div className="font-semibold text-14">By {author}</div>
         </div>
       </Fragment>
     );
@@ -51,14 +45,9 @@ const ArticleListThumbnail = (props) => {
       >
         <img src={imgSrc} alt="" className="w-390 h-240 rounded-8" />
       </div>
-      <div className="font-bold text-22 mt-15 mb-9 ml-20 h-">{title}</div>
-      <div className="flex items-center ml-20">
-        <img
-          src={processedImg}
-          alt="./assets/Article_circle.png"
-          className="rounded-full shadow-lg w-40 h-40"
-        />
-        <div className="font-semibold text-14 ml-10">{author}</div>
+      <div className="font-bold text-22 mt-15 mb-9 ml-5 truncate">{title}</div>
+      <div className="flex items-center ml-5">
+        <div className="font-semibold text-14">By {author}</div>
       </div>
     </Fragment>
   );

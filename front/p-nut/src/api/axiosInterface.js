@@ -19,13 +19,7 @@ export default async function axiosInterface(
   headers = {},
   params = {}
 ) {
-  // https://soheemon.tistory.com/entry/JavaScript-%EB%B3%B4%EC%95%88%EC%9D%84-%EC%9C%84%ED%95%B4-console-%EB%A1%9C%EA%B7%B8-%EB%A7%89%EA%B8%B0
-  // console.log = function () {};
-  // console.error = function () {};
-  // console.warn = function () {};
-
   // Authorization Required
-  // https://gisastudy.tistory.com/127
 
   if (headers.Authorization) {
     if (headers.Authorization.trim() === "Bearer") {
@@ -38,7 +32,7 @@ export default async function axiosInterface(
         return res;
       },
       async (err) => {
-        console.log("invalid token", err);
+        console.log("Authorization Error", err);
         const { config, response } = err;
         const state = JSON.parse(localStorage.getItem("persist:root"));
         const authentication = JSON.parse(state.auth);
@@ -80,8 +74,8 @@ export default async function axiosInterface(
     );
   }
 
-  // django
   // Authorization Not Required
+
   let response = await axios({
     method: method,
     url: url,

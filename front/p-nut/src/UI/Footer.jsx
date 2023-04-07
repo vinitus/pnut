@@ -39,7 +39,7 @@ const Footer = () => {
               <p className="font-bold text-white text-md">메인으로</p>
             </div>
             <div
-              className="cursor-pointer border border-#FF6B6C flex items-center justify-center w-180 h-70 hover:bg-gray-100 transition duration-300"
+              className="cursor-pointer border border-#FF6B6C flex items-center justify-center w-180 h-70 hover:border-2 transition duration-300"
               onClick={goToMyPage}
             >
               <p className="font-extrabold text-#FF6B6C text-md">마이페이지</p>

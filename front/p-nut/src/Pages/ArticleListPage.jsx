@@ -22,10 +22,10 @@ const ArticleListPage = () => {
       <div className="relative flex items-center justify-center flex-col">
         <img src="./assets/article_list_background.png" alt="" />
         <div className="absolute">
-          <div className="font-bold text-35 text-center">
+          <div className="font-bold text-3xl text-center">
             다양한 레시피를 확인해보세요!
           </div>
-          <div className="font-semibold text-22 text-#FFFFFB text-center mt-15 mb-10">
+          <div className="font-semibold text-xl text-#FFFFFB text-center mt-15 mb-10">
             궁금한 레시피를 둘러보고 자신의 레시피에 대해 이야기 해주세요
           </div>
         </div>
@@ -37,22 +37,24 @@ const ArticleListPage = () => {
             alt=""
             className="mx-auto rounded-full shadow-lg w-70 h-70"
           />
-          <div className="text-23 text-#535453 border border-#AEAFAE rounded-10 w-full ml-52 p-26 flex flex-row place-content-between">
-            <div className="font-light leading-28">
+          <div
+            className="cursor-pointer text-23 text-#535453 border border-#AEAFAE rounded-10 w-full ml-52 p-26 flex flex-row place-content-between hover:border-gray-900 hover:text-gray-900"
+            onClick={() => navigate("/newpost")}
+          >
+            <div className="font-light text-xl">
               자신의 레시피에 대해 자유롭게 이야기 해주세요!
             </div>
             <img
               src="./assets/Pencil.png"
               alt=""
-              className="rounded-10 hover:bg-gray-200 hover:w-40 hover:h-40 hover:px-5 hover:py-5"
-              onClick={() => navigate("/newpost")}
+              // className="rounded-10 hover:bg-gray-200 hover:w-40 hover:h-40 hover:px-5 hover:py-5"
             />
           </div>
         </div>
       )}
       <div className="w-full h-494 bg-#ECECEC mt-62 py-42">
         <div className="mx-auto w-1300">
-          <div className="text-45 font-extrabold mb-17">금주의 레시피</div>
+          <div className="text-3xl font-extrabold mb-17">금주의 레시피</div>
           <div className="flex place-content-between hover:opcaity-70">
             {top3List.data.map((ele, idx) => (
               <ArticleListThumbnail
@@ -62,7 +64,7 @@ const ArticleListPage = () => {
                 imgSrc={ele.thumbnail_image_url}
                 title={ele.title}
                 author={ele.nickName}
-                profileImg={`${imageBaseURL}/${ele.nickName}`}
+                // profileImg={`${imageBaseURL}/${ele.nickName}`}
               />
             ))}
           </div>
@@ -71,7 +73,7 @@ const ArticleListPage = () => {
 
       <div className="mt-45 mx-auto w-1300">
         <div className="m-8 flex items-center place-content-between">
-          <div className="text-45 font-extrabold">레시피</div>
+          <div className="text-3xl font-extrabold">레시피</div>
           {/* <div>
             <input
               type="text"
@@ -89,7 +91,7 @@ const ArticleListPage = () => {
             </select>
           </div> */}
         </div>
-        <div className="grid grid-cols-3 gap-65">
+        <div className="grid grid-cols-3 gap-3065">
           {recentArticleList.data.map((ele) => (
             <ArticleListThumbnail
               key={`recent-${ele.id}`}
@@ -97,7 +99,7 @@ const ArticleListPage = () => {
               imgSrc={ele.thumbnail_image_url}
               title={ele.title}
               author={ele.nickName}
-              profileImg={`${imageBaseURL}/${ele.nickName}`}
+              // profileImg={`${imageBaseURL}/${ele.nickName}`}
             />
           ))}
         </div>

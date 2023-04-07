@@ -143,96 +143,98 @@ const SurveyQuestionsPage = () => {
   };
 
   return (
-    <div className="py-50">
-      <div className="text-22 font-bold text-#7F807F mb-18">질문 2</div>
-      <div className="font-bold text-22 mb-18">
+    <div className="py-50 w-full px-200">
+      <div className="text-xl font-bold text-#7F807F mb-18">질문 2</div>
+      <div className="font-bold text-xl mb-18">
         {nickname}님이 느끼시는 불편함의 정도를 말해주세요.
       </div>
-      <div className="text-22 text-#7F807F pb-18">
+      <div className="text-md text-#7F807F pb-18">
         0 = 이상 없음. 1 = 조금 불편함. 2 = 관리가 필요할 것 같음. 3 = 불편함
       </div>
       <div className="grey-underbar" />
-      <div className="font-bold mt-15 text-24">
+      <div className="pt-30 font-bold mt-15 text-xl">
         {questionObj.questionThema[0]}
       </div>
-      {question1Data &&
-        question1Data.map((content, idx) => (
-          <div className="flex flex-row mt-15 justify-between " key={content}>
-            <div className="text-19 ml-13" id={`0-${idx}`}>
-              {content}
+      <div className="space-y-20">
+        {question1Data &&
+          question1Data.map((content, idx) => (
+            <div className="flex flex-row mt-15 justify-between " key={content}>
+              <div className="text-lg ml-5" id={`0-${idx}`}>
+                {content}
+              </div>
+              <div className="flex space-x-10 items-center">
+                <p>0</p>
+                <input
+                  className="w-150 bg-gray-200 rounded appearance-none cursor-pointer "
+                  type="range"
+                  min="0"
+                  max="3"
+                  step="1"
+                  value={inputValue[0][idx]}
+                  name={content}
+                  id={`input-0-${idx}`}
+                  onChange={inputChangeHandler}
+                />
+                <p>3</p>
+              </div>
             </div>
-            <div className="flex space-x-10">
-              <p>0</p>
-              <input
-                className="w-150 bg-gray-200 rounded appearance-none cursor-pointer "
-                type="range"
-                min="0"
-                max="3"
-                step="1"
-                value={inputValue[0][idx]}
-                name={content}
-                id={`input-0-${idx}`}
-                onChange={inputChangeHandler}
-              />
-              <p>3</p>
+          ))}
+        <div className="pt-30 font-bold mt-15 text-xl">
+          {questionObj.questionThema[1]}
+        </div>
+        {question2Data &&
+          question2Data.map((content, idx) => (
+            <div className="flex flex-row mt-15 justify-between " key={content}>
+              <div className="text-lg ml-5" id={`1-${idx}`}>
+                {content}
+              </div>
+              <div className="flex space-x-10 items-center">
+                <p>0</p>
+                <input
+                  className="w-150 bg-gray-200 rounded appearance-none cursor-pointer "
+                  type="range"
+                  min="0"
+                  max="3"
+                  step="1"
+                  value={inputValue[1][idx]}
+                  name={content}
+                  id={`input-1-${idx}`}
+                  onChange={inputChangeHandler}
+                />
+                <p>3</p>
+              </div>
             </div>
-          </div>
-        ))}
-      <div className="font-bold mt-15 text-24">
-        {questionObj.questionThema[1]}
+          ))}
+        <div className="pt-30 font-bold mt-15 text-xl">
+          {questionObj.questionThema[2]}
+        </div>
+        {question3Data &&
+          question3Data.map((content, idx) => (
+            <div className="flex flex-row mt-15 justify-between " key={content}>
+              <div className="text-lg ml-5" id={`2-${idx}`}>
+                {content}
+              </div>
+              <div className="flex space-x-10 items-center">
+                <p>0</p>
+                <input
+                  className="w-150 bg-gray-200 rounded appearance-none cursor-pointer "
+                  type="range"
+                  min="0"
+                  max="3"
+                  step="1"
+                  value={inputValue[2][idx]}
+                  name={content}
+                  id={`input-2-${idx}`}
+                  onChange={inputChangeHandler}
+                />
+                <p>3</p>
+              </div>
+            </div>
+          ))}
       </div>
-      {question2Data &&
-        question2Data.map((content, idx) => (
-          <div className="flex flex-row mt-15 justify-between " key={content}>
-            <div className="text-19 ml-13" id={`1-${idx}`}>
-              {content}
-            </div>
-            <div className="flex space-x-10">
-              <p>0</p>
-              <input
-                className="w-150 bg-gray-200 rounded appearance-none cursor-pointer "
-                type="range"
-                min="0"
-                max="3"
-                step="1"
-                value={inputValue[1][idx]}
-                name={content}
-                id={`input-1-${idx}`}
-                onChange={inputChangeHandler}
-              />
-              <p>3</p>
-            </div>
-          </div>
-        ))}
-      <div className="font-bold mt-15 text-24">
-        {questionObj.questionThema[2]}
-      </div>
-      {question3Data &&
-        question3Data.map((content, idx) => (
-          <div className="flex flex-row mt-15 justify-between " key={content}>
-            <div className="text-19 ml-13" id={`2-${idx}`}>
-              {content}
-            </div>
-            <div className="flex space-x-10">
-              <p>0</p>
-              <input
-                className="w-150 bg-gray-200 rounded appearance-none cursor-pointer "
-                type="range"
-                min="0"
-                max="3"
-                step="1"
-                value={inputValue[2][idx]}
-                name={content}
-                id={`input-2-${idx}`}
-                onChange={inputChangeHandler}
-              />
-              <p>3</p>
-            </div>
-          </div>
-        ))}
       <button
         type="button"
-        className="ml-36 w-full bg-#FF6B6C rounded-42 h-55 text-18 font-bold text-prettywhite mt-20"
+        className="mt-40 w-full bg-#FF6B6C rounded-42 h-55 text-18 font-bold text-prettywhite mt-20"
         onClick={submitBtnClickHandler}
       >
         제출하기

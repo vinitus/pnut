@@ -80,6 +80,10 @@ const ArticleCreatePage = () => {
       stepNums: stepNums,
     };
 
+    console.log(jsonData);
+    console.log(thumbnailImgFile);
+    console.log(stepImgFile);
+
     newpostAPI(jsonData, thumbnailImgFile, stepImgFile, token)
       .then(() => {
         console.log("hi");
@@ -228,15 +232,6 @@ const ArticleCreatePage = () => {
       newStepContentLetterCount[idx] = e.target.value.length;
       setStepContentLetterCount(newStepContentLetterCount);
     }
-    if (type === "file") {
-      const file = e.target.files[0];
-      stepImgFile[idx] = file;
-      setStepNums((prev) => {
-        const newArr = [...prev, idx + 1];
-        newArr.sort();
-        return newArr;
-      });
-    }
   };
 
   // 글 등록
@@ -295,7 +290,7 @@ const ArticleCreatePage = () => {
       {!modalOpen && (
         <>
           <div className="fixed z-10 flex items-center w-full justify-evenly h-100 px-auto grey-underbar bg-white/80">
-            <div className="ml-48 text-center text-23">
+            <div className="ml-48 text-center text-xl">
               자신의 레시피에 대해 자유롭게 이야기 해주세요!
             </div>
             <button
@@ -308,17 +303,7 @@ const ArticleCreatePage = () => {
               글 등록하기
             </button>
           </div>
-          <div
-            className="w-1200 mx-auto border-x border-solid border-#7F807F px-203 pt-141"
-            onChange={(e) => {
-              if (e.target.type !== "file") {
-                return;
-              }
-              const file = e.target.files[0];
-              console.log(file);
-              setThumbnailImgFile(file);
-            }}
-          >
+          <div className="w-1200 mx-auto border-x border-solid border-#7F807F px-203 pt-141">
             <div className="w-792 h-354">
               <ArticleImgBlock
                 setRef={thumbnailInputRef}
@@ -329,7 +314,7 @@ const ArticleCreatePage = () => {
                 fileSet={setThumbnailImgFile}
               />
             </div>
-            <div className="flex flex-col w-full text-21">
+            <div className="flex flex-col w-full text-xl">
               <div className="flex items-center w-full grey-underbar">
                 <input
                   type="text"
@@ -400,24 +385,24 @@ const ArticleCreatePage = () => {
                 <div className="flex flex-row items-center mx-27-center">
                   <button
                     type="button"
-                    className="w-45 h-45 text-41 leading-none bg-#ECECEC"
+                    className="w-45 h-45 text-2xl leading-none bg-#ECECEC"
                     onClick={() => {
                       quantityHandler("-");
                     }}
                   >
                     -
                   </button>
-                  <div className="mx-20 text-27">{quantity}</div>
+                  <div className="mx-20 text-xl">{quantity}</div>
                   <button
                     type="button"
-                    className="w-45 h-45 text-41 leading-none bg-#ECECEC"
+                    className="w-45 h-45 text-2xl leading-none bg-#ECECEC"
                     onClick={() => {
                       quantityHandler("+");
                     }}
                   >
                     +
                   </button>
-                  <div className="mx-20 text-27">인분</div>
+                  <div className="mx-20 text-xl">인분</div>
                 </div>
               </div>
               <div className="w-full px-40 mt-26 pb-31 grey-underbar">
@@ -434,13 +419,13 @@ const ArticleCreatePage = () => {
                     maxLength={255}
                   />
                   <div className="inline text-end">
-                    {ingredients.length}/255
+                    {/* {ingredients.length}/255 */}
                   </div>
                 </div>
               </div>
               <div
                 className="w-full px-40 mt-26 pb-31"
-                onChange={stepChangeHandler}
+                // onChange={stepChangeHandler}
               >
                 <div className={subTitle}>만드는 방법</div>
                 {orderArr.map((value) => (
@@ -462,7 +447,7 @@ const ArticleCreatePage = () => {
                           }}
                         />
                         <div className="inline">
-                          {stepContentLetterCount[value - 1]}/50
+                          {/* {stepContentLetterCount[value - 1]}/50 */}
                         </div>
                       </div>
                       <div className="w-624 h-303">
@@ -472,7 +457,8 @@ const ArticleCreatePage = () => {
                           text="이미지 업로드(선택)"
                           width="624"
                           height="303"
-                          fileSet={setThumbnailImgFile}
+                          fileSet={setStepImgFile}
+                          setStepNums={setStepNums}
                         />
                       </div>
                     </div>
