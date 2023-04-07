@@ -5,7 +5,7 @@ const HomePage = () => {
 
   return (
     <div>
-      <h1>홈페이지</h1>
+      <h1 className="font-nanum">홈페이지</h1>
       <button
         type="button"
         onClick={() => {

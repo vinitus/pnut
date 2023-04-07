@@ -7,7 +7,7 @@ module.exports = {
   ],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: { fontFamily: { nanum: "Nanum Square KR", sans: "Noto Sans KR" } },
+    extend: { fontFamily: { sans: "Noto Sans KR", nanum: "Nanum Square" } },
   },
   variants: {
     extend: {},
