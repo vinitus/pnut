@@ -50,7 +50,7 @@ const ArticleImgBlock = (props) => {
         }
         if (setStepNums) {
           setStepNums((prev) => {
-            const newArr = [...prev, Number(division.split("-")[2]) - 1];
+            const newArr = [...prev, Number(division.split("-")[2])];
             newArr.sort();
             return newArr;
           });
@@ -97,7 +97,7 @@ const ArticleImgBlock = (props) => {
           }
           if (setStepNums) {
             setStepNums((prev) => {
-              const newArr = [...prev, Number(division.split("-")[2]) - 1];
+              const newArr = [...prev, Number(division.split("-")[2])];
               newArr.sort();
               return newArr;
             });
